@@ -1,75 +1,115 @@
 import React from 'react'
-import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Text, Image, StyleSheet, TouchableOpacity, Dimensions } from 'react-native'
 import { FormaItem, PropsHomeItem } from './../interfaces/home'
 
 
 
-const Item = ({ item }: PropsHomeItem) => {
+const Item = ({ item, navigation }: any) => {
 
 
 
     const handleOpenScren = () => {
-        console.log("cli")
+        console.log(navigation)
+
+
+        navigation?.navigate!('detalleProducto', { item })
+
+
     }
+
 
     return (
         <View
             style={style.contenedorItem}
         >
-            <Text>{item.nombre}</Text>
-            <Text>{item.precio}</Text>
-            <Image
-                source={{ uri: item.imagen }}
-                style={style.contenedorImage}
-            ></Image>
+            <Text
+                style={style.nombre}
+            >{item.nombre}</Text>
+            {/* <Text
+                style={style.precio} 
+            >{item.precio} S/</Text> */}
 
-
-            <TouchableOpacity
-                style={style.botonInfo}
-                onPress={handleOpenScren}
-
+            <View
+                style={style.contenedorImagenBoton}
             >
 
-                <Text
-                    style={style.textoBotonInfo}
-                >
-                    +
-                </Text>
+                <Image
+                    source={{ uri: item.imagen }}
+                    style={style.contenedorImage}
+                ></Image>
 
-            </TouchableOpacity>
+
+                <TouchableOpacity
+                    style={style.botonInfo}
+                    onPress={handleOpenScren}
+                >
+                    <Text
+                        style={style.textoBotonInfo}
+                    >+</Text>
+
+                </TouchableOpacity>
+            </View>
         </View>
     )
 }
 
 const style = StyleSheet.create({
     contenedorItem: {
-        borderColor: "#000",
-        borderWidth: 2,
+        /* borderColor: "orange",
+        borderWidth: 2, */
         flex: 1,
         backgroundColor: "#A7C5DD",
-        borderRadius: 30,
-        margin: 20,
+        borderRadius: 20,
+        margin:10,
+        marginEnd: 7,
+        marginStart: 7,
+        padding:7,
+        justifyContent: "center",
+        alignItems: "center"
 
     },
+    contenedorImagenBoton:{
+      /*   borderColor: "orange",
+        borderWidth: 2, */
+        width:100,
+        display: "flex",
+        flexDirection: 'row',
+        justifyContent: "space-evenly",
+    },
     contenedorImage: {
-        width: 100,
-        height: 80,
-        display: 'flex',
-        justifyContent: "center",
-        alignItems: "center",
-        alignContent: "center",
+        width: 80 ,
+        height: 80 ,
+        borderRadius:9,
+        //todo: Comentar la linea de abajo para que veas la majia en la lista de productos
+        resizeMode: 'contain'
+
+       
     },
     botonInfo: {
-        borderColor: "yellow",
-        borderWidth: 2,
+     /*    borderColor: "yellow",
+        borderWidth: 2, */
         width: 20,
+        height:20,
         borderRadius: 10,
-        backgroundColor: "#F5F4F4"
-        
+        backgroundColor: "#F5F4F4",
+        marginLeft: 11,
+
     },
     textoBotonInfo: {
 
-    }
+    },
+    nombre: {
+        color: "#fff",
+        fontSize: 15,
+        textAlign: "center",
+        fontWeight: "500",
+        paddingEnd: 5,
+        paddingStart:5,
+        marginBottom: 6,
+    },
+    precio: {
+
+    },
 
 })
 

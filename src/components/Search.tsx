@@ -31,8 +31,7 @@ const Search = () => {
 const styles = StyleSheet.create({
 
     contenedor: {
-
-        margin: 20,
+        margin:5,
         padding: 10,
 
     },

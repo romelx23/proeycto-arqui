@@ -1,11 +1,11 @@
 import React from 'react'
 import { View, Text, StyleSheet,FlatList, Platform } from 'react-native'
 import Item from './Item'
-import { FormaItem } from './../interfaces/home'
+import { FormaItem, PropsNavigationHome } from './../interfaces/home'
 
 
 
-const ListItem = () => {
+const ListItem = ({navigation}: PropsNavigationHome) => {
 
     const listaItem : FormaItem[] = [
         {
@@ -13,7 +13,7 @@ const ListItem = () => {
             nombre:"Sensor para medir el agua",
             precio: "18",
             Oferta: true,
-            imagen:"https://i.blogs.es/937f55/amazon-echo-1/450_1000.jpg",
+            imagen:"https://asistentegoogle.com/wp-content/uploads/2019/08/google.jpg",
             descripcion:"Lorem15 esta es una descripcion del dispositivo en esta se tendra quie poner cositas que luego ayuden al cliente"
         },
         {
@@ -21,7 +21,7 @@ const ListItem = () => {
             nombre:"Pablito del estado",
             precio: "18",
             Oferta: true,
-            imagen:"https://i.blogs.es/937f55/amazon-echo-1/450_1000.jpg",
+            imagen:"https://asistentegoogle.com/wp-content/uploads/2019/08/google.jpg",
             descripcion:"Lorem15 esta es una descripcion del dispositivo en esta se tendra quie poner cositas que luego ayuden al cliente"
         },
         {
@@ -37,7 +37,7 @@ const ListItem = () => {
             nombre:"Pablito del estado",
             precio: "18",
             Oferta: true,
-            imagen:"https://i.blogs.es/937f55/amazon-echo-1/450_1000.jpg",
+            imagen:"https://m.media-amazon.com/images/I/41-v1fozy0L._AC_SY400_.jpg",
             descripcion:"Lorem15 esta es una descripcion del dispositivo en esta se tendra quie poner cositas que luego ayuden al cliente"
         },
         {
@@ -60,7 +60,7 @@ const ListItem = () => {
             numColumns={2}
             showsVerticalScrollIndicator={false}
             keyExtractor={(pokemons) => pokemons.id.toString()}
-            renderItem={({ item }) => <Item item={item} />}
+            renderItem={({ item }) => <Item item={item} navigation={navigation}/>}
             contentContainerStyle={style.flagListContentContainer}
             // onEndReached={isNext ? loadMore : null}
             // onEndReachedThreshold={0.1}
@@ -83,21 +83,15 @@ const ListItem = () => {
 const style = StyleSheet.create({
 
     contenedor:{
-        borderColor: "#232323",
-        borderWidth: 2,
-        // display: 'flex',
-        // justifyContent: "center",
-        padding:10,
+       
     },
     flagListContentContainer : {
-        borderWidth: 2,
-        borderColor: "green",
-        display: 'flex',
-        justifyContent: "center",
-        padding:10,
-        flex:1,
-        paddingHorizontal: 5,
-        marginTop: Platform.OS === "android" ? 30 : 0,
+      /*   borderWidth: 2,
+        borderColor: "green", */
+        margin:0,
+        padding:0,
+        // paddingHorizontal: 5,
+        // marginTop: Platform.OS === "android" ? 30 : 0,
         
     },
     
