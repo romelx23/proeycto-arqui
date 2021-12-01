@@ -4,11 +4,9 @@ import { PropsRouteDetalle } from '../../interfaces/home';
 
 const DetalleProducto = ({ route }: PropsRouteDetalle) => {
 
-    console.log(route);
     const { params } = route;
     const { item } = params;
 
-    console.log(item)
     return (
         <View
             style={style.contenedorDetalle}
@@ -27,7 +25,7 @@ const DetalleProducto = ({ route }: PropsRouteDetalle) => {
                     style={style.contenedorImagen}
                 >
                     <Image
-                        source={{ uri: item.imagen }}
+                        source={{ uri: item?.img! }}
                         style={style.imagen}
                     >
 

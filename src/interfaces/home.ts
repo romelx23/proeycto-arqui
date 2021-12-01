@@ -1,3 +1,5 @@
+import { Producto } from "./producto";
+
 export interface FormaItem {
     id:number
     nombre: string,
@@ -14,7 +16,9 @@ export interface FormaListItem {
 }
 
 export interface PropsHomeItem {
-    item : FormaItem,
+    item : Producto,
+    // item : FormaItem,
+    
     navigation? : Navigation
   }
 
@@ -42,7 +46,7 @@ export interface PropsNavigationHome {
 }
 
 export interface params{
-    item: FormaItem
+    item: Producto
 }
 
 export interface Route{
@@ -58,4 +62,9 @@ export interface Route{
 
 export interface PropsRouteDetalle{
     route: Route,
+}
+
+
+export interface PropsAgregarProducto {
+    navigation: Navigation
 }

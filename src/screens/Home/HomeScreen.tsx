@@ -17,8 +17,9 @@ const HomeScreen = ({navigation} : PropsNavigationHome) => {
 
 const style = StyleSheet.create({
     contenedor: {
-      /*   borderColor: "red",
-        borderWidth: 2, */
+        // borderColor: "red",
+        // borderWidth: 2,
+        padding:10,
         flex:1,
     }
 })

@@ -2,18 +2,15 @@ import React from 'react'
 import { View, Text, Image, StyleSheet, TouchableOpacity, Dimensions } from 'react-native'
 import { FormaItem, PropsHomeItem } from './../interfaces/home'
 
+import { Icon } from "react-native-elements"
 
-
-const Item = ({ item, navigation }: any) => {
+const Item = ({ item, navigation }: PropsHomeItem) => {
 
 
 
     const handleOpenScren = () => {
-        console.log(navigation)
-
 
         navigation?.navigate!('detalleProducto', { item })
-
 
     }
 
@@ -28,13 +25,13 @@ const Item = ({ item, navigation }: any) => {
             {/* <Text
                 style={style.precio} 
             >{item.precio} S/</Text> */}
-
+            
             <View
                 style={style.contenedorImagenBoton}
             >
 
                 <Image
-                    source={{ uri: item.imagen }}
+                    source={{ uri: item.img }}
                     style={style.contenedorImage}
                 ></Image>
 
@@ -43,9 +40,14 @@ const Item = ({ item, navigation }: any) => {
                     style={style.botonInfo}
                     onPress={handleOpenScren}
                 >
-                    <Text
-                        style={style.textoBotonInfo}
-                    >+</Text>
+                  <Icon
+                     type="material-community"
+                     name="plus"
+                     color="#000"
+                     size={10}
+                  >
+
+                  </Icon>
 
                 </TouchableOpacity>
             </View>
@@ -93,11 +95,11 @@ const style = StyleSheet.create({
         borderRadius: 10,
         backgroundColor: "#F5F4F4",
         marginLeft: 11,
+        justifyContent: "center",
+        alignContent:"center",
 
     },
-    textoBotonInfo: {
 
-    },
     nombre: {
         color: "#fff",
         fontSize: 15,

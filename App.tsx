@@ -2,11 +2,13 @@ import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import HomeScreen from './src/screens/Home/HomeScreen';
+require('dotenv').config(); 
 
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import LoginScreen from './src/screens/Login/LoginScreen';
 import DetalleProducto from './src/screens/Home/DetalleProducto';
+import AgregarProducto from './src/screens/Home/AgregarProducto';
 
 const Stack = createNativeStackNavigator();
 
@@ -30,6 +32,7 @@ export default function App() {
         <Stack.Screen name="home" component={HomeScreen} ></Stack.Screen>
         <Stack.Screen name="login" component={LoginScreen} ></Stack.Screen>
         <Stack.Screen name="detalleProducto" component={DetalleProducto} ></Stack.Screen>
+        <Stack.Screen name="agregarPorducto" component={AgregarProducto} ></Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
 
