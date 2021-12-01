@@ -42,10 +42,10 @@ const styles = StyleSheet.create({
         fontSize: 14,
         borderWidth: 3,
         borderColor: "#EBECF1",
-        height: 30,
+        height: 40,
         color: "#000",
         textAlign: "center",
-        padding: 15,
+        padding: 10,
         borderRadius: 15,
     },
 

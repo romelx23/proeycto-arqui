@@ -150,9 +150,11 @@ console.log("set productos",productos2);
                     type="material-community"
                     name="plus"
                     color="#000"
+                    size={26}
                 >
-
+                    
                 </Icon>
+              
             </TouchableOpacity>
 
         
@@ -177,11 +179,11 @@ const style = StyleSheet.create({
         
     },
     botonAgregar:{
-        width: 40,
-        height:40,
+        width: 60,
+        height:60,
         alignItems: "center",
-        backgroundColor: "#DDDDDD",
-        padding: 26,
+        backgroundColor: "red",
+        padding: 1,
         borderRadius: 40,
         position: "absolute",
         bottom: 10,

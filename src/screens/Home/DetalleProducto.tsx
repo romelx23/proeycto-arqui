@@ -66,22 +66,23 @@ const style = StyleSheet.create({
         flex: 1,
     },
     contenedorImageTitulo: {
-        backgroundColor: "#A7C4DC",
      /*    borderColor: "yellow",
         borderWidth: 2, */
-        width:Dimensions.get('window').width,
-        justifyContent:'flex-end',
+        backgroundColor: "#A7C4DC",
+        height:Dimensions.get('window').height -Dimensions.get('window').height/2.5,
+
+        justifyContent:'center',
         alignItems:'center',
         borderBottomStartRadius: 50,
         borderBottomEndRadius: 50,
-
+        paddingTop:25,
 
 
     },
     contenedorImagen: {
-        /* borderColor: "borrow",
+  /*       borderColor: "red",
         borderWidth: 2, */
-        textAlign: "center",
+        // textAlign: "center",
         width: "auto",
         height: "auto",
         justifyContent: "center",
@@ -92,9 +93,9 @@ const style = StyleSheet.create({
         paddingLeft:15,
     },
     imagen: {
-        flex: 1,
-        width: 250,
-        height: 250,
+        // flex: 1,
+        width: 300,
+        height: 350,
         resizeMode: 'contain'
     },
     nombreProducto: {
@@ -102,7 +103,7 @@ const style = StyleSheet.create({
         textTransform: "uppercase",
         textAlign: "center",
         fontSize: 30,
-        fontWeight: "700",
+        fontWeight: "300",
         padding: 10
 
     },

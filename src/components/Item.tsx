@@ -41,10 +41,12 @@ const Item = ({ item, navigation }: PropsHomeItem) => {
                     onPress={handleOpenScren}
                 >
                   <Icon
+                  style={style.iconPlus}
                      type="material-community"
                      name="plus"
                      color="#000"
-                     size={10}
+                     size={16}
+                     
                   >
 
                   </Icon>
@@ -71,12 +73,13 @@ const style = StyleSheet.create({
 
     },
     contenedorImagenBoton:{
-      /*   borderColor: "orange",
+/*         borderColor: "orange",
         borderWidth: 2, */
         width:100,
         display: "flex",
         flexDirection: 'row',
-        justifyContent: "space-evenly",
+        justifyContent: "center",
+        alignItems: "center",
     },
     contenedorImage: {
         width: 80 ,
@@ -90,13 +93,14 @@ const style = StyleSheet.create({
     botonInfo: {
      /*    borderColor: "yellow",
         borderWidth: 2, */
-        width: 20,
-        height:20,
-        borderRadius: 10,
+        width: 40,
+        height:40,
+        borderRadius: 40,
         backgroundColor: "#F5F4F4",
         marginLeft: 11,
         justifyContent: "center",
         alignContent:"center",
+        shadowOffset: {  width:2, height: 2,},
 
     },
 
@@ -111,6 +115,10 @@ const style = StyleSheet.create({
     },
     precio: {
 
+    },
+    iconPlus: {
+        fontWeight: "700",
+        fontSize: 16
     },
 
 })
