@@ -1,18 +1,30 @@
+import { Image } from "react-native-elements/dist/image/Image";
+
 export interface Productos {
     total:     number;
     productos: Producto[];
 }
 
 export interface Producto {
-    precio:       number;
+    precio:       number | string;
     disponible:   boolean;
-    _id:          string;
+    _id?:          string;
     nombre:       string;
     descripcion?: string;
-    usuario:      Categoria;
-    categoria:    Categoria;
+    usuario?:      Categoria | string;
+    categoria:    Categoria | string;
     img:          string;
 }
+// export interface Producto {
+//     precio:       number;
+//     disponible:   boolean;
+//     _id:          string;
+//     nombre:       string;
+//     descripcion?: string;
+//     usuario:      Categoria;
+//     categoria:    Categoria;
+//     img:          string;
+// }
 
 export interface Categoria {
     _id:    ID;
@@ -29,4 +41,33 @@ export enum Nombre {
     Jabones = "JABONES",
     Romel1 = "romel1",
     Romel2 = "romel2",
+}
+
+//? INTERFACE PARA CARGAR LA IMAGEN :'C
+
+export interface InterfaceImagePicker {
+    uri: string,
+    type: string,
+    cancelled: boolean,
+    height: number,
+    width : number,
+}
+
+export interface InterfaceStateImage {
+    localUri?: string
+}
+
+export interface File {
+    uri: any,
+    type: string | undefined,
+    name: string,
+}
+
+
+//? respuesta de cloudinary
+export interface InterfaceRespuestaCloudinary {
+    public_id : string,
+    url: string,
+    secure_url : string,
+
 }

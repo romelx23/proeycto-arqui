@@ -9,9 +9,6 @@ import {
 
 const Search = () => {
 
-
-
-
     return (
         <View
             style={styles.contenedor}

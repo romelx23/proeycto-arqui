@@ -31,7 +31,7 @@ const Item = ({ item, navigation }: PropsHomeItem) => {
             >
 
                 <Image
-                    source={{ uri: item.img }}
+                    source={{ uri: (item.img) ? item.img : "https://via.placeholder.com/200"}}
                     style={style.contenedorImage}
                 ></Image>
 

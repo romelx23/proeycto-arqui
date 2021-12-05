@@ -18,12 +18,11 @@ export interface FormaListItem {
 export interface PropsHomeItem {
     item : Producto,
     // item : FormaItem,
-    
-    navigation? : Navigation
+    navigation? : Navigation,
   }
 
 export interface Navigation {
-    goBack?: Function,
+    goBack: Function,
     addListener?: Function,
     canGoBack?: Function,
     dispatch?: Function,
@@ -46,7 +45,8 @@ export interface PropsNavigationHome {
 }
 
 export interface params{
-    item: Producto
+    item: Producto,
+    
 }
 
 export interface Route{
@@ -66,5 +66,6 @@ export interface PropsRouteDetalle{
 
 
 export interface PropsAgregarProducto {
-    navigation: Navigation
+    navigation: Navigation,
+    route: Route,
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { 
     Text,
     StyleSheet,
@@ -15,85 +15,89 @@ import { getProductos } from '../helps/fetch'
 
 import { FormaItem, PropsNavigationHome } from './../interfaces/home'
 import { Productos, Producto }  from './../interfaces/producto'
+import { ProductosContext } from '../context/ProductosContext'
+import { InterfaceProductoContextValue } from '../interfaces/productoContext'
 
 const ListItem = ({navigation}: PropsNavigationHome) => {
 
-    const listaItem : FormaItem[] = [
-        {
-            id: 1,
-            nombre:"Sensor ",
-            precio: "18",
-            Oferta: true,
-            imagen:"https://asistentegoogle.com/wp-content/uploads/2019/08/google.jpg",
-            descripcion:"Lorem15 esta es una descripcion del dispositivo en esta se tendra quie poner cositas que luego ayuden al cliente"
-        },
-        {
-            id: 2,
-            nombre:"Pablito del estado",
-            precio: "18",
-            Oferta: true,
-            imagen:"https://asistentegoogle.com/wp-content/uploads/2019/08/google.jpg",
-            descripcion:"Lorem15 esta es una descripcion del dispositivo en esta se tendra quie poner cositas que luego ayuden al cliente"
-        },
-        {
-            id: 3,
-            nombre:"Pablito del estado",
-            precio: "18",
-            Oferta: true,
-            imagen:"https://i.blogs.es/937f55/amazon-echo-1/450_1000.jpg",
-            descripcion:"Lorem15 esta es una descripcion del dispositivo en esta se tendra quie poner cositas que luego ayuden al cliente"
-        },
-        {
-            id: 4,
-            nombre:"Pablito del estado",
-            precio: "18",
-            Oferta: true,
-            imagen:"https://m.media-amazon.com/images/I/41-v1fozy0L._AC_SY400_.jpg",
-            descripcion:"Lorem15 esta es una descripcion del dispositivo en esta se tendra quie poner cositas que luego ayuden al cliente"
-        },
-        {
-            id: 5,
-            nombre:"Pablito del estado",
-            precio: "18",
-            Oferta: true,
-            imagen:"https://i.blogs.es/937f55/amazon-echo-1/450_1000.jpg",
-            descripcion:"Lorem15 esta es una descripcion del dispositivo en esta se tendra quie poner cositas que luego ayuden al cliente"
-        },
-        {
-            id: 5,
-            nombre:"Pablito del estado",
-            precio: "18",
-            Oferta: true,
-            imagen:"https://i.blogs.es/937f55/amazon-echo-1/450_1000.jpg",
-            descripcion:"Lorem15 esta es una descripcion del dispositivo en esta se tendra quie poner cositas que luego ayuden al cliente"
-        },
-        {
-            id: 5,
-            nombre:"Pablito del estado",
-            precio: "18",
-            Oferta: true,
-            imagen:"https://i.blogs.es/937f55/amazon-echo-1/450_1000.jpg",
-            descripcion:"Lorem15 esta es una descripcion del dispositivo en esta se tendra quie poner cositas que luego ayuden al cliente"
-        },
-        {
-            id: 5,
-            nombre:"Pablito del estado",
-            precio: "18",
-            Oferta: true,
-            imagen:"https://i.blogs.es/937f55/amazon-echo-1/450_1000.jpg",
-            descripcion:"Lorem15 esta es una descripcion del dispositivo en esta se tendra quie poner cositas que luego ayuden al cliente"
-        },
-        {
-            id: 5,
-            nombre:"Pablito del estado",
-            precio: "18",
-            Oferta: true,
-            imagen:"https://i.blogs.es/937f55/amazon-echo-1/450_1000.jpg",
-            descripcion:"Lorem15 esta es una descripcion del dispositivo en esta se tendra quie poner cositas que luego ayuden al cliente"
-        },
-    ]
+    // const listaItem : FormaItem[] = [
+    //     {
+    //         id: 1,
+    //         nombre:"Sensor ",
+    //         precio: "18",
+    //         Oferta: true,
+    //         imagen:"https://asistentegoogle.com/wp-content/uploads/2019/08/google.jpg",
+    //         descripcion:"Lorem15 esta es una descripcion del dispositivo en esta se tendra quie poner cositas que luego ayuden al cliente"
+    //     },
+    //     {
+    //         id: 2,
+    //         nombre:"Pablito del estado",
+    //         precio: "18",
+    //         Oferta: true,
+    //         imagen:"https://asistentegoogle.com/wp-content/uploads/2019/08/google.jpg",
+    //         descripcion:"Lorem15 esta es una descripcion del dispositivo en esta se tendra quie poner cositas que luego ayuden al cliente"
+    //     },
+    //     {
+    //         id: 3,
+    //         nombre:"Pablito del estado",
+    //         precio: "18",
+    //         Oferta: true,
+    //         imagen:"https://i.blogs.es/937f55/amazon-echo-1/450_1000.jpg",
+    //         descripcion:"Lorem15 esta es una descripcion del dispositivo en esta se tendra quie poner cositas que luego ayuden al cliente"
+    //     },
+    //     {
+    //         id: 4,
+    //         nombre:"Pablito del estado",
+    //         precio: "18",
+    //         Oferta: true,
+    //         imagen:"https://m.media-amazon.com/images/I/41-v1fozy0L._AC_SY400_.jpg",
+    //         descripcion:"Lorem15 esta es una descripcion del dispositivo en esta se tendra quie poner cositas que luego ayuden al cliente"
+    //     },
+    //     {
+    //         id: 5,
+    //         nombre:"Pablito del estado",
+    //         precio: "18",
+    //         Oferta: true,
+    //         imagen:"https://i.blogs.es/937f55/amazon-echo-1/450_1000.jpg",
+    //         descripcion:"Lorem15 esta es una descripcion del dispositivo en esta se tendra quie poner cositas que luego ayuden al cliente"
+    //     },
+    //     {
+    //         id: 5,
+    //         nombre:"Pablito del estado",
+    //         precio: "18",
+    //         Oferta: true,
+    //         imagen:"https://i.blogs.es/937f55/amazon-echo-1/450_1000.jpg",
+    //         descripcion:"Lorem15 esta es una descripcion del dispositivo en esta se tendra quie poner cositas que luego ayuden al cliente"
+    //     },
+    //     {
+    //         id: 5,
+    //         nombre:"Pablito del estado",
+    //         precio: "18",
+    //         Oferta: true,
+    //         imagen:"https://i.blogs.es/937f55/amazon-echo-1/450_1000.jpg",
+    //         descripcion:"Lorem15 esta es una descripcion del dispositivo en esta se tendra quie poner cositas que luego ayuden al cliente"
+    //     },
+    //     {
+    //         id: 5,
+    //         nombre:"Pablito del estado",
+    //         precio: "18",
+    //         Oferta: true,
+    //         imagen:"https://i.blogs.es/937f55/amazon-echo-1/450_1000.jpg",
+    //         descripcion:"Lorem15 esta es una descripcion del dispositivo en esta se tendra quie poner cositas que luego ayuden al cliente"
+    //     },
+    //     {
+    //         id: 5,
+    //         nombre:"Pablito del estado",
+    //         precio: "18",
+    //         Oferta: true,
+    //         imagen:"https://i.blogs.es/937f55/amazon-echo-1/450_1000.jpg",
+    //         descripcion:"Lorem15 esta es una descripcion del dispositivo en esta se tendra quie poner cositas que luego ayuden al cliente"
+    //     },
+    // ]
 
-    const [productos2 , setProductos] = useState<Producto[]>();
+    const {productos , setProductos,cargarProductos} = useContext<any>(ProductosContext)
+
+    // const [productos2 , setProductos] = useState<Producto[]>();
 
     useEffect(() => {
 
@@ -102,19 +106,17 @@ const ListItem = ({navigation}: PropsNavigationHome) => {
     }, [])
 
 
-    const cargarProductos = async () => {
-        const data : Productos = await getProductos();
-        setProductos(data.productos)
-        console.log("Data productos",data.productos);
-        console.log("Hola productos2",productos2);
-    }
+    // const cargarProductos = async () => {
+    //     const data : Productos = await getProductos();
+    //     setProductos(data.productos);
+    // }
 
     const handleAgregarProducto = () =>{
-        console.log("agrego algo")
+        // console.log("agrego algo")
         navigation?.navigate!('agregarPorducto')
     }
 
-console.log("set productos",productos2);
+// console.log("set productos",productos2);
 
     return (
         <View
@@ -124,11 +126,11 @@ console.log("set productos",productos2);
         
             <FlatList
                 style={ style.contenedor }
-                data={productos2}
+                data={productos}
                 numColumns={2}
                 showsVerticalScrollIndicator={false}
-                keyExtractor={(pokemons) => pokemons._id.toString()}
-                renderItem={({ item }) => <Item item  ={item} navigation={navigation}/>}
+                keyExtractor={(pokemons) => pokemons?._id!.toString()}
+                renderItem={({ item }) => <Item item  ={item} navigation={navigation} />}
                 contentContainerStyle={style.flagListContentContainer}
                 // onEndReached={isNext ? loadMore : null}
                 // onEndReachedThreshold={0.1}
@@ -149,7 +151,7 @@ console.log("set productos",productos2);
                 <Icon
                     type="material-community"
                     name="plus"
-                    color="#000"
+                    color="#fff"
                     size={26}
                 >
                     
@@ -182,7 +184,7 @@ const style = StyleSheet.create({
         width: 60,
         height:60,
         alignItems: "center",
-        backgroundColor: "red",
+        backgroundColor: "#0C8BF0",
         padding: 1,
         borderRadius: 40,
         position: "absolute",
