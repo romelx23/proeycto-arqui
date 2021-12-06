@@ -6,6 +6,7 @@ import HomeScreen from '../screens/Home/HomeScreen';
 import LoginScreen from '../screens/Login/LoginScreen';
 import DetalleProducto from '../screens/Home/DetalleProducto';
 import AgregarProducto from '../screens/Home/AgregarProducto';
+import RegisterScreen from '../screens/Register/RegisterScreen';
 
 
 const Stack = createNativeStackNavigator();
@@ -15,8 +16,9 @@ const AppRouter = () => {
     return (
         <NavigationContainer>
           <Stack.Navigator>
-            <Stack.Screen name="home" component={HomeScreen} ></Stack.Screen>
             <Stack.Screen name="login" component={LoginScreen} ></Stack.Screen>
+            <Stack.Screen name="registrar" component={ RegisterScreen } ></Stack.Screen>
+            <Stack.Screen name="home" component={HomeScreen} ></Stack.Screen>
             <Stack.Screen name="detalleProducto" component={DetalleProducto} ></Stack.Screen>
             <Stack.Screen name="agregarPorducto" component={AgregarProducto} ></Stack.Screen>
           </Stack.Navigator>
