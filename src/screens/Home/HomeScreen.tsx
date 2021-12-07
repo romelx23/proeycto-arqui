@@ -6,19 +6,13 @@ import { PropsNavigationHome } from '../../interfaces/home'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getVerificarUsuario } from '../../helps/fetch'
 
-const HomeScreen = ({navigation} : PropsNavigationHome) => {
+const HomeScreen = ({ navigation }: PropsNavigationHome) => {
 
-    
     useEffect(() => {
-        
-
         verificarUsuario();
-        
     }, [])
-    
-    
 
-    const verificarUsuario = async ()=>{
+    const verificarUsuario = async () => {
 
         const token = await AsyncStorage.getItem("@token_key") || "";
         const respVerificarToquen = await getVerificarUsuario(token);
@@ -29,7 +23,7 @@ const HomeScreen = ({navigation} : PropsNavigationHome) => {
 
     return (
         <View
-            style={ style.contenedor }
+            style={style.contenedor}
         >
             <Search></Search>
             <ListItem navigation={navigation} />
@@ -41,8 +35,8 @@ const style = StyleSheet.create({
     contenedor: {
         // borderColor: "red",
         // borderWidth: 2,
-        padding:10,
-        flex:1,
+        padding: 10,
+        flex: 1,
     }
 })
 

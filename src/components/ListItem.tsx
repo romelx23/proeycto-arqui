@@ -120,18 +120,16 @@ const ListItem = ({navigation}: PropsNavigationHome) => {
 
     return (
         <View
-        
             style={style.contenedorBotonFlatList}
         >
         
             <FlatList
-                style={ style.contenedor }
+                style={{flex:1}}
                 data={productos}
                 numColumns={2}
                 showsVerticalScrollIndicator={false}
                 keyExtractor={(pokemons) => pokemons?._id!.toString()}
                 renderItem={({ item }) => <Item item  ={item} navigation={navigation} />}
-                contentContainerStyle={style.flagListContentContainer}
                 // onEndReached={isNext ? loadMore : null}
                 // onEndReachedThreshold={0.1}
                 // ListFooterComponent={
@@ -165,20 +163,14 @@ const ListItem = ({navigation}: PropsNavigationHome) => {
     )
 }
 
-
-//726 -573
 const style = StyleSheet.create({
 
     contenedorBotonFlatList:{
+        flex:1,
+        padding: 20
     },
     contenedor:{
        
-    },
-    flagListContentContainer : {
-        // borderWidth: 2,
-        // borderColor: "green",
-        height:Dimensions.get('window').height -153,
-        
     },
     botonAgregar:{
         width: 60,
@@ -194,9 +186,6 @@ const style = StyleSheet.create({
         justifyContent: "center",
         alignContent: "center",
     }
-    
-
-
 })
 
 

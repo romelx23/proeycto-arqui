@@ -8,12 +8,12 @@ const My_API = "https://node-restserver-cascaron.herokuapp.com";
 // const My_API = "https://rest-server-cafe-romel.herokuapp.com"; //? Romel
 
 
-export const login =async (correo: string, password: string)=>{
+export const login = async (correo: string, password: string) => {
 
     console.log(correo, password)
 
-    let requestOptions : any = {
-        method : 'POST',
+    const requestOptions: any = {
+        method: 'POST',
         body: JSON.stringify({
             correo,
             password
@@ -21,7 +21,7 @@ export const login =async (correo: string, password: string)=>{
         headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
-          },
+        },
         redirect: 'follow'
     };
 
@@ -30,17 +30,17 @@ export const login =async (correo: string, password: string)=>{
     return await res.json();
 
 
-} 
+}
 
-export const Resgistrar = async (user: Object) =>{
+export const Resgistrar = async (user: object) => {
 
-    let requestOptions : any = {
-        method : 'POST',
+    const requestOptions: any = {
+        method: 'POST',
         body: JSON.stringify(user),
         headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
-          },
+        },
         redirect: 'follow'
     };
 
@@ -51,12 +51,12 @@ export const Resgistrar = async (user: Object) =>{
 
 }
 
-export const getVerificarUsuario = async(token : string)=>{
+export const getVerificarUsuario = async (token: string) => {
 
-    const res = await fetch(`${My_API}/api/auth`,{
-        method:"GET",
+    const res = await fetch(`${My_API}/api/auth`, {
+        method: "GET",
         headers: {
-            Accept : "application/json", "Content-Type":"application/json",
+            Accept: "application/json", "Content-Type": "application/json",
             "x-token": token
         }
     });
@@ -65,10 +65,10 @@ export const getVerificarUsuario = async(token : string)=>{
 }
 
 
-export const getProductos = async () =>{
+export const getProductos = async () => {
 
     try {
-        const res  = await fetch(`${My_API}/api/productos?limite=10`)
+        const res = await fetch(`${My_API}/api/productos?limite=10`)
         return await res.json();
     } catch (error) {
         console.log(error)
@@ -76,20 +76,21 @@ export const getProductos = async () =>{
     }
 }
 
-export const saveProducto = async ( producto : Producto, img : string )=>{
+export const saveProducto = async (producto: Producto, img: string) => {
 
- 
-    const token =  await AsyncStorage.getItem('token') || "";
-    const res = await fetch( `${My_API}/api/productos`, {
-        method : "POST",
+
+    const token = await AsyncStorage.getItem('token') || "";
+    const res = await fetch(`${My_API}/api/productos`, {
+        method: "POST",
         headers: {
-            Accept : "application/json", "Content-Type":"application/json",
+            Accept: "application/json", "Content-Type": "application/json",
             "x-token": token
         },
-        body: JSON.stringify( {...producto,
-                                img                        
-        } )
-    } );
+        body: JSON.stringify({
+            ...producto,
+            img
+        })
+    });
     return await res.json();
 
 }
