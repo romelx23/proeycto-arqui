@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { 
+import {
     Text,
     StyleSheet,
     FlatList,
     TouchableOpacity,
     View,
     Dimensions,
- } from 'react-native'
+} from 'react-native'
 
 import { Icon } from "react-native-elements"
 
@@ -14,11 +14,11 @@ import Item from './Item'
 import { getProductos } from '../helps/fetch'
 
 import { FormaItem, PropsNavigationHome } from './../interfaces/home'
-import { Productos, Producto }  from './../interfaces/producto'
+import { Productos, Producto } from './../interfaces/producto'
 import { ProductosContext } from '../context/ProductosContext'
 import { InterfaceProductoContextValue } from '../interfaces/productoContext'
 
-const ListItem = ({navigation}: PropsNavigationHome) => {
+const ListItem = ({ navigation }: PropsNavigationHome) => {
 
     // const listaItem : FormaItem[] = [
     //     {
@@ -95,7 +95,7 @@ const ListItem = ({navigation}: PropsNavigationHome) => {
     //     },
     // ]
 
-    const {productos , setProductos,cargarProductos} = useContext<any>(ProductosContext)
+    const { productos, setProductos, cargarProductos } = useContext<any>(ProductosContext)
 
     // const [productos2 , setProductos] = useState<Producto[]>();
 
@@ -111,40 +111,40 @@ const ListItem = ({navigation}: PropsNavigationHome) => {
     //     setProductos(data.productos);
     // }
 
-    const handleAgregarProducto = () =>{
+    const handleAgregarProducto = () => {
         // console.log("agrego algo")
         navigation?.navigate!('agregarPorducto')
     }
 
-// console.log("set productos",productos2);
+    // console.log("set productos",productos2);
 
     return (
         <View
             style={style.contenedorBotonFlatList}
         >
-        
+
             <FlatList
-                style={{flex:1}}
+                style={{ flex: 1 }}
                 data={productos}
                 numColumns={2}
                 showsVerticalScrollIndicator={false}
-                keyExtractor={(pokemons) => pokemons?._id!.toString()}
-                renderItem={({ item }) => <Item item  ={item} navigation={navigation} />}
-                // onEndReached={isNext ? loadMore : null}
-                // onEndReachedThreshold={0.1}
-                // ListFooterComponent={
-                    // isNext ? (
-                //     <ActivityIndicator
-                //     size="large"
-                //     color="#AEAEAE"
-                //     style={style.spinner}
-                //     />
-                // ) : null
-                // }
+                keyExtractor={(product) => product?._id!.toString()}
+                renderItem={({ item }) => <Item item={item} navigation={navigation} />}
+            // onEndReached={isNext ? loadMore : null}
+            // onEndReachedThreshold={0.1}
+            // ListFooterComponent={
+            // isNext ? (
+            //     <ActivityIndicator
+            //     size="large"
+            //     color="#AEAEAE"
+            //     style={style.spinner}
+            //     />
+            // ) : null
+            // }
             />
             <TouchableOpacity
-                style={ style.botonAgregar }
-                onPress= { handleAgregarProducto }
+                style={style.botonAgregar}
+                onPress={handleAgregarProducto}
             >
                 <Icon
                     type="material-community"
@@ -152,12 +152,12 @@ const ListItem = ({navigation}: PropsNavigationHome) => {
                     color="#fff"
                     size={26}
                 >
-                    
+
                 </Icon>
-              
+
             </TouchableOpacity>
 
-        
+
         </View>
 
     )
@@ -165,16 +165,16 @@ const ListItem = ({navigation}: PropsNavigationHome) => {
 
 const style = StyleSheet.create({
 
-    contenedorBotonFlatList:{
-        flex:1,
+    contenedorBotonFlatList: {
+        flex: 1,
         padding: 20
     },
-    contenedor:{
-       
+    contenedor: {
+
     },
-    botonAgregar:{
+    botonAgregar: {
         width: 60,
-        height:60,
+        height: 60,
         alignItems: "center",
         backgroundColor: "#0C8BF0",
         padding: 1,
@@ -182,7 +182,7 @@ const style = StyleSheet.create({
         position: "absolute",
         bottom: 10,
         right: 10,
-        shadowOffset: {  width:1, height: 1,},
+        shadowOffset: { width: 1, height: 1, },
         justifyContent: "center",
         alignContent: "center",
     }

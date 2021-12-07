@@ -1,5 +1,3 @@
-import { Image } from "react-native-elements/dist/image/Image";
-
 export interface Productos {
     total:     number;
     productos: Producto[];
@@ -15,16 +13,6 @@ export interface Producto {
     categoria:    Categoria | string;
     img:          string;
 }
-// export interface Producto {
-//     precio:       number;
-//     disponible:   boolean;
-//     _id:          string;
-//     nombre:       string;
-//     descripcion?: string;
-//     usuario:      Categoria;
-//     categoria:    Categoria;
-//     img:          string;
-// }
 
 export interface Categoria {
     _id:    ID;

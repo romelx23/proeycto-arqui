@@ -7,7 +7,6 @@ import { Icon } from "react-native-elements"
 const Item = ({ item, navigation }: PropsHomeItem) => {
 
 
-
     const handleOpenScren = () => {
 
         navigation?.navigate!('detalleProducto', { item })
