@@ -9,7 +9,7 @@ import {
     Platform,
     Alert
 } from 'react-native'
-import { login } from '../../helps/fetch';
+import { getVerificarUsuario, login } from '../../helps/fetch';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { PropsLoginScreen } from '../../interfaces/login';
 
@@ -19,12 +19,31 @@ import { PropsLoginScreen } from '../../interfaces/login';
 
 const LoginScreen = ({navigation}:PropsLoginScreen) => {
 
+    useEffect(() => {
+        
+        verificarUsuario();
+        
+    }, [])
 
     const [user, setUser] = useState({
         correo: "Carlos@gmail.com",
         password: "123456"
     })
 
+
+    const verificarUsuario = async ()=>{
+
+        const token = await AsyncStorage.getItem("token") || "";
+        const respVerificarToquen = await getVerificarUsuario(token);
+
+        if(!!respVerificarToquen.token){
+            return ;
+        }else{
+            await AsyncStorage.setItem("token", respVerificarToquen.token)
+            navigation.replace!("home");
+        }
+
+    }
 
     const showAlert = () =>
         Alert.alert(
@@ -58,7 +77,7 @@ const LoginScreen = ({navigation}:PropsLoginScreen) => {
             console.log("222222", a.msg)
             if (a.usuario?.uid) {
                 console.log(a.token);
-                await AsyncStorage.setItem("@token_key", a.token)
+                await AsyncStorage.setItem("token", a.token)
                 navigation.replace!("home");
             } else {
                 showAlert();

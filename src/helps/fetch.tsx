@@ -53,7 +53,13 @@ export const Resgistrar = async (user: Object) =>{
 
 export const getVerificarUsuario = async(token : string)=>{
 
-    const res = await fetch(`${My_API}/api/auth`);
+    const res = await fetch(`${My_API}/api/auth`,{
+        method:"GET",
+        headers: {
+            Accept : "application/json", "Content-Type":"application/json",
+            "x-token": token
+        }
+    });
     return await res.json();
 
 }

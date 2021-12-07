@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
     View,
     Text,
@@ -7,10 +7,33 @@ import {
     Alert,
     TextInput
 } from 'react-native'
-import { Resgistrar } from '../../helps/fetch';
+import { getVerificarUsuario, Resgistrar } from '../../helps/fetch';
 import { PropsRegisterScreen } from '../../interfaces/login';
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+
 const RegisterScreen = ({navigation}:PropsRegisterScreen) => {
+
+    useEffect(() => {
+        
+        verificarUsuario();
+
+    }, [])
+
+    const verificarUsuario = async ()=>{
+
+        const token = await AsyncStorage.getItem("token") || "";
+        const respVerificarToquen = await getVerificarUsuario(token);
+
+        if(!!respVerificarToquen.token){
+            return ;
+        }else{
+            await AsyncStorage.setItem("token", respVerificarToquen.token)
+            navigation.replace!("home");
+        }
+
+    }
 
     const showAlert = (mensaje: string) =>
         Alert.alert(
