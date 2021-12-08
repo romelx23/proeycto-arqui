@@ -78,12 +78,12 @@ export const getProductos = async () => {
 
 export const saveProducto = async (producto: Producto, img: string) => {
 
-
     const token = await AsyncStorage.getItem('token') || "";
     const res = await fetch(`${My_API}/api/productos`, {
         method: "POST",
         headers: {
-            Accept: "application/json", "Content-Type": "application/json",
+            Accept: "application/json",
+            "Content-Type": "application/json",
             "x-token": token
         },
         body: JSON.stringify({
@@ -91,6 +91,52 @@ export const saveProducto = async (producto: Producto, img: string) => {
             img
         })
     });
+    return await res.json();
+
+}
+
+export const getProductbyId=async(idproduct:string)=>{
+    try {
+        const res = await fetch(`${My_API}/api/productos/${idproduct}`)
+        console.log(res);
+        return await res.json();
+    } catch (error) {
+        console.log(error)
+        throw new Error("Algo salio mal en el fetch")
+    }
+}
+
+export const updateProducto = async (id:string,producto: Producto, img: string) => {
+
+    const token = await AsyncStorage.getItem('token') || "";
+    const res = await fetch(`${My_API}/api/productos/${id}`, {
+        method: "PUT",
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            "x-token": token
+        },
+        body: JSON.stringify({
+            ...producto,
+            img
+        })
+    });
+    return await res.json();
+
+}
+
+export const deleteProducto = async (id:string) => {
+
+    const token = await AsyncStorage.getItem('token') || "";
+    const res = await fetch(`${My_API}/api/productos/${id}`, {
+        method: "DELETE",
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            "x-token": token
+        },
+    });
+    console.log(res);
     return await res.json();
 
 }

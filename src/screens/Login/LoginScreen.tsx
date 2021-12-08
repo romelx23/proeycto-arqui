@@ -9,7 +9,7 @@ import {
     Platform,
     Alert
 } from 'react-native'
-import { getVerificarUsuario, login } from '../../helps/fetch';
+import { getVerificarUsuario, login } from '../../helpers/fetch';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { PropsLoginScreen } from '../../interfaces/login';
 

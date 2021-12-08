@@ -11,7 +11,7 @@ import {
 import { Icon } from "react-native-elements"
 
 import Item from './Item'
-import { getProductos } from '../helps/fetch'
+import { getProductos } from '../helpers/fetch'
 
 import { FormaItem, PropsNavigationHome } from './../interfaces/home'
 import { Productos, Producto } from './../interfaces/producto'

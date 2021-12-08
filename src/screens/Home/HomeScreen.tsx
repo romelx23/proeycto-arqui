@@ -4,7 +4,7 @@ import ListItem from '../../components/ListItem'
 import Search from '../../components/Search'
 import { PropsNavigationHome } from '../../interfaces/home'
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { getVerificarUsuario } from '../../helps/fetch'
+import { getVerificarUsuario } from '../../helpers/fetch'
 
 const HomeScreen = ({ navigation }: PropsNavigationHome) => {
 
@@ -33,8 +33,7 @@ const HomeScreen = ({ navigation }: PropsNavigationHome) => {
 
 const style = StyleSheet.create({
     contenedor: {
-        // borderColor: "red",
-        // borderWidth: 2,
+        // backgroundColor:'#4f6ba7',
         padding: 10,
         flex: 1,
     }

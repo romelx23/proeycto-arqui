@@ -28,13 +28,13 @@ const Search = () => {
 const styles = StyleSheet.create({
 
     contenedor: {
-        margin:5,
-        padding: 10,
-
+        width:'100%',
+        justifyContent:'center',
+        alignContent:'center'
     },
 
     input: {
-        width: "90%",
+        margin: 20,
         marginBottom: 7,
         fontSize: 14,
         borderWidth: 3,

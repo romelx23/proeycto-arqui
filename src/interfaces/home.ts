@@ -22,22 +22,22 @@ export interface PropsHomeItem {
   }
 
 export interface Navigation {
-    goBack: Function,
-    addListener?: Function,
-    canGoBack?: Function,
-    dispatch?: Function,
-    getParent?: Function,
-    getState?: Function,
-    isFocused?: Function,
-    navigate?: Function,
-    pop?: Function,
-    popToTop?: Function,
-    push?: Function,
-    removeListener?: Function,
-    replace?: Function,
-    reset?: Function,
-    setOptions?: Function,
-    setParams?: Function,
+    goBack: ()=>void,
+    addListener: ()=>void,
+    canGoBack: ()=>void,
+    dispatch: ()=>void,
+    getParent: ()=>void,
+    getState: ()=>void,
+    isFocused: ()=>void,
+    navigate: (routeName: string,{}?) => void,
+    pop: ()=>void,
+    popToTop: ()=>void,
+    push: ()=>void,
+    removeListener: ()=>void,
+    replace: ()=>void,
+    reset: ()=>void,
+    setOptions: ()=>void,
+    setParams: ()=>void,
 }
 
 export interface PropsNavigationHome {
@@ -50,18 +50,17 @@ export interface params{
 }
 
 export interface Route{
-
     key: string,
     name: string,
     params: params,
     path?: string,
-
 }
 
 
 
 export interface PropsRouteDetalle{
     route: Route,
+    navigation:Navigation
 }
 
 

@@ -1,11 +1,41 @@
-import React from 'react'
-import { View, Text, StyleSheet, Image, Dimensions } from 'react-native'
+import React, { useContext, useState } from 'react'
+import { Modal, View, Text, StyleSheet, Image, Dimensions, TouchableOpacity, Alert } from 'react-native'
 import { PropsRouteDetalle } from '../../interfaces/home';
+import FontAwesome from 'react-native-vector-icons/FontAwesome5';
+import { deleteProducto } from '../../helpers/fetch';
+import { ProductosContext } from '../../context/ProductosContext';
 
-const DetalleProducto = ({ route }: PropsRouteDetalle) => {
 
+const DetalleProducto = ({ route, navigation }: PropsRouteDetalle) => {
     const { params } = route;
     const { item } = params;
+    console.log(item._id);
+    const { cargarProductos } = useContext<any>(ProductosContext)
+    const changeScreen = () => {
+        navigation.navigate('actualizarPorducto', { item: item })
+    }
+
+    const showMessage = () => {
+        Alert.alert(
+            'Mensaje del Sistema',
+            '¿Estas seguro de querer eliminar el Producto?',
+            [
+                {
+                    text: "Cancel",
+                    onPress: () => console.log("Cancel Pressed"),
+                    style: "cancel"
+                },
+                {
+                    text: "OK", onPress: () => {
+                        deleteProducto(item._id)
+                        cargarProductos()
+                        navigation.navigate('home')
+                        console.log("OK Pressed")
+                    }
+                }
+            ]
+        )
+    }
 
     return (
         <View
@@ -25,7 +55,7 @@ const DetalleProducto = ({ route }: PropsRouteDetalle) => {
                     style={style.contenedorImagen}
                 >
                     <Image
-                        source={{ uri: item?.img! }}
+                        source={{ uri: item.img! }}
                         style={style.imagen}
                     >
 
@@ -34,25 +64,57 @@ const DetalleProducto = ({ route }: PropsRouteDetalle) => {
             </View>
 
             <View
-            
-            style={ style.contenedorDescripcion }
-                >
+                style={style.contenedorDescripcion}
+            >
 
                 <Text
                     style={style.titulo1}
-                >Precio:</Text>
+                >Precio: </Text>
                 <Text
                     style={style.tituloContenido}
-                >{item.precio } S/</Text>
+                >S/.{item.precio}</Text>
 
                 <Text
                     style={style.titulo1}
-                >Descripcion:</Text>
+                >Descripcion: </Text>
                 <Text
                     style={style.tituloContenido}
                 >
                     {item.descripcion}
                 </Text>
+                <View>
+                    <Text style={style.titulo1}>
+                        Acciones:
+                    </Text>
+                </View>
+            </View>
+            <View style={style.containerButtons}>
+                <TouchableOpacity
+                    onPress={showMessage}
+                    activeOpacity={0.1}
+                    style={style.buttonDelete} >
+                    <View style={style.contentButton} >
+                        <Text style={style.text}>Delete</Text>
+                        <FontAwesome
+                            name="trash-alt"
+                            color={'#fff'}
+                            size={20}
+                        />
+                    </View>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    onPress={changeScreen}
+                    activeOpacity={0.1}
+                    style={style.buttonUpdate}>
+                    <View style={style.contentButton}>
+                        <Text style={style.text}>Update</Text>
+                        <FontAwesome
+                            name="pencil-alt"
+                            color={'#fff'}
+                            size={20}
+                        />
+                    </View>
+                </TouchableOpacity>
             </View>
         </View>
     )
@@ -61,36 +123,31 @@ const DetalleProducto = ({ route }: PropsRouteDetalle) => {
 const style = StyleSheet.create({
 
     contenedorDetalle: {
-  /*       borderColor: "red",
-        borderWidth: 2, */
+        /*       borderColor: "red",
+              borderWidth: 2, */
         flex: 1,
     },
     contenedorImageTitulo: {
-     /*    borderColor: "yellow",
-        borderWidth: 2, */
         backgroundColor: "#A7C4DC",
-        height:Dimensions.get('window').height -Dimensions.get('window').height/2.5,
+        height: Dimensions.get('window').height - Dimensions.get('window').height / 2.5,
 
-        justifyContent:'center',
-        alignItems:'center',
+        justifyContent: 'center',
+        alignItems: 'center',
         borderBottomStartRadius: 50,
         borderBottomEndRadius: 50,
-        paddingTop:25,
-
-
+        paddingTop: 25,
     },
     contenedorImagen: {
-  /*       borderColor: "red",
-        borderWidth: 2, */
-        // textAlign: "center",
         width: "auto",
         height: "auto",
         justifyContent: "center",
         alignItems: "center",
     },
-    contenedorDescripcion:{
-        padding:10,
-        paddingLeft:15,
+    contenedorDescripcion: {
+        flex: 1,
+        justifyContent: 'space-around',
+        padding: 10,
+        paddingLeft: 15,
     },
     imagen: {
         // flex: 1,
@@ -113,8 +170,32 @@ const style = StyleSheet.create({
     },
     tituloContenido: {
 
+    },
+    containerButtons: {
+        flex: 1,
+        justifyContent: 'space-around',
+        flexDirection: 'row'
+    },
+    contentButton: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    buttonDelete: {
+        width: 100,
+        height: 60,
+        backgroundColor: '#cc382b',
+        borderRadius: 10,
+    },
+    buttonUpdate: {
+        width: 100,
+        height: 60,
+        backgroundColor: '#2685c5',
+        borderRadius: 10,
+    },
+    text: {
+        color: '#fff'
     }
-
 })
 
 // height:Dimensions.get('window').height,

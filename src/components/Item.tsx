@@ -9,7 +9,7 @@ const Item = ({ item, navigation }: PropsHomeItem) => {
 
     const handleOpenScren = () => {
 
-        navigation?.navigate!('detalleProducto', { item })
+        navigation?.navigate!('detalleProducto', { item,navigation })
 
     }
 
@@ -58,8 +58,6 @@ const Item = ({ item, navigation }: PropsHomeItem) => {
 
 const style = StyleSheet.create({
     contenedorItem: {
-        /* borderColor: "orange",
-        borderWidth: 2, */
         flex: 1,
         backgroundColor: "#A7C5DD",
         borderRadius: 20,
@@ -72,8 +70,6 @@ const style = StyleSheet.create({
 
     },
     contenedorImagenBoton:{
-/*         borderColor: "orange",
-        borderWidth: 2, */
         width:100,
         display: "flex",
         flexDirection: 'row',
@@ -84,14 +80,9 @@ const style = StyleSheet.create({
         width: 80 ,
         height: 80 ,
         borderRadius:9,
-        //todo: Comentar la linea de abajo para que veas la majia en la lista de productos
         resizeMode: 'contain'
-
-       
     },
     botonInfo: {
-     /*    borderColor: "yellow",
-        borderWidth: 2, */
         width: 40,
         height:40,
         borderRadius: 40,

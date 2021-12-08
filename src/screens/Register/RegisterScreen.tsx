@@ -7,7 +7,7 @@ import {
     Alert,
     TextInput
 } from 'react-native'
-import { getVerificarUsuario, Resgistrar } from '../../helps/fetch';
+import { getVerificarUsuario, Resgistrar } from '../../helpers/fetch';
 import { PropsRegisterScreen } from '../../interfaces/login';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';

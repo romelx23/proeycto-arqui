@@ -1,56 +1,39 @@
-import React, { useState, useEffect, useContext } from 'react'
-import {
-    View,
-    Text,
-    Image,
-    StyleSheet,
-    TextInput,
-    TouchableOpacity,
-    Dimensions,
-} from 'react-native';
-
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
-import * as ImagePicker from 'expo-image-picker'
-
-import { PropsAgregarProducto } from '../../interfaces/home';
-import { File, InterfaceImagePicker, InterfaceRespuestaCloudinary, InterfaceStateImage, Producto } from '../../interfaces/producto';
-// import { useForm } from '../../hook/useForm';
+import React, { useContext, useEffect, useState } from 'react'
+import { View, Text, TextInput, TouchableOpacity, Image, StyleSheet } from 'react-native'
+import { getProductbyId, saveProducto, updateProducto } from '../../helpers/fetch'
+import { PropsRouteDetalle } from '../../interfaces/home';
 import { TextArea } from '../../components/TextArea';
-import { saveProducto } from '../../helpers/fetch';
+import { InterfaceRespuestaCloudinary, InterfaceStateImage } from '../../interfaces/producto';
+import * as ImagePicker from 'expo-image-picker';
 import { ProductosContext } from '../../context/ProductosContext';
 
-
-const AgregarProducto = ({ navigation, route }: PropsAgregarProducto) => {
-
-    const {productos , setProductos,cargarProductos} = useContext<any>(ProductosContext)
-
-
+export default function UpdateScreen({ route, navigation }: PropsRouteDetalle) {
+    const { productos, setProductos, cargarProductos } = useContext<any>(ProductosContext)
     const [imageSelected, setImageSelected] = useState<InterfaceStateImage>({});
     const [producto, setProducto] = useState({
-        Descripción: "",
+        precio: 0,
         disponible: true,
         nombre: "",
         descripcion: "",
         categoria: "61a7933a3daea00016e4f7cd",
-        img: "",
-        precio:0
+        img: "https://via.placeholder.com/200",
     })
-
-    const handleChange = (name: string, value: string) => setProducto({ ...producto, [name]: value });
-
-
-    const leerAsynStorege = async () => {
-
-        // await AsyncStorage.setItem('token', "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2MTI2YjMzOWY0NGI5MjAwMTZiNjMxYjAiLCJpYXQiOjE2Mzg3MTgzMDAsImV4cCI6MTYzODc2MTUwMH0.pV77O_8jbwSIE0SRj2q-Vsmrw_tErfR6zCMBCepQnjk")
-
-    }
-
+    const { _id: id } = route.params.item;
+    console.log(route.params.item._id);
     useEffect(() => {
-
-        leerAsynStorege();
-
+        getProductbyId(`${id}`).then((resp) => {
+            const { producto } = resp;
+            setProducto({
+                precio: parseInt(producto.precio),
+                disponible: true,
+                nombre: producto.nombre,
+                descripcion: producto.descripcion,
+                categoria: "61a7933a3daea00016e4f7cd",
+                img: producto.img,
+            })
+        })
     }, [])
+    const handleChange = (name: string, value: string) => setProducto({ ...producto, [name]: value });
 
     const handleCargarImagen = async () => {
 
@@ -70,8 +53,6 @@ const AgregarProducto = ({ navigation, route }: PropsAgregarProducto) => {
     }
 
     const handleSubmit = async () => {
-    
-
         const photo = {
             uri: imageSelected.localUri,
             type: `test/${imageSelected.localUri?.split(".")[1]}`,
@@ -82,22 +63,22 @@ const AgregarProducto = ({ navigation, route }: PropsAgregarProducto) => {
 
         const formData = new FormData();
         formData.append('upload_preset', "nutrifit");
-        formData.append('file',JSON.parse(JSON.stringify(photo)));
+        formData.append('file', JSON.parse(JSON.stringify(photo)));
 
         const data_image = await fetch(url, {
             method: 'POST',
             body: formData,
         })
         const paser: InterfaceRespuestaCloudinary = await data_image.json();
-      
-        const newProducto = await saveProducto(producto, paser.secure_url);
 
-       await cargarProductos();
+        const newProducto = await updateProducto(id, producto, paser.secure_url);
+        console.log(newProducto);
 
-        navigation?.navigate!('home')
+        await cargarProductos();
+
+        navigation.navigate('home')
 
     }
-
     return (
         <View
             style={style.contenedorAgregar}
@@ -119,7 +100,7 @@ const AgregarProducto = ({ navigation, route }: PropsAgregarProducto) => {
                 placeholder="Precio..."
                 placeholderTextColor="#ADADAD"
                 keyboardType="number-pad"
-                value={producto.precio.toString()}
+                value={producto.precio}
                 onChangeText={(a) => handleChange("precio", a)}
             >
 
@@ -160,7 +141,7 @@ const AgregarProducto = ({ navigation, route }: PropsAgregarProducto) => {
                     source={{
                         uri:
                             !imageSelected.localUri
-                                ? "https://via.placeholder.com/200"
+                                ? producto.img
                                 : imageSelected.localUri
                     }}
                 >
@@ -175,7 +156,7 @@ const AgregarProducto = ({ navigation, route }: PropsAgregarProducto) => {
                 <Text
                     style={style.buttonSaveText}
                 >
-                    Agregar Producto
+                    Actualizar Producto
                 </Text>
             </TouchableOpacity>
 
@@ -208,7 +189,8 @@ const style = StyleSheet.create({
         textTransform: "uppercase",
     },
     contenedorBuscarImagen: {
-        width: '100%',
+        flex: 1,
+        margin: 20,
         justifyContent: "center",
         alignItems: "center",
         borderWidth: 1,
@@ -248,6 +230,3 @@ const style = StyleSheet.create({
         backgroundColor: "#fff"
     },
 })
-
-
-export default AgregarProducto

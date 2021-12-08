@@ -1,5 +1,5 @@
 import React, { createContext, useReducer, useState } from 'react'
-import { getProductos } from '../helps/fetch';
+import { getProductos } from '../helpers/fetch';
 import { Producto, Productos } from '../interfaces/producto';
 import { InterfaceProductoContextValue } from '../interfaces/productoContext';
 import { productoReducer } from './productosReducer';
