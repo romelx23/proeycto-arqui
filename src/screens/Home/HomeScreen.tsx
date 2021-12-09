@@ -5,6 +5,7 @@ import Search from '../../components/Search'
 import { PropsNavigationHome } from '../../interfaces/home'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getVerificarUsuario } from '../../helpers/fetch'
+import { Layout } from '../../components/Layout'
 
 const HomeScreen = ({ navigation }: PropsNavigationHome) => {
 
@@ -23,7 +24,7 @@ const HomeScreen = ({ navigation }: PropsNavigationHome) => {
 
     return (
         <View
-            style={style.contenedor}
+        style={style.contenedor}
         >
             <Search></Search>
             <ListItem navigation={navigation} />

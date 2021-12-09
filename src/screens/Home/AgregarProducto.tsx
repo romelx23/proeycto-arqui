@@ -7,6 +7,7 @@ import {
     TextInput,
     TouchableOpacity,
     Dimensions,
+    ScrollView
 } from 'react-native';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -19,11 +20,12 @@ import { File, InterfaceImagePicker, InterfaceRespuestaCloudinary, InterfaceStat
 import { TextArea } from '../../components/TextArea';
 import { saveProducto } from '../../helpers/fetch';
 import { ProductosContext } from '../../context/ProductosContext';
+import { Layout } from '../../components/Layout';
 
 
 const AgregarProducto = ({ navigation, route }: PropsAgregarProducto) => {
 
-    const {productos , setProductos,cargarProductos} = useContext<any>(ProductosContext)
+    const { productos, setProductos, cargarProductos } = useContext<any>(ProductosContext)
 
 
     const [imageSelected, setImageSelected] = useState<InterfaceStateImage>({});
@@ -34,7 +36,7 @@ const AgregarProducto = ({ navigation, route }: PropsAgregarProducto) => {
         descripcion: "",
         categoria: "61a7933a3daea00016e4f7cd",
         img: "",
-        precio:0
+        precio: 0
     })
 
     const handleChange = (name: string, value: string) => setProducto({ ...producto, [name]: value });
@@ -70,7 +72,7 @@ const AgregarProducto = ({ navigation, route }: PropsAgregarProducto) => {
     }
 
     const handleSubmit = async () => {
-    
+
 
         const photo = {
             uri: imageSelected.localUri,
@@ -82,114 +84,115 @@ const AgregarProducto = ({ navigation, route }: PropsAgregarProducto) => {
 
         const formData = new FormData();
         formData.append('upload_preset', "nutrifit");
-        formData.append('file',JSON.parse(JSON.stringify(photo)));
+        formData.append('file', JSON.parse(JSON.stringify(photo)));
 
         const data_image = await fetch(url, {
             method: 'POST',
             body: formData,
         })
         const paser: InterfaceRespuestaCloudinary = await data_image.json();
-      
+
         const newProducto = await saveProducto(producto, paser.secure_url);
 
-       await cargarProductos();
+        await cargarProductos();
 
         navigation?.navigate!('home')
 
     }
 
     return (
-        <View
-            style={style.contenedorAgregar}
-        >
-            <Text>Nombre del producto</Text>
-            <TextInput
-                style={style.input}
-                placeholder="Nombre del producto"
-                placeholderTextColor="#ADADAD"
-                value={producto.nombre}
-                onChangeText={(a) => handleChange("nombre", a)}
-            >
-
-            </TextInput>
-
-            <Text>Precio del producto</Text>
-            <TextInput
-                style={style.input}
-                placeholder="Precio..."
-                placeholderTextColor="#ADADAD"
-                keyboardType="number-pad"
-                value={producto.precio.toString()}
-                onChangeText={(a) => handleChange("precio", a)}
-            >
-
-            </TextInput>
-
-            <Text>Descripción del producto</Text>
+        <ScrollView>
             <View
-                style={{
-                    backgroundColor: "#fff",
-                    // borderWidth: 2,
-                    // borderColor: "yellow",
-                }}>
-
-                <TextArea
-                    multiline
-                    numberOfLines={4}
-                    value={producto.descripcion}
-                    onChangeText={(a: string) => handleChange("descripcion", a)}
-                    style={{ padding: 10 }}
-                />
-            </View>
-
-            <View
-                style={style.contenedorBuscarImagen}
+                style={style.contenedorAgregar}
             >
-                <TouchableOpacity
-                    onPress={handleCargarImagen}
-                    style={style.buttonBuscarImage}
+                <Text>Nombre del producto</Text>
+                <TextInput
+                    style={style.input}
+                    placeholder="Nombre del producto"
+                    placeholderTextColor="#ADADAD"
+                    value={producto.nombre}
+                    onChangeText={(a) => handleChange("nombre", a)}
                 >
-                    <Text
-                        style={style.TextButonBuscarImagen}
+
+                </TextInput>
+
+                <Text>Precio del producto</Text>
+                <TextInput
+                    style={style.input}
+                    placeholder="Precio..."
+                    placeholderTextColor="#ADADAD"
+                    keyboardType="number-pad"
+                    value={producto.precio.toString()}
+                    onChangeText={(a) => handleChange("precio", a)}
+                >
+
+                </TextInput>
+
+                <Text>Descripción del producto</Text>
+                <View
+                    style={{
+                        backgroundColor: "#fff",
+                        // borderWidth: 2,
+                        // borderColor: "yellow",
+                    }}>
+
+                    <TextArea
+                        multiline
+                        numberOfLines={4}
+                        value={producto.descripcion}
+                        onChangeText={(a: string) => handleChange("descripcion", a)}
+                        style={{ padding: 10 }}
+                    />
+                </View>
+
+                <View
+                    style={style.contenedorBuscarImagen}
+                >
+                    <TouchableOpacity
+                        onPress={handleCargarImagen}
+                        style={style.buttonBuscarImage}
                     >
-                        Buscar Imagen...
+                        <Text
+                            style={style.TextButonBuscarImagen}
+                        >
+                            Buscar Imagen...
+                        </Text>
+                    </TouchableOpacity>
+                    <Image
+                        style={style.imagen}
+                        source={{
+                            uri:
+                                !imageSelected.localUri
+                                    ? "https://via.placeholder.com/200"
+                                    : imageSelected.localUri
+                        }}
+                    >
+                    </Image>
+                </View>
+
+
+
+                <TouchableOpacity
+                    style={style.buttonSave}
+                    onPress={handleSubmit}>
+                    <Text
+                        style={style.buttonSaveText}
+                    >
+                        Agregar Producto
                     </Text>
                 </TouchableOpacity>
-                <Image
-                    style={style.imagen}
-                    source={{
-                        uri:
-                            !imageSelected.localUri
-                                ? "https://via.placeholder.com/200"
-                                : imageSelected.localUri
-                    }}
-                >
-                </Image>
+
             </View>
-
-
-
-            <TouchableOpacity
-                style={style.buttonSave}
-                onPress={handleSubmit}>
-                <Text
-                    style={style.buttonSaveText}
-                >
-                    Agregar Producto
-                </Text>
-            </TouchableOpacity>
-
-        </View>
+         </ScrollView>
     )
 }
 
 const style = StyleSheet.create({
 
     contenedorAgregar: {
-        /*     borderWidth: 1,
-            borderColor: "red", */
         padding: 15,
-        flex: 1,
+        // flex: 1,
+        paddingBottom:100
     },
 
     buttonSave: {

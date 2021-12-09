@@ -4,6 +4,7 @@ import { PropsRouteDetalle } from '../../interfaces/home';
 import FontAwesome from 'react-native-vector-icons/FontAwesome5';
 import { deleteProducto } from '../../helpers/fetch';
 import { ProductosContext } from '../../context/ProductosContext';
+import { Layout } from '../../components/Layout';
 
 
 const DetalleProducto = ({ route, navigation }: PropsRouteDetalle) => {
@@ -39,7 +40,7 @@ const DetalleProducto = ({ route, navigation }: PropsRouteDetalle) => {
 
     return (
         <View
-            style={style.contenedorDetalle}
+        style={style.contenedorDetalle}
         >
             <View
                 style={style.contenedorImageTitulo}
@@ -129,8 +130,8 @@ const style = StyleSheet.create({
     },
     contenedorImageTitulo: {
         backgroundColor: "#A7C4DC",
+        width: '100%',
         height: Dimensions.get('window').height - Dimensions.get('window').height / 2.5,
-
         justifyContent: 'center',
         alignItems: 'center',
         borderBottomStartRadius: 50,
