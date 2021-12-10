@@ -15,10 +15,14 @@ const HomeScreen = ({ navigation }: PropsNavigationHome) => {
 
     const verificarUsuario = async () => {
 
-        const token = await AsyncStorage.getItem("@token_key") || "";
-        const respVerificarToquen = await getVerificarUsuario(token);
-
-        console.log("home", respVerificarToquen)
+        const respVerificarToquen = await getVerificarUsuario();
+        
+        if(!!respVerificarToquen.token){
+            return ;
+        }else{
+            await AsyncStorage.setItem("token", respVerificarToquen.token)
+            navigation.replace!("login");
+        }
 
     }
 

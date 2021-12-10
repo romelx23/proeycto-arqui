@@ -19,7 +19,16 @@ const AppRouter = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="login" component={LoginScreen} ></Stack.Screen>
+        <Stack.Screen 
+            name="login" 
+            component={LoginScreen}
+            options={{
+              headerShown:false,
+              title:'Home'
+            }}
+            >
+
+            </Stack.Screen>
         <Stack.Screen name="registrar" component={RegisterScreen} ></Stack.Screen>
         <Stack.Screen
           name="home"
