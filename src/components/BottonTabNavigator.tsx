@@ -1,13 +1,41 @@
 import * as React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { Text, StyleSheet } from 'react-native'
+import { Text, StyleSheet, TouchableOpacity, View } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome5'
 import HomeScreen from '../screens/Home/HomeScreen'
 import ProfileScreen from '../screens/ProfileScreen/ProfileScreen';
-import CardScreen from '../screens/Card/CardScreen';
 import AgregarProducto from '../screens/Home/AgregarProducto'
 
+interface Props{
+    children:React.ReactNode,
+    onPress:()=>void
+}
+
 const Tab = createBottomTabNavigator()
+
+const CustomTabBarButton=({children,onPress}:Props)=>(
+    <TouchableOpacity
+    style={{
+        top: -30,
+        justifyContent:'center',
+        alignItems:'center',
+        ...styles.shadow
+    }}
+    onPress={onPress}
+    >
+        <View style={{
+            width:70,
+            height:70,
+            borderRadius:35,
+            backgroundColor:'#6e3fda',
+            borderWidth:.5,
+            borderColor:'#ffffff9d'
+            }}>
+            {children}
+        </View>
+    </TouchableOpacity>
+)
+
 
 export default function BottonTabNavigator() {
     return (
@@ -20,16 +48,16 @@ export default function BottonTabNavigator() {
                 //  left: 20,
                 //  right: 20,
                 //  width:'80%',
-                paddingHorizontal:20,
+                marginHorizontal:20,
                  alignSelf:'center',
-                 backgroundColor:'transparent',
+                 backgroundColor:'#6e3fda',
                  shadowOffset:{width:0,height:0},
                  shadowColor:'transparent',
                  borderColor:'transparent',
                  borderWidth:0,
                  height: 60,
-                 elevation:0
-                //  ...styles.shadow
+                 elevation:0,
+                 borderRadius:35
              }
          }}
         >
@@ -48,18 +76,23 @@ export default function BottonTabNavigator() {
             }}
             />
             <Tab.Screen name="BookStack" component={AgregarProducto} options={{
+                title:'',
                 tabBarActiveBackgroundColor:'#78c858',
                 tabBarInactiveBackgroundColor:'#6e3fda',
                 tabBarItemStyle:{
                     borderRightColor:'#ffffff',
                     borderLeftColor:'#ffffff',
                     borderLeftWidth:.5,
-                    borderRightWidth:.5
+                    borderRightWidth:.5,
+                    backgroundColor:'#6e3fda'
                 },
                 tabBarIcon: ({ focused,color }) => (
-                    <Icon name="plus-circle" size={30} color={focused ? color : '#ffffff'} />
+                    <Icon name="plus" size={30} color={focused ? '#e9982d' : '#ffffff'} />
                 ),
-                tabBarLabel: () => <Text style={styles.tabBarLabel}>Book Room</Text>
+                // tabBarLabel: () => <Text style={styles.tabBarLabel}>Book Room</Text>,
+                tabBarButton:(props)=>(
+                    <CustomTabBarButton {...props}/>
+                )
             }}
             />
             <Tab.Screen name="ContactStack" component={ProfileScreen} options={{
@@ -88,7 +121,7 @@ const styles = StyleSheet.create({
     shadow:{
         shadowColor:'#7f5df0',
         shadowOffset:{
-            width: 0,
+            width: 10,
             height: 10
         },
         shadowOpacity:0.25,
