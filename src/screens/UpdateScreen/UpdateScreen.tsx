@@ -6,6 +6,7 @@ import { TextArea } from '../../components/TextArea';
 import { InterfaceRespuestaCloudinary, InterfaceStateImage } from '../../interfaces/producto';
 import * as ImagePicker from 'expo-image-picker';
 import { ProductosContext } from '../../context/ProductosContext';
+import { Layout } from '../../components/Layout';
 
 export default function UpdateScreen({ route, navigation }: PropsRouteDetalle) {
     const { productos, setProductos, cargarProductos } = useContext<any>(ProductosContext)
@@ -80,8 +81,7 @@ export default function UpdateScreen({ route, navigation }: PropsRouteDetalle) {
 
     }
     return (
-        <View
-            style={style.contenedorAgregar}
+        <Layout
         >
             <Text>Nombre del producto</Text>
             <TextInput
@@ -160,7 +160,7 @@ export default function UpdateScreen({ route, navigation }: PropsRouteDetalle) {
                 </Text>
             </TouchableOpacity>
 
-        </View>
+        </Layout>
     )
 }
 
