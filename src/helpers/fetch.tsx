@@ -51,8 +51,9 @@ export const Resgistrar = async (user: object) => {
 
 }
 
-export const getVerificarUsuario = async (token: string) => {
+export const getVerificarUsuario = async () => {
 
+    const token = await AsyncStorage.getItem("token") || "";
     const res = await fetch(`${My_API}/api/auth`, {
         method: "GET",
         headers: {

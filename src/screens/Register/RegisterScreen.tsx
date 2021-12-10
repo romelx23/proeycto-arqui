@@ -23,10 +23,9 @@ const RegisterScreen = ({navigation}:PropsRegisterScreen) => {
 
     const verificarUsuario = async ()=>{
 
-        const token = await AsyncStorage.getItem("token") || "";
-        const respVerificarToquen = await getVerificarUsuario(token);
+        const respVerificarToquen = await getVerificarUsuario();
 
-        if(!!respVerificarToquen.token){
+        if(!respVerificarToquen.token){
             return ;
         }else{
             await AsyncStorage.setItem("token", respVerificarToquen.token)

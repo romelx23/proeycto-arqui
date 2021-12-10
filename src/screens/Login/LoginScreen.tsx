@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-
 import {
     View,
     Text,
@@ -9,20 +8,20 @@ import {
     Platform,
     Alert
 } from 'react-native'
-import { getVerificarUsuario, login } from '../../helpers/fetch';
+
+import { Icon } from "react-native-elements"
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
+import { getVerificarUsuario, login } from '../../helpers/fetch';
 import { PropsLoginScreen } from '../../interfaces/login';
 
 
 
 
-
-const LoginScreen = ({navigation}:PropsLoginScreen) => {
+const LoginScreen = ({ navigation }: PropsLoginScreen) => {
 
     useEffect(() => {
-        
         verificarUsuario();
-        
     }, [])
 
     const [user, setUser] = useState({
@@ -31,18 +30,14 @@ const LoginScreen = ({navigation}:PropsLoginScreen) => {
     })
 
 
-    const verificarUsuario = async ()=>{
-
-        const token = await AsyncStorage.getItem("token") || "";
-        const respVerificarToquen = await getVerificarUsuario(token);
-
-        if(!!respVerificarToquen.token){
-            return ;
-        }else{
+    const verificarUsuario = async () => {
+        const respVerificarToquen = await getVerificarUsuario();
+        if (!respVerificarToquen.token) {
+            return;
+        } else {
             await AsyncStorage.setItem("token", respVerificarToquen.token)
-            navigation.replace!("home");
+            navigation?.replace!('home');
         }
-
     }
 
     const showAlert = () =>
@@ -60,19 +55,17 @@ const LoginScreen = ({navigation}:PropsLoginScreen) => {
             ],
             {
                 cancelable: true,
-                onDismiss: () =>{
+                onDismiss: () => {
                     console.log("preciono otro lado que no es el alert")
                 },
             }
         );
 
-    // const [editing, setEditing] = useState(false);
 
     const handleChange = (name: string, value: string) => setUser({ ...user, [name]: value });
 
     const handleSubmit = async () => {
         try {
-
             const a = await login(user.correo, user.password);
             console.log("222222", a.msg)
             if (a.usuario?.uid) {
@@ -83,15 +76,12 @@ const LoginScreen = ({navigation}:PropsLoginScreen) => {
                 showAlert();
             }
         } catch (error) {
-            console.log("ERROR EN EL CHAT DE LOGIN",error)
-
+            console.log("ERROR EN EL CHAT DE LOGIN", error)
         }
 
     };
 
     const handleShowRegister = () => {
-        // navigation.navigate({key: "registrar"})
-        // navigation.navigate( {name: "registrar",key: "" ,})
         navigation.navigate!("registrar")
     }
 
@@ -101,19 +91,41 @@ const LoginScreen = ({navigation}:PropsLoginScreen) => {
             style={style.contenedor}
         >
             <View>
-                <Text>Correo</Text>
-                <TextInput
-                    style={style.input}
-                    placeholder="Exmaple@teca.com"
-                    placeholderTextColor="#576574"
-                    value={user.correo}
-                    onChangeText={(text) => handleChange("correo", text)}
-                />
+                <Text
+                    style={style.labelTitulo}
+                >Correo</Text>
 
-                <Text>Contraseña</Text>
+                <View
+                    // style={ style.contenedorIconInput }
+                >
+                    {/* <Icon
+                        type="material-community"
+                        name="plus"
+                        color="#000"
+                        size={26}
+                    >
+                    </Icon> */}
+                    <TextInput
+
+                        autoFocus={false}
+                         autoCapitalize="none"
+                        style={style.input}
+                        placeholder="Exmaple@teca.com"
+                        placeholderTextColor="#576574"
+                        value={user.correo}
+                        onChangeText={(text) => handleChange("correo", text)}
+                    />
+                </View>
+
+                <Text
+                    style={style.labelTitulo}
+                >Contraseña</Text>
                 <TextInput
+                    // keyboardType ="visible-password"
                     style={style.input}
+                    autoCompleteType="password"
                     placeholder="***********"
+                    secureTextEntry={true}
                     placeholderTextColor="#576574"
                     value={user.password}
                     onChangeText={(text) => handleChange("password", text)}
@@ -158,24 +170,39 @@ const LoginScreen = ({navigation}:PropsLoginScreen) => {
 
 const style = StyleSheet.create({
     contenedor: {
-        // backgroundColor: "#181919",
-        borderColor: "#000",
-        borderWidth: 2,
+        backgroundColor: "#A7C5DD",
+        // borderColor: "#000",
+        // borderWidth: 2,
         flex: 1,
         justifyContent: "center",
         padding: 20,
     },
+    contenedorIconInput:{
+        display: 'flex',
+        flexDirection: "row",
+        borderBottomColor: "#10ac84",
+        borderBottomWidth: 1,
+        height:30,
+        marginBottom: 7,
+    },
     input: {
         width: "100%",
-        marginBottom: 7,
         fontSize: 14,
-        borderWidth: 1,
-        borderColor: "#10ac84",
+        // borderWidth: 1,
+        // borderColor: "#10ac84",
         height: 30,
         color: "#000",
         textAlign: "center",
         padding: 4,
         borderRadius: 5,
+    },
+    inputFocus:{
+        backgroundColor: "#000"
+    },
+    labelTitulo: {
+        fontWeight: "500",
+        fontSize: 15,
+        marginBottom: 4,
     },
     buttonSave: {
         paddingTop: 10,
