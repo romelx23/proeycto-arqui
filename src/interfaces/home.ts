@@ -34,7 +34,7 @@ export interface Navigation {
     popToTop: ()=>void,
     push: ()=>void,
     removeListener: ()=>void,
-    replace: ()=>void,
+    replace: (routeName: string)=>void,
     reset: ()=>void,
     setOptions: ()=>void,
     setParams: ()=>void,

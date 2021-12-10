@@ -107,8 +107,8 @@ export const getProductbyId=async(idproduct:string)=>{
     }
 }
 
-export const updateProducto = async (id:string,producto: Producto, img: string) => {
-
+export const updateProducto = async (id:string,producto: Producto,img:string) => {
+    
     const token = await AsyncStorage.getItem('token') || "";
     const res = await fetch(`${My_API}/api/productos/${id}`, {
         method: "PUT",

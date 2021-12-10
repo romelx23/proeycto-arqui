@@ -142,7 +142,7 @@ const ListItem = ({ navigation }: PropsNavigationHome) => {
             // ) : null
             // }
             />
-            <TouchableOpacity
+            {/* <TouchableOpacity
                 style={style.botonAgregar}
                 onPress={handleAgregarProducto}
             >
@@ -155,8 +155,7 @@ const ListItem = ({ navigation }: PropsNavigationHome) => {
 
                 </Icon>
 
-            </TouchableOpacity>
-
+            </TouchableOpacity> */}
 
         </View>
 
@@ -167,7 +166,8 @@ const style = StyleSheet.create({
 
     contenedorBotonFlatList: {
         flex: 1,
-        padding: 20
+        padding: 20,
+        marginBottom:50
     },
     contenedor: {
 

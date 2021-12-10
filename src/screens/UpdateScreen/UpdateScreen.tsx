@@ -9,8 +9,10 @@ import { ProductosContext } from '../../context/ProductosContext';
 import { Layout } from '../../components/Layout';
 
 export default function UpdateScreen({ route, navigation }: PropsRouteDetalle) {
-    const { productos, setProductos, cargarProductos } = useContext<any>(ProductosContext)
-    const [imageSelected, setImageSelected] = useState<InterfaceStateImage>({});
+    const { cargarProductos } = useContext<any>(ProductosContext)
+    const [imageSelected, setImageSelected] = useState<InterfaceStateImage>({
+        localUri:""
+    });
     const [producto, setProducto] = useState({
         precio: 0,
         disponible: true,
@@ -71,13 +73,15 @@ export default function UpdateScreen({ route, navigation }: PropsRouteDetalle) {
             body: formData,
         })
         const paser: InterfaceRespuestaCloudinary = await data_image.json();
+        console.log( paser.secure_url)
+        setProducto({...producto,img:paser.secure_url})
 
-        const newProducto = await updateProducto(id, producto, paser.secure_url);
+        const newProducto = await updateProducto(id, producto,paser.secure_url);
         console.log(newProducto);
 
         await cargarProductos();
 
-        navigation.navigate('home')
+        navigation.navigate('HomeTab')
 
     }
     return (
@@ -100,7 +104,7 @@ export default function UpdateScreen({ route, navigation }: PropsRouteDetalle) {
                 placeholder="Precio..."
                 placeholderTextColor="#ADADAD"
                 keyboardType="number-pad"
-                value={producto.precio}
+                value={producto.precio.toString()}
                 onChangeText={(a) => handleChange("precio", a)}
             >
 
