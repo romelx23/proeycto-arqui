@@ -19,39 +19,40 @@ const AppRouter = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen 
-            name="login" 
-            component={LoginScreen}
-            options={{
-              headerShown:false,
-              title:'Home'
-            }}
-            >
-
-            </Stack.Screen>
-        <Stack.Screen name="registrar" component={RegisterScreen} ></Stack.Screen>
+        <Stack.Screen
+          name="login"
+          component={LoginScreen}
+          options={{
+            headerShown: false,
+          }}
+        >
+        </Stack.Screen>
+        <Stack.Screen
+          name="registrar"
+          component={RegisterScreen}
+        ></Stack.Screen>
         <Stack.Screen
           name="home"
-          component={BottonTabNavigator} 
+          component={BottonTabNavigator}
           options={{
             // headerShown:false,
-            title:'Home'
+            title: 'Home'
           }}
-          ></Stack.Screen>
+        ></Stack.Screen>
         <Stack.Screen
           name="detalleProducto"
           component={DetalleProducto}
           options={{
-            title:'Producto'
+            title: 'Producto'
           }}
         ></Stack.Screen>
-        <Stack.Screen
+        {/* <Stack.Screen
           name="agregarPorducto"
           component={AgregarProducto}
           options={{
-            title:'Agregue Porducto'
+            title: 'Agregue Porducto'
           }}
-        ></Stack.Screen>
+        ></Stack.Screen> */}
         <Stack.Screen
           name="actualizarPorducto"
           component={UpdateScreen}

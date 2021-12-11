@@ -17,8 +17,7 @@ export interface FormaListItem {
 
 export interface PropsHomeItem {
     item : Producto,
-    // item : FormaItem,
-    navigation? : Navigation,
+    navigation : Navigation,
   }
 
 export interface Navigation {
@@ -34,7 +33,7 @@ export interface Navigation {
     popToTop: ()=>void,
     push: ()=>void,
     removeListener: ()=>void,
-    replace: ()=>void,
+    replace: (routeName: string)=>void,
     reset: ()=>void,
     setOptions: ()=>void,
     setParams: ()=>void,

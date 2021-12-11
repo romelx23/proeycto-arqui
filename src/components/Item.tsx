@@ -3,16 +3,19 @@ import { View, Text, Image, StyleSheet, TouchableOpacity, Dimensions } from 'rea
 import { FormaItem, PropsHomeItem } from './../interfaces/home'
 
 import { Icon } from "react-native-elements"
+import { NativeStackScreenProps } from '@react-navigation/native-stack'
+import { Producto } from '../interfaces/producto'
 
-const Item = ({ item, navigation }: PropsHomeItem) => {
-
+interface Props extends NativeStackScreenProps<any,any>{
+    item:Producto
+}
+const Item = ({ item, navigation }: Props) => {
 
     const handleOpenScren = () => {
 
-        navigation?.navigate!('detalleProducto', { item,navigation })
+        navigation.navigate('detalleProducto', { item,navigation })
 
     }
-
 
     return (
         <View
@@ -21,16 +24,12 @@ const Item = ({ item, navigation }: PropsHomeItem) => {
             <Text
                 style={style.nombre}
             >{item.nombre}</Text>
-            {/* <Text
-                style={style.precio} 
-            >{item.precio} S/</Text> */}
-            
             <View
                 style={style.contenedorImagenBoton}
             >
 
                 <Image
-                    source={{ uri: (item.img) ? item.img : "https://via.placeholder.com/200"}}
+                    source={{ uri: (item.img) ? item.img : "https://swimg.com/wp-content/uploads/not-available.jpg"}}
                     style={style.contenedorImage}
                 ></Image>
 
@@ -78,7 +77,7 @@ const style = StyleSheet.create({
     },
     contenedorImage: {
         width: 80 ,
-        height: 80 ,
+        height: 90 ,
         borderRadius:9,
         resizeMode: 'contain'
     },

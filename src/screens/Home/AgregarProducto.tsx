@@ -20,15 +20,14 @@ import { File, InterfaceImagePicker, InterfaceRespuestaCloudinary, InterfaceStat
 import { TextArea } from '../../components/TextArea';
 import { saveProducto } from '../../helpers/fetch';
 import { ProductosContext } from '../../context/ProductosContext';
-import { Layout } from '../../components/Layout';
-
 
 const AgregarProducto = ({ navigation, route }: PropsAgregarProducto) => {
 
-    const { productos, setProductos, cargarProductos } = useContext<any>(ProductosContext)
+    const { cargarProductos } = useContext<any>(ProductosContext)
 
-
-    const [imageSelected, setImageSelected] = useState<InterfaceStateImage>({});
+    const [imageSelected, setImageSelected] = useState<InterfaceStateImage>({
+        localUri:''
+    });
     const [producto, setProducto] = useState({
         Descripción: "",
         disponible: true,
@@ -96,7 +95,9 @@ const AgregarProducto = ({ navigation, route }: PropsAgregarProducto) => {
 
         await cargarProductos();
 
-        navigation?.navigate!('home')
+        // console.log(navigation);
+
+        navigation.navigate('HomeTab')
 
     }
 
@@ -183,7 +184,7 @@ const AgregarProducto = ({ navigation, route }: PropsAgregarProducto) => {
                 </TouchableOpacity>
 
             </View>
-         </ScrollView>
+        </ScrollView>
     )
 }
 
@@ -192,7 +193,7 @@ const style = StyleSheet.create({
     contenedorAgregar: {
         padding: 15,
         // flex: 1,
-        paddingBottom:100
+        paddingBottom: 100
     },
 
     buttonSave: {

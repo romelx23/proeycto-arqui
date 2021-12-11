@@ -9,8 +9,10 @@ import { ProductosContext } from '../../context/ProductosContext';
 import { Layout } from '../../components/Layout';
 
 export default function UpdateScreen({ route, navigation }: PropsRouteDetalle) {
-    const { productos, setProductos, cargarProductos } = useContext<any>(ProductosContext)
-    const [imageSelected, setImageSelected] = useState<InterfaceStateImage>({});
+    const { cargarProductos } = useContext<any>(ProductosContext)
+    const [imageSelected, setImageSelected] = useState<InterfaceStateImage>({
+        localUri:""
+    });
     const [producto, setProducto] = useState({
         precio: 0,
         disponible: true,
@@ -19,8 +21,9 @@ export default function UpdateScreen({ route, navigation }: PropsRouteDetalle) {
         categoria: "61a7933a3daea00016e4f7cd",
         img: "https://via.placeholder.com/200",
     })
+    const [image, setImage] = useState('');
     const { _id: id } = route.params.item;
-    console.log(route.params.item._id);
+    // console.log(route.params.item._id);
     useEffect(() => {
         getProductbyId(`${id}`).then((resp) => {
             const { producto } = resp;
@@ -72,14 +75,15 @@ export default function UpdateScreen({ route, navigation }: PropsRouteDetalle) {
         })
         const paser: InterfaceRespuestaCloudinary = await data_image.json();
 
-        const newProducto = await updateProducto(id, producto, paser.secure_url);
-        console.log(newProducto);
+        setImage(paser.secure_url)
 
+        const newProducto = await updateProducto(id, producto,paser.secure_url);
+        
         await cargarProductos();
 
-        navigation.navigate('home')
-
+        navigation.navigate('HomeTab')
     }
+
     return (
         <Layout
         >
@@ -100,7 +104,7 @@ export default function UpdateScreen({ route, navigation }: PropsRouteDetalle) {
                 placeholder="Precio..."
                 placeholderTextColor="#ADADAD"
                 keyboardType="number-pad"
-                value={producto.precio}
+                value={producto.precio.toString()}
                 onChangeText={(a) => handleChange("precio", a)}
             >
 
@@ -159,7 +163,6 @@ export default function UpdateScreen({ route, navigation }: PropsRouteDetalle) {
                     Actualizar Producto
                 </Text>
             </TouchableOpacity>
-
         </Layout>
     )
 }

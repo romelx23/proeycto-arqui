@@ -42,7 +42,7 @@ export interface InterfaceImagePicker {
 }
 
 export interface InterfaceStateImage {
-    localUri?: string
+    localUri: string
 }
 
 export interface File {
