@@ -17,8 +17,7 @@ export interface FormaListItem {
 
 export interface PropsHomeItem {
     item : Producto,
-    // item : FormaItem,
-    navigation? : Navigation,
+    navigation : Navigation,
   }
 
 export interface Navigation {

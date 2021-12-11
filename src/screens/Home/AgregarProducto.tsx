@@ -25,7 +25,9 @@ const AgregarProducto = ({ navigation, route }: PropsAgregarProducto) => {
 
     const { cargarProductos } = useContext<any>(ProductosContext)
 
-    const [imageSelected, setImageSelected] = useState<InterfaceStateImage>({});
+    const [imageSelected, setImageSelected] = useState<InterfaceStateImage>({
+        localUri:''
+    });
     const [producto, setProducto] = useState({
         Descripción: "",
         disponible: true,

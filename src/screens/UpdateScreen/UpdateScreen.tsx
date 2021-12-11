@@ -21,8 +21,9 @@ export default function UpdateScreen({ route, navigation }: PropsRouteDetalle) {
         categoria: "61a7933a3daea00016e4f7cd",
         img: "https://via.placeholder.com/200",
     })
+    const [image, setImage] = useState('');
     const { _id: id } = route.params.item;
-    console.log(route.params.item._id);
+    // console.log(route.params.item._id);
     useEffect(() => {
         getProductbyId(`${id}`).then((resp) => {
             const { producto } = resp;
@@ -73,17 +74,16 @@ export default function UpdateScreen({ route, navigation }: PropsRouteDetalle) {
             body: formData,
         })
         const paser: InterfaceRespuestaCloudinary = await data_image.json();
-        console.log( paser.secure_url)
-        setProducto({...producto,img:paser.secure_url})
+
+        setImage(paser.secure_url)
 
         const newProducto = await updateProducto(id, producto,paser.secure_url);
-        console.log(newProducto);
-
+        
         await cargarProductos();
 
         navigation.navigate('HomeTab')
-
     }
+
     return (
         <Layout
         >
@@ -163,7 +163,6 @@ export default function UpdateScreen({ route, navigation }: PropsRouteDetalle) {
                     Actualizar Producto
                 </Text>
             </TouchableOpacity>
-
         </Layout>
     )
 }
