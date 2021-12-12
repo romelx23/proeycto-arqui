@@ -45,7 +45,6 @@ const style = StyleSheet.create({
     contenedorBotonFlatList: {
         flex: 1,
         padding: 20,
-        backgroundColor: '#47abee',
         paddingBottom:80,
     },
     contenedor: {

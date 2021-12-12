@@ -4,7 +4,7 @@ import { Navigation, Route } from "./home";
 export interface PropsLoginScreen {
  
     navigation: Navigation,
-    route?: Route,
+    route: Route,
 
 } 
 export interface PropsRegisterScreen {

@@ -39,80 +39,93 @@ const CustomTabBarButton = ({ children, onPress }: Props) => (
 
 export default function BottonTabNavigator() {
     return (
-        <Tab.Navigator
-            screenOptions={{
-                headerShown: false,
-                
-                tabBarStyle: {
-                    position: 'absolute',
-                    bottom: 10,
-                    //  left: 20,
-                    //  right: 20,
-                    //  width:'80%',
-                    marginHorizontal: 20,
-                    alignSelf: 'center',
-                    backgroundColor: '#6e3fda',
-                    shadowOffset: { width: 0, height: 0 },
-                    shadowColor: 'transparent',
-                    borderColor: 'transparent',
-                    borderWidth: 0,
-                    height: 60,
-                    elevation: 0,
-                    borderRadius: 35
-                }
-            }}
-        >
-            <Tab.Screen name="HomeTab" component={HomeScreen} options={{
-                tabBarActiveBackgroundColor: '#78c858',
-                tabBarInactiveBackgroundColor: '#6e3fda',
-                tabBarItemStyle: {
-                    borderTopLeftRadius: 40,
-                    borderBottomLeftRadius: 40,
-                    display: 'flex',
-                },
-                tabBarIcon: ({ focused, color }) => (
-                    <Icon name="home" size={30} color={focused ? color : '#ffffff'} />
-                ),
-                tabBarLabel: () => <Text style={styles.tabBarLabel}>Home</Text>
-            }}
-            />
-            <Tab.Screen name="AgregarTab" component={AgregarProducto} options={{
-                unmountOnBlur:true,
-                title: '',
-                tabBarActiveBackgroundColor: '#78c858',
-                tabBarInactiveBackgroundColor: '#6e3fda',
-                tabBarItemStyle: {
-                    borderRightColor: '#ffffff',
-                    borderLeftColor: '#ffffff',
-                    borderLeftWidth: .5,
-                    borderRightWidth: .5,
-                    backgroundColor: '#6e3fda'
-                },
-                tabBarIcon: ({ focused }) => (
-                    <Icon name="plus" size={30} color={focused ? '#e9982d' : '#ffffff'} />
-                ),
-                // tabBarLabel: () => <Text style={styles.tabBarLabel}>Book Room</Text>,
-                tabBarButton: (props) => (
-                    <CustomTabBarButton {...props} />
-                )
-            }}
-            />
-            <Tab.Screen name="ProfileTab" component={ProfileScreen} options={{
-                title: 'Profile Screen',
-                tabBarActiveBackgroundColor: '#78c858',
-                tabBarInactiveBackgroundColor: '#6e3fda',
-                tabBarItemStyle: {
-                    borderTopRightRadius: 40,
-                    borderBottomRightRadius: 40,
-                },
-                tabBarIcon: ({ focused, color }) => (
-                    <Icon name="user" size={30} color={focused ? color : '#ffffff'} />
-                ),
-                tabBarLabel: () => <Text style={styles.tabBarLabel}>Contact Us</Text>
-            }}
-            />
-        </Tab.Navigator>
-    )
+            <Tab.Navigator
+                screenOptions={{
+                    tabBarHideOnKeyboard: true,
+                    headerShown: false,
+                    tabBarStyle: {
+                        position: "absolute",
+                        bottom: 10,
+                        //  left: 20,
+                        //  right: 20,
+                        //  width:'80%',
+                        marginHorizontal: 20,
+                        alignSelf: "center",
+                        backgroundColor: "#6e3fda",
+                        shadowOffset: { width: 0, height: 0 },
+                        shadowColor: "transparent",
+                        borderColor: "transparent",
+                        borderWidth: 0,
+                        height: 60,
+                        elevation: 0,
+                        borderRadius: 35,
+                    },
+                }}
+            >
+                <Tab.Screen
+                    name="HomeTab"
+                    component={HomeScreen}
+                    options={{
+                        tabBarActiveBackgroundColor: "#78c858",
+                        tabBarInactiveBackgroundColor: "#6e3fda",
+                        tabBarItemStyle: {
+                            borderTopLeftRadius: 40,
+                            borderBottomLeftRadius: 40,
+                            display: "flex",
+                        },
+                        tabBarIcon: ({ focused, color }) => (
+                            <Icon name="home" size={30} color={focused ? color : "#ffffff"} />
+                        ),
+                        tabBarLabel: () => <Text style={styles.tabBarLabel}>Home</Text>,
+                    }}
+                />
+                <Tab.Screen
+                    name="AgregarTab"
+                    component={AgregarProducto}
+                    options={{
+                        title: "",
+                        unmountOnBlur: true,
+                        tabBarActiveBackgroundColor: "#78c858",
+                        tabBarInactiveBackgroundColor: "#6e3fda",
+                        tabBarItemStyle: {
+                            borderRightColor: "#ffffff",
+                            borderLeftColor: "#ffffff",
+                            borderLeftWidth: 0.5,
+                            borderRightWidth: 0.5,
+                            backgroundColor: "#6e3fda",
+                        },
+                        tabBarIcon: ({ focused }) => (
+                            <Icon
+                                name="plus"
+                                size={30}
+                                color={focused ? "#e9982d" : "#ffffff"}
+                            />
+                        ),
+                        // tabBarLabel: () => <Text style={styles.tabBarLabel}>Book Room</Text>,
+                        tabBarButton: (props) => <CustomTabBarButton {...props} />,
+                    }}
+                />
+                <Tab.Screen
+                    name="ProfileTab"
+                    component={ProfileScreen}
+                    options={{
+                        title: "Profile Screen",
+                        tabBarActiveBackgroundColor: "#78c858",
+                        tabBarInactiveBackgroundColor: "#6e3fda",
+                        tabBarItemStyle: {
+                            borderTopRightRadius: 40,
+                            borderBottomRightRadius: 40,
+                        },
+                        tabBarIcon: ({ focused, color }) => (
+                            <Icon name="user" size={30} color={focused ? color : "#ffffff"} />
+                        ),
+                        tabBarLabel: () => (
+                            <Text style={styles.tabBarLabel}>Contact Us</Text>
+                        ),
+                    }}
+                />
+            </Tab.Navigator>
+    );
 }
 
 const styles = StyleSheet.create({
