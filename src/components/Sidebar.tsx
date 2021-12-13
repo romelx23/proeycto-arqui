@@ -3,6 +3,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import CustomDrawer from './CustomDrawer';
 import HomeScreen from '../screens/Home/HomeScreen';
 import ProfileScreen from '../screens/ProfileScreen/ProfileScreen';
+import Role from '../screens/Role/Role';
 
 const Drawer = createDrawerNavigator();
 
@@ -30,6 +31,9 @@ export default function Sidebar() {
             <Drawer.Screen
                 name="Profile"
                 component={ProfileScreen} />
+            <Drawer.Screen
+                name="role"
+                component={Role} />
         </Drawer.Navigator>
     )
 }

@@ -71,7 +71,6 @@ const LoginScreen = ({ navigation }: PropsLoginScreen) => {
       const a = await login(user.correo, user.password);
       console.log("222222", a.msg);
       if (a.usuario.uid) {
-        console.log(a.token);
         await AsyncStorage.setItem("token", a.token);
         navigation.navigate("home");
         setLoad(false)
