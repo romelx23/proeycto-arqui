@@ -9,14 +9,11 @@ import {
   Paragraph,
   Title,
   TouchableRipple,
-  useTheme,
 } from "react-native-paper";
 import FontAwesome from "react-native-vector-icons/FontAwesome5";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function CustomDrawer(props: DrawerContentComponentProps) {
-  const paperTheme = useTheme();
-  console.log(paperTheme.dark);
 
   return (
     <DrawerContentScrollView {...props}>
@@ -119,7 +116,7 @@ export default function CustomDrawer(props: DrawerContentComponentProps) {
         </Drawer.Section>
         <DrawerItem
             icon={({ color, size }) => (
-              <FontAwesome name="phone" color={'#fff'} size={size} />
+              <FontAwesome name="sign-out-alt" color={'#fff'} size={size} />
             )}
             labelStyle={{color:'#fff'}}
             label="Cerrar Sesión"

@@ -15,17 +15,18 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as ImagePicker from 'expo-image-picker'
 
 import { PropsAgregarProducto } from '../../interfaces/home';
-import { InterfaceRespuestaCloudinary, InterfaceStateImage, Producto } from '../../interfaces/producto';
+import { File, InterfaceImagePicker, InterfaceRespuestaCloudinary, InterfaceStateImage, Producto } from '../../interfaces/producto';
+// import { useForm } from '../../hook/useForm';
 import { TextArea } from '../../components/TextArea';
 import { saveProducto } from '../../helpers/fetch';
 import { ProductosContext } from '../../context/ProductosContext';
 
-const AgregarProducto = ({ navigation, route }: PropsAgregarProducto) => {
+const AgregarUsuario = ({ navigation }: PropsAgregarProducto) => {
 
     const { cargarProductos } = useContext<any>(ProductosContext)
 
     const [imageSelected, setImageSelected] = useState<InterfaceStateImage>({
-        localUri:''
+        localUri: ''
     });
     const [producto, setProducto] = useState({
         Descripción: "",
@@ -34,7 +35,7 @@ const AgregarProducto = ({ navigation, route }: PropsAgregarProducto) => {
         descripcion: "",
         categoria: "61a7933a3daea00016e4f7cd",
         img: "",
-        precio: 0
+        precio: ""
     })
 
     const handleChange = (name: string, value: string) => setProducto({ ...producto, [name]: value });
@@ -105,7 +106,7 @@ const AgregarProducto = ({ navigation, route }: PropsAgregarProducto) => {
             <View
                 style={style.contenedorAgregar}
             >
-                <Text>Nombre del producto</Text>
+                <Text>Nombre del Usuario</Text>
                 <TextInput
                     style={style.input}
                     placeholder="Nombre del producto"
@@ -116,33 +117,32 @@ const AgregarProducto = ({ navigation, route }: PropsAgregarProducto) => {
 
                 </TextInput>
 
-                <Text>Precio del producto</Text>
+                <Text>Correo del Usuario</Text>
                 <TextInput
                     style={style.input}
-                    placeholder="Precio..."
+                    placeholder="Ingrese su correo"
                     placeholderTextColor="#ADADAD"
-                    keyboardType="number-pad"
                     value={producto.precio.toString()}
                     onChangeText={(a) => handleChange("precio", a)}
                 >
 
                 </TextInput>
 
-                <Text>Descripción del producto</Text>
+                <Text>Password del Usuario</Text>
                 <View
                     style={{
                         backgroundColor: "#fff",
                         // borderWidth: 2,
                         // borderColor: "yellow",
                     }}>
-
-                    <TextArea
-                        multiline
-                        numberOfLines={4}
-                        value={producto.descripcion}
-                        onChangeText={(a: string) => handleChange("descripcion", a)}
-                        style={{ padding: 10 }}
-                    />
+                    <TextInput
+                        style={style.input}
+                        placeholder="Ingrese su contraseña"
+                        placeholderTextColor="#ADADAD"
+                        keyboardType="visible-password"
+                        value={producto.precio.toString()}
+                        onChangeText={(a) => handleChange("precio", a)}
+                    ></TextInput>
                 </View>
 
                 <View
@@ -253,4 +253,4 @@ const style = StyleSheet.create({
 })
 
 
-export default AgregarProducto
+export default AgregarUsuario

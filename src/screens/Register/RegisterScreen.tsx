@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -12,6 +12,8 @@ import { getVerificarUsuario, Resgistrar } from "../../helpers/fetch";
 import { PropsRegisterScreen } from "../../interfaces/login";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import MessageIndicator from "../../components/MessageIndicator";
+import { showContext } from "../../context/ShowMessage";
 
 // import logo from '../../assets/tech.png';
 
@@ -55,14 +57,22 @@ const RegisterScreen = ({ navigation }: PropsRegisterScreen) => {
     );
 
   const [user, setUser] = useState({
-    nombre: "sam",
-    edad: "11",
-    correo: "sam@gmail.com",
-    password: "123456",
-    password2: "123456",
+    // nombre: "sam",
+    // edad: "11",
+    // correo: "sam@gmail.com",
+    // password: "123456",
+    // password2: "123456",
+    // rol: "USER_ROLE",
+    nombre: "",
+    edad: "",
+    correo: "",
+    password: "",
+    password2: "",
     rol: "USER_ROLE",
+    img:'https://icon-library.com/images/icon-avatar/icon-avatar-1.jpg'
   });
   const [editing, setEditing] = useState(false);
+  const { load, setLoad } = useContext(showContext);
 
   const handleChange = (name: string, value: string) =>
     setUser({ ...user, [name]: value });
@@ -71,11 +81,12 @@ const RegisterScreen = ({ navigation }: PropsRegisterScreen) => {
     if (user.password !== user.password2) {
       return showAlert("Las contraseñas no son iguales");
     }
-
+    setLoad(true)
     try {
       const a = await Resgistrar(user);
-      console.log(a);
-
+      const {usuario}=a
+      console.log(usuario);
+      setLoad(false)
       if (a.usuario?.uid) {
         console.log("tiene uID");
         navigation.replace!("home");
@@ -92,6 +103,7 @@ const RegisterScreen = ({ navigation }: PropsRegisterScreen) => {
 
   return (
     <View style={styles.contenedor}>
+    <MessageIndicator loading={load} />
       <View
         style={{
           width: "100%",

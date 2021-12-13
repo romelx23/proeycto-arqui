@@ -10,6 +10,17 @@ import RegisterScreen from '../screens/Register/RegisterScreen';
 import UpdateScreen from '../screens/UpdateScreen/UpdateScreen';
 import Sidebar from '../components/Sidebar';
 import BottonTabNavigator from '../components/BottonTabNavigator';
+import AgregarUsuario from '../screens/ProfileScreen/AgregarUsuario';
+import ActualizarUsuario from '../screens/ProfileScreen/ActualizarUsuario';
+
+type RootStackParamList = {
+  Home: undefined;
+  TaskFromScreen: undefined,
+  login: undefined,
+  SignUpScreen: undefined,
+  UpdateImage: undefined,
+  DetailScreen: undefined
+};
 
 const Stack = createNativeStackNavigator();
 
@@ -60,6 +71,28 @@ const AppRouter = () => {
           component={UpdateScreen}
           options={{
             title: "Actualizar Procuto",
+            headerStyle: { backgroundColor: '#333' },
+            headerTitleStyle: { color: '#ffffff' },
+            headerTintColor: '#fff',
+            animation: 'fade',
+          }}
+        ></Stack.Screen>
+        <Stack.Screen
+          name="agregarUsuario"
+          component={AgregarUsuario}
+          options={{
+            title: "Agregar Usuario",
+            headerStyle: { backgroundColor: '#333' },
+            headerTitleStyle: { color: '#ffffff' },
+            headerTintColor: '#fff',
+            animation: 'fade',
+          }}
+        ></Stack.Screen>
+        <Stack.Screen
+          name="actualizarUsuario"
+          component={ActualizarUsuario}
+          options={{
+            title: "Actualizar Usuario",
             headerStyle: { backgroundColor: '#333' },
             headerTitleStyle: { color: '#ffffff' },
             headerTintColor: '#fff',
