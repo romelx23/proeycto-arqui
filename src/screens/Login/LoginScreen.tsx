@@ -8,6 +8,7 @@ import {
   Platform,
   Alert,
   Image,
+  ScrollView,
 } from "react-native";
 
 import { Icon } from "react-native-elements";
@@ -87,65 +88,67 @@ const LoginScreen = ({ navigation }: PropsLoginScreen) => {
   };
 
   return (
-    <View style={style.contenedor}>
-      <MessageIndicator loading={load} />
-      <View
-        style={{
-          width: "100%",
-          height: "500",
-        }}
-      >
-        <Image
-          width={100}
-          height={100}
-          source={{
-            uri: "https://lvivity.com/wp-content/uploads/2019/12/uiux-design.png",
-          }}
-          style={{ height: 200, width: "100%" }}
-        />
-        <Text style={style.appTitulo}>Teca App</Text>
-      </View>
-      <View>
-        <Text style={style.labelTitulo}>Correo</Text>
-
+      <View style={style.contenedor}>
+        <MessageIndicator loading={load} />
         <View
-        // style={ style.contenedorIconInput }
+          style={{
+            width: "100%",
+            height: 260,
+            display: 'flex',
+            flexDirection:'column',
+            justifyContent:'center',
+            alignItems:'center',
+          }}
         >
-          {/* <Icon
+          <Image
+            source={{
+              uri: "https://lvivity.com/wp-content/uploads/2019/12/uiux-design.png",
+            }}
+            style={{ height: 200, width: 200 }}
+          />
+          <Text style={style.appTitulo}>Teca App</Text>
+        </View>
+        <View>
+          <Text style={style.labelTitulo}>Correo</Text>
+
+          <View
+          // style={ style.contenedorIconInput }
+          >
+            {/* <Icon
                         type="material-community"
                         name="plus"
                         color="#000"
                         size={26}
                     >
                     </Icon> */}
+            <TextInput
+              autoFocus={false}
+              autoCapitalize="none"
+              style={style.input}
+              placeholder="Exmaple@teca.com"
+              placeholderTextColor="#576574"
+              value={user.correo}
+              onChangeText={(text) => handleChange("correo", text)}
+            />
+          </View>
+
+          <Text style={style.labelTitulo}>Contraseña</Text>
           <TextInput
-            autoFocus={false}
-            autoCapitalize="none"
+            // keyboardType ="visible-password"
             style={style.input}
-            placeholder="Exmaple@teca.com"
+            autoCompleteType="password"
+            placeholder="***********"
+            secureTextEntry={true}
             placeholderTextColor="#576574"
-            value={user.correo}
-            onChangeText={(text) => handleChange("correo", text)}
+            value={user.password}
+            onChangeText={(text) => handleChange("password", text)}
           />
-        </View>
 
-        <Text style={style.labelTitulo}>Contraseña</Text>
-        <TextInput
-          // keyboardType ="visible-password"
-          style={style.input}
-          autoCompleteType="password"
-          placeholder="***********"
-          secureTextEntry={true}
-          placeholderTextColor="#576574"
-          value={user.password}
-          onChangeText={(text) => handleChange("password", text)}
-        />
+          <TouchableOpacity style={style.buttonSave} onPress={handleSubmit}>
+            <Text style={style.buttonText}>Iniciar session</Text>
+          </TouchableOpacity>
 
-        <TouchableOpacity style={style.buttonSave} onPress={handleSubmit}>
-          <Text style={style.buttonText}>Iniciar session</Text>
-        </TouchableOpacity>
-
-        {/* <TouchableOpacity
+          {/* <TouchableOpacity
                     style={style.buttonSave}
                     onPress={handleGoogleSigin}>
                     <Text
@@ -155,23 +158,22 @@ const LoginScreen = ({ navigation }: PropsLoginScreen) => {
                     </Text>
                 </TouchableOpacity> */}
 
-        <TouchableOpacity
-          style={style.buttonRegister}
-          onPress={handleShowRegister}
-        >
-          <Text style={style.buttonText}>Crear cuenta</Text>
-        </TouchableOpacity>
+          <TouchableOpacity
+            style={style.buttonRegister}
+            onPress={handleShowRegister}
+          >
+            <Text style={style.buttonText}>Crear cuenta</Text>
+          </TouchableOpacity>
+        </View>
       </View>
-    </View>
   );
 };
 
 const style = StyleSheet.create({
   contenedor: {
     backgroundColor: "#A7C5DD",
-    // borderColor: "#000",
-    // borderWidth: 2,
     flex: 1,
+    flexDirection:'column',
     justifyContent: "center",
     padding: 20,
   },

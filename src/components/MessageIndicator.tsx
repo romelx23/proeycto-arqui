@@ -12,6 +12,7 @@ export default function MessageIndicator({loading}:Props) {
           <View style={styles.horizontal}>
             <ActivityIndicator 
             size="large" 
+            color={'#fff'}
             />
             <Text style={{color:'#fff'}}>Espere un Momento</Text>
           </View>

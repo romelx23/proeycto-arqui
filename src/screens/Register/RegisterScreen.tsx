@@ -95,16 +95,18 @@ const RegisterScreen = ({ navigation }: PropsRegisterScreen) => {
       <View
         style={{
           width: "100%",
-          height: "500",
+          height: 260,
+          display: 'flex',
+          flexDirection:'column',
+          justifyContent:'center',
+          alignItems:'center',
         }}
       >
         <Image
-          width={100}
-          height={100}
           source={{
             uri: "https://lvivity.com/wp-content/uploads/2019/12/uiux-design.png",
           }}
-          style={{ height: 200, width: "100%" }}
+          style={{ height: 200, width: 200 }}
         />
         <Text style={styles.appTitulo}>Teca App</Text>
       </View>
