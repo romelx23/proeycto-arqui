@@ -14,6 +14,12 @@ import { getProductos } from "../helpers/fetch";
 
 import { FormaItem, PropsNavigationHome } from "./../interfaces/home";
 import { ProductosContext } from "../context/ProductosContext";
+import { Producto } from '../interfaces/producto';
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+// interface Props{
+//   item:Producto
+// }
+// interface Props extends NativeStackScreenProps<any,any>{}
 
 const ListItem = ({ navigation }: PropsNavigationHome) => {
   // const listaItem : FormaItem[] = [
@@ -102,7 +108,7 @@ const ListItem = ({ navigation }: PropsNavigationHome) => {
 
   const handleAgregarProducto = () => {
     // console.log("agrego algo")
-    navigation?.navigate!("agregarPorducto");
+    navigation.navigate!("agregarPorducto");
   };
 
   // console.log("set productos",productos2);
@@ -115,7 +121,7 @@ const ListItem = ({ navigation }: PropsNavigationHome) => {
         numColumns={2}
         showsVerticalScrollIndicator={false}
         keyExtractor={(product) => product?._id!.toString()}
-        renderItem={({ item }) => <Item item={item} navigation={navigation} />}
+        renderItem={({ item }) => <Item item={item} navigation={navigation}/>}
         // onEndReached={isNext ? loadMore : null}
         // onEndReachedThreshold={0.1}
         // ListFooterComponent={
@@ -128,7 +134,7 @@ const ListItem = ({ navigation }: PropsNavigationHome) => {
         // ) : null
         // }
       />
-      {/* <TouchableOpacity
+      <TouchableOpacity
                 style={style.botonAgregar}
                 onPress={handleAgregarProducto}
             >
@@ -141,7 +147,7 @@ const ListItem = ({ navigation }: PropsNavigationHome) => {
 
                 </Icon>
 
-            </TouchableOpacity> */}
+            </TouchableOpacity>
     </View>
   );
 };
@@ -150,7 +156,8 @@ const style = StyleSheet.create({
   contenedorBotonFlatList: {
     flex: 1,
     padding: 20,
-    marginBottom: 50,
+    // marginBottom: 30,
+    // paddingBottom:50,
   },
   contenedor: {},
   botonAgregar: {

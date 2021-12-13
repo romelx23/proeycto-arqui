@@ -18,7 +18,7 @@ export default function UserItem({ item }: Props) {
                 width={100}
                 height={100}
                 source={{ uri: (item.img) ? item.img : "https://via.placeholder.com/200" }}
-            ></Image>
+            />
         </View>
     )
 }

@@ -7,7 +7,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { Producto } from '../interfaces/producto'
 
 interface Props extends NativeStackScreenProps<any,any>{
-    item:Producto
+    item:Producto,
 }
 const Item = ({ item, navigation }: Props) => {
 

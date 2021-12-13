@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ChangeEvent, FormEvent, useContext, useEffect, useState } from 'react'
 import {
     View,
     Text,
@@ -6,20 +6,62 @@ import {
     StyleSheet,
     TouchableOpacity
 } from 'react-native'
+import { ProductosContext } from '../context/ProductosContext';
+import { getProductos } from '../helpers/fetch';
 
 const Search = () => {
 
+    const { productos, setProductos, cargarProductos } =
+        useContext<any>(ProductosContext);
+    const [search, setSearch] = useState({
+        search: ''
+    });
+    const handleChange = (name: string, value: string) => {
+        setSearch({ ...search, [name]: value });
+        SearchProduct()
+    };
+    // console.log(search.search);
+
+    const cargarProducts = async () => {
+        try {
+            const data = await getProductos();
+            setProductos(data.productos);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    const SearchProduct = async () => {
+        // console.log(search.search);
+        try {
+            const buscar = await fetch(`https://node-restserver-cascaron.herokuapp.com/api/buscar/productos/${search.search}`)
+            const data = await buscar.json()
+            // console.log(data);
+            if (search.search.length == 1) {
+                cargarProducts()
+            }
+            setProductos(data.results)
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    useEffect(() => {
+        cargarProductos();
+    }, [])
     return (
         <View
             style={styles.contenedor}
-
         >
             <TextInput
                 style={styles.input}
                 placeholder="Buscar..."
                 placeholderTextColor="#ADADAD"
+                value={search.search}
+                onChangeText={(a) => {
+                    handleChange('search', a)
+                }}
             />
-          
+
         </View>
     )
 }
@@ -28,17 +70,18 @@ const Search = () => {
 const styles = StyleSheet.create({
 
     contenedor: {
-        width:'100%',
-        justifyContent:'center',
-        alignContent:'center'
+        width: '100%',
+        justifyContent: 'center',
+        alignContent: 'center'
     },
 
     input: {
-        margin: 20,
+        marginHorizontal: 20,
+        marginVertical: 10,
         marginBottom: 7,
         fontSize: 14,
         borderWidth: 3,
-        borderColor: "#EBECF1",
+        borderColor: "#c1c1c3",
         height: 40,
         color: "#000",
         textAlign: "center",
@@ -46,7 +89,7 @@ const styles = StyleSheet.create({
         borderRadius: 15,
     },
 
-  
+
 })
 
 

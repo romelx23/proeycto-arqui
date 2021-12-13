@@ -5,7 +5,7 @@ import ListUser from '../../components/ListUser'
 export default function ProfileScreen() {
     return (
         <View style={{flex:1}}>
-            <Text>ProfileScreen</Text>
+            {/* <Text>ProfileScreen</Text> */}
             <ListUser/>
         </View>
     )

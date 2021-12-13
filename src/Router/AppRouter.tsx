@@ -11,7 +11,6 @@ import UpdateScreen from '../screens/UpdateScreen/UpdateScreen';
 import Sidebar from '../components/Sidebar';
 import BottonTabNavigator from '../components/BottonTabNavigator';
 
-
 const Stack = createNativeStackNavigator();
 
 
@@ -30,12 +29,15 @@ const AppRouter = () => {
         <Stack.Screen
           name="registrar"
           component={RegisterScreen}
+          options={{
+            headerShown: false,
+          }}
         ></Stack.Screen>
         <Stack.Screen
           name="home"
-          component={BottonTabNavigator}
+          component={Sidebar}
           options={{
-            // headerShown:false,
+            headerShown:false,
             title: 'Home'
           }}
         ></Stack.Screen>
@@ -46,13 +48,13 @@ const AppRouter = () => {
             title: 'Producto'
           }}
         ></Stack.Screen>
-        {/* <Stack.Screen
+        <Stack.Screen
           name="agregarPorducto"
           component={AgregarProducto}
           options={{
             title: 'Agregue Porducto'
           }}
-        ></Stack.Screen> */}
+        ></Stack.Screen>
         <Stack.Screen
           name="actualizarPorducto"
           component={UpdateScreen}
@@ -66,7 +68,6 @@ const AppRouter = () => {
         ></Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
-
   );
 }
 
