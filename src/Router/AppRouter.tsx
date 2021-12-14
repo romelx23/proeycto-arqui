@@ -10,6 +10,9 @@ import RegisterScreen from '../screens/Register/RegisterScreen';
 import UpdateScreen from '../screens/UpdateScreen/UpdateScreen';
 import Sidebar from '../components/Sidebar';
 import BottonTabNavigator from '../components/BottonTabNavigator';
+import Role from '../screens/Role/Role';
+import AgregarRole from '../screens/Role/AgregarRole';
+import ModificarRole from '../screens/Role/ModificarRole';
 
 const Stack = createNativeStackNavigator();
 
@@ -65,6 +68,14 @@ const AppRouter = () => {
             headerTintColor: '#fff',
             animation: 'fade',
           }}
+        ></Stack.Screen>
+        <Stack.Screen
+          name="agregarRole"
+          component={AgregarRole}
+        ></Stack.Screen>
+        <Stack.Screen
+          name="modificarRole"
+          component={ModificarRole}
         ></Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
