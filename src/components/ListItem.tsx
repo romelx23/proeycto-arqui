@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import {
   Text,
   StyleSheet,
@@ -19,7 +19,6 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 // interface Props{
 //   item:Producto
 // }
-// interface Props extends NativeStackScreenProps<any,any>{}
 
 const ListItem = ({ navigation }: PropsNavigationHome) => {
   // const listaItem : FormaItem[] = [
@@ -112,6 +111,7 @@ const ListItem = ({ navigation }: PropsNavigationHome) => {
   };
 
   // console.log("set productos",productos2);
+  // const memo=useMemo(() => cargarProductos, productos)
 
   return (
     <View style={style.contenedorBotonFlatList}>

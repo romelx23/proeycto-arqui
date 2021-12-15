@@ -18,6 +18,7 @@ import { getVerificarUsuario, login } from "../../helpers/fetch";
 import { PropsLoginScreen } from "../../interfaces/login";
 import MessageIndicator from "../../components/MessageIndicator";
 import { showContext } from "../../context/ShowMessage";
+import LottieView from "lottie-react-native";
 
 const LoginScreen = ({ navigation }: PropsLoginScreen) => {
   // const [load, setLoad] = useState(false);
@@ -66,7 +67,7 @@ const LoginScreen = ({ navigation }: PropsLoginScreen) => {
     setUser({ ...user, [name]: value });
 
   const handleSubmit = async () => {
-    setLoad(true)
+    setLoad(true);
     try {
       const a = await login(user.correo, user.password);
       console.log("222222", a.msg);
@@ -74,7 +75,7 @@ const LoginScreen = ({ navigation }: PropsLoginScreen) => {
         console.log(a.token);
         await AsyncStorage.setItem("token", a.token);
         navigation.navigate("home");
-        setLoad(false)
+        setLoad(false);
       } else {
         showAlert();
       }
@@ -88,67 +89,77 @@ const LoginScreen = ({ navigation }: PropsLoginScreen) => {
   };
 
   return (
-      <View style={style.contenedor}>
-        <MessageIndicator loading={load} />
-        <View
-          style={{
-            width: "100%",
-            height: 260,
-            display: 'flex',
-            flexDirection:'column',
-            justifyContent:'center',
-            alignItems:'center',
-          }}
-        >
+    <View style={style.contenedor}>
+      <MessageIndicator loading={load} />
+      <View
+        style={{
+          width: "100%",
+          height: 260,
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        {Platform.OS == 'web' ?
           <Image
             source={{
               uri: "https://lvivity.com/wp-content/uploads/2019/12/uiux-design.png",
             }}
             style={{ height: 200, width: 200 }}
-          />
-          <Text style={style.appTitulo}>Teca App</Text>
-        </View>
-        <View>
-          <Text style={style.labelTitulo}>Correo</Text>
+          />:<></>
+        }
+        {Platform.OS == 'android' ?
+          <LottieView
+            style={{ width: 200, height: 200 }}
+            source={require("../../animation/animation.json")}
+            autoPlay
+            loop
+          /> : <></>
+        }
+        <Text style={style.appTitulo}>Teca App</Text>
+      </View>
+      <View>
+        <Text style={style.labelTitulo}>Correo</Text>
 
-          <View
-          // style={ style.contenedorIconInput }
-          >
-            {/* <Icon
+        <View
+        // style={ style.contenedorIconInput }
+        >
+          {/* <Icon
                         type="material-community"
                         name="plus"
                         color="#000"
                         size={26}
                     >
                     </Icon> */}
-            <TextInput
-              autoFocus={false}
-              autoCapitalize="none"
-              style={style.input}
-              placeholder="Exmaple@teca.com"
-              placeholderTextColor="#576574"
-              value={user.correo}
-              onChangeText={(text) => handleChange("correo", text)}
-            />
-          </View>
-
-          <Text style={style.labelTitulo}>Contraseña</Text>
           <TextInput
-            // keyboardType ="visible-password"
+            autoFocus={false}
+            autoCapitalize="none"
             style={style.input}
-            autoCompleteType="password"
-            placeholder="***********"
-            secureTextEntry={true}
+            placeholder="Exmaple@teca.com"
             placeholderTextColor="#576574"
-            value={user.password}
-            onChangeText={(text) => handleChange("password", text)}
+            value={user.correo}
+            onChangeText={(text) => handleChange("correo", text)}
           />
+        </View>
 
-          <TouchableOpacity style={style.buttonSave} onPress={handleSubmit}>
-            <Text style={style.buttonText}>Iniciar session</Text>
-          </TouchableOpacity>
+        <Text style={style.labelTitulo}>Contraseña</Text>
+        <TextInput
+          // keyboardType ="visible-password"
+          style={style.input}
+          autoCompleteType="password"
+          placeholder="***********"
+          secureTextEntry={true}
+          placeholderTextColor="#576574"
+          value={user.password}
+          onChangeText={(text) => handleChange("password", text)}
+        />
 
-          {/* <TouchableOpacity
+        <TouchableOpacity style={style.buttonSave} onPress={handleSubmit}>
+          <Text style={style.buttonText}>Iniciar session</Text>
+        </TouchableOpacity>
+
+        {/* <TouchableOpacity
                     style={style.buttonSave}
                     onPress={handleGoogleSigin}>
                     <Text
@@ -158,14 +169,14 @@ const LoginScreen = ({ navigation }: PropsLoginScreen) => {
                     </Text>
                 </TouchableOpacity> */}
 
-          <TouchableOpacity
-            style={style.buttonRegister}
-            onPress={handleShowRegister}
-          >
-            <Text style={style.buttonText}>Crear cuenta</Text>
-          </TouchableOpacity>
-        </View>
+        <TouchableOpacity
+          style={style.buttonRegister}
+          onPress={handleShowRegister}
+        >
+          <Text style={style.buttonText}>Crear cuenta</Text>
+        </TouchableOpacity>
       </View>
+    </View>
   );
 };
 
@@ -173,7 +184,7 @@ const style = StyleSheet.create({
   contenedor: {
     backgroundColor: "#A7C5DD",
     flex: 1,
-    flexDirection:'column',
+    flexDirection: "column",
     justifyContent: "center",
     padding: 20,
   },

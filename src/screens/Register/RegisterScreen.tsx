@@ -14,6 +14,7 @@ import { PropsRegisterScreen } from "../../interfaces/login";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import MessageIndicator from "../../components/MessageIndicator";
 import { showContext } from "../../context/ShowMessage";
+import AnimatedLottieView from "lottie-react-native";
 
 // import logo from '../../assets/tech.png';
 
@@ -120,6 +121,12 @@ const RegisterScreen = ({ navigation }: PropsRegisterScreen) => {
           }}
           style={{ height: 200, width: 200 }}
         />
+        {/* <AnimatedLottieView
+          style={{ width: 200, height: 200 }}
+          source={require("../../animation/animation.json")}
+          autoPlay
+          loop
+        /> */}
         <Text style={styles.appTitulo}>Teca App</Text>
       </View>
       <Text>Nombre:</Text>

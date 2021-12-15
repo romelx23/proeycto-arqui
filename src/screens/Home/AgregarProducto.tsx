@@ -34,7 +34,10 @@ const AgregarProducto = ({ navigation, route }: PropsAgregarProducto) => {
         descripcion: "",
         categoria: "61a7933a3daea00016e4f7cd",
         img: "",
-        precio: 0
+        precio: 0,
+        idProducto:'',
+        mac:'',
+        activo:false,
     })
 
     const handleChange = (name: string, value: string) => setProducto({ ...producto, [name]: value });
@@ -94,9 +97,9 @@ const AgregarProducto = ({ navigation, route }: PropsAgregarProducto) => {
 
         await cargarProductos();
 
-        // console.log(navigation);
+        console.log(newProducto);
 
-        navigation.navigate('HomeTab')
+        navigation.navigate('home')
 
     }
 
@@ -144,6 +147,24 @@ const AgregarProducto = ({ navigation, route }: PropsAgregarProducto) => {
                         style={{ padding: 10 }}
                     />
                 </View>
+                <TextInput
+                    style={style.input}
+                    placeholder="Nombre del idProducto"
+                    placeholderTextColor="#ADADAD"
+                    value={producto.idProducto}
+                    onChangeText={(a) => handleChange("idProducto", a)}
+                >
+
+                </TextInput>
+                <TextInput
+                    style={style.input}
+                    placeholder="Nombre del mac"
+                    placeholderTextColor="#ADADAD"
+                    value={producto.mac}
+                    onChangeText={(a) => handleChange("mac", a)}
+                >
+
+                </TextInput>
 
                 <View
                     style={style.contenedorBuscarImagen}
@@ -240,6 +261,7 @@ const style = StyleSheet.create({
     input: {
         width: "100%",
         marginBottom: 7,
+        marginTop:7,
         fontSize: 14,
         borderWidth: 1,
         borderColor: "#fff",

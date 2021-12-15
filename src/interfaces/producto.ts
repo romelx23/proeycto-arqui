@@ -12,6 +12,9 @@ export interface Producto {
     usuario?:      Categoria | string;
     categoria:    Categoria | string;
     img:          string;
+    idProducto:string,
+    mac: string,
+    activo: boolean
 }
 
 export interface Categoria {

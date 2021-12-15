@@ -9,13 +9,13 @@ import {
   TouchableOpacity,
   Alert,
 } from "react-native";
-import { PropsRouteDetalle } from "../../interfaces/home";
+import { PropsDetalleProducto, PropsRouteDetalle } from "../../interfaces/home";
 import FontAwesome from "react-native-vector-icons/FontAwesome5";
 import { deleteProducto } from "../../helpers/fetch";
 import { ProductosContext } from "../../context/ProductosContext";
 import { Layout } from "../../components/Layout";
 
-const DetalleProducto = ({ route, navigation }: PropsRouteDetalle) => {
+const DetalleProducto = ({ route, navigation }: PropsDetalleProducto) => {
   const { params } = route;
   const { item } = params;
   console.log(item._id);
@@ -42,7 +42,7 @@ const DetalleProducto = ({ route, navigation }: PropsRouteDetalle) => {
                 return cargarProductos();
               })
               .then(() => {
-                navigation.navigate("HomeTab");
+                navigation.navigate("home");
               });
             console.log("OK Pressed");
           },

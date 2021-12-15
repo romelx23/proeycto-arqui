@@ -6,13 +6,14 @@ import {
   TouchableOpacity,
   Image,
   StyleSheet,
+  ScrollView,
 } from "react-native";
 import {
   getProductbyId,
   saveProducto,
   updateProducto,
 } from "../../helpers/fetch";
-import { PropsRouteDetalle } from "../../interfaces/home";
+import { PropsDetalleProducto, PropsRouteDetalle } from "../../interfaces/home";
 import { TextArea } from "../../components/TextArea";
 import {
   InterfaceRespuestaCloudinary,
@@ -22,7 +23,10 @@ import * as ImagePicker from "expo-image-picker";
 import { ProductosContext } from "../../context/ProductosContext";
 import { Layout } from "../../components/Layout";
 
-export default function UpdateScreen({ route, navigation }: PropsRouteDetalle) {
+export default function UpdateScreen({
+  route,
+  navigation,
+}: PropsDetalleProducto) {
   const { cargarProductos } = useContext<any>(ProductosContext);
   const [imageSelected, setImageSelected] = useState<InterfaceStateImage>({
     localUri: "",
@@ -34,6 +38,9 @@ export default function UpdateScreen({ route, navigation }: PropsRouteDetalle) {
     descripcion: "",
     categoria: "61a7933a3daea00016e4f7cd",
     img: "https://via.placeholder.com/200",
+    idProducto: "",
+    mac: "",
+    activo: false,
   });
   const [image, setImage] = useState("");
   const { _id: id } = route.params.item;
@@ -48,6 +55,9 @@ export default function UpdateScreen({ route, navigation }: PropsRouteDetalle) {
         descripcion: producto.descripcion,
         categoria: "61a7933a3daea00016e4f7cd",
         img: producto.img,
+        idProducto: producto.idProducto,
+        mac: producto.mac,
+        activo: producto.activo,
       });
     });
   }, []);
@@ -71,7 +81,6 @@ export default function UpdateScreen({ route, navigation }: PropsRouteDetalle) {
   };
 
   const handleSubmit = async () => {
-    if (image) {
       const photo = {
         uri: imageSelected.localUri,
         type: `test/${imageSelected.localUri?.split(".")[1]}`,
@@ -94,14 +103,17 @@ export default function UpdateScreen({ route, navigation }: PropsRouteDetalle) {
 
       const newProducto = await updateProducto(id, producto, paser.secure_url);
 
+      console.log(newProducto);
       await cargarProductos();
-    }
 
     navigation.navigate("home");
   };
 
   return (
-    <Layout>
+    <ScrollView>
+            <View
+                style={style.contenedorAgregar}
+            >
       <Text>Nombre del producto</Text>
       <TextInput
         style={style.input}
@@ -137,6 +149,22 @@ export default function UpdateScreen({ route, navigation }: PropsRouteDetalle) {
           style={{ padding: 10 }}
         />
       </View>
+      <Text>Id de producto</Text>
+      <TextInput
+        style={style.input}
+        placeholder="Nombre del idProducto"
+        placeholderTextColor="#ADADAD"
+        value={producto.idProducto}
+        onChangeText={(a) => handleChange("idProducto", a)}
+      ></TextInput>
+      <Text>Mac de producto</Text>
+      <TextInput
+        style={style.input}
+        placeholder="Nombre del mac"
+        placeholderTextColor="#ADADAD"
+        value={producto.mac}
+        onChangeText={(a) => handleChange("mac", a)}
+      ></TextInput>
 
       <View style={style.contenedorBuscarImagen}>
         <TouchableOpacity
@@ -158,7 +186,8 @@ export default function UpdateScreen({ route, navigation }: PropsRouteDetalle) {
       <TouchableOpacity style={style.buttonSave} onPress={handleSubmit}>
         <Text style={style.buttonSaveText}>Actualizar Producto</Text>
       </TouchableOpacity>
-    </Layout>
+      </View>
+      </ScrollView>
   );
 }
 
