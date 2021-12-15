@@ -113,14 +113,12 @@ const style = StyleSheet.create({
     },
     botonModificar: {
         backgroundColor: "#0A81ED",
-        with: "20%",
         padding: 5,
         paddingLeft: 13,
         paddingRight: 13,
     },
     botonEliminar: {
         backgroundColor: "#FE0001",
-        with: "20%",
         padding: 5,
         paddingLeft: 13,
         paddingRight: 13,

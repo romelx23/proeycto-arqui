@@ -31,10 +31,7 @@ const ModificarRole = () => {
 
     const handleSubmit = async () => {
 
-        if(!role.rol){
-            MessageValidatorData("El nombre del rol es obligatorio");
-            return;
-        }
+      
 
         setLoad(true)
         try {
@@ -48,6 +45,12 @@ const ModificarRole = () => {
     }
 
     const showAlertModificarSubmit = () => {
+
+        if(!role.rol){
+            MessageValidatorData("El nombre del rol es obligatorio");
+            return;
+        }
+
         Alert.alert(
             "Modificar Rol",
             "¿Seguro que quiere modificar el rol?",
