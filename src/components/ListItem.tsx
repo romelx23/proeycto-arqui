@@ -17,15 +17,16 @@ import { FormaItem, PropsNavigationHome } from "./../interfaces/home";
 import { ProductosContext } from "../context/ProductosContext";
 import { Producto } from "../interfaces/producto";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { AuthContext } from "../context/AuthContext";
 // interface Props{
 //   item:Producto
 // }
 
 const ListItem = ({ navigation }: PropsNavigationHome) => {
- 
+
 
   const [refreshing, setRefreshing] = useState(false);
-  const onRefresh=()=>{
+  const onRefresh = () => {
     setRefreshing(true)
     cargarProductos
     console.log('refresh');
@@ -33,6 +34,8 @@ const ListItem = ({ navigation }: PropsNavigationHome) => {
   const { productos, setProductos, cargarProductos } =
     useContext<any>(ProductosContext);
 
+
+  const { rol } = useContext(AuthContext);
   // const [productos2 , setProductos] = useState<Producto[]>();
 
   useEffect(() => {
@@ -75,7 +78,20 @@ const ListItem = ({ navigation }: PropsNavigationHome) => {
           />
         }
       />
-      <TouchableOpacity
+      {
+        rol === "ADMIN_ROLE" ? (<TouchableOpacity
+          style={style.botonAgregar}
+          onPress={handleAgregarProducto}
+        >
+          <Icon
+            type="material-community"
+            name="plus"
+            color="#fff"
+            size={26}
+          ></Icon>
+        </TouchableOpacity>) : <></>
+      }
+      {/* <TouchableOpacity
         style={style.botonAgregar}
         onPress={handleAgregarProducto}
       >
@@ -85,7 +101,7 @@ const ListItem = ({ navigation }: PropsNavigationHome) => {
           color="#fff"
           size={26}
         ></Icon>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </View>
   );
 };

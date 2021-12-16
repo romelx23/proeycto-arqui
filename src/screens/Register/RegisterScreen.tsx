@@ -58,12 +58,6 @@ const RegisterScreen = ({ navigation }: PropsRegisterScreen) => {
     );
 
   const [user, setUser] = useState({
-    // nombre: "sam",
-    // edad: "11",
-    // correo: "sam@gmail.com",
-    // password: "123456",
-    // password2: "123456",
-    // rol: "USER_ROLE",
     nombre: "",
     edad: "",
     correo: "",

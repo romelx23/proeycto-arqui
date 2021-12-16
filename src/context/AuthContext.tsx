@@ -6,6 +6,8 @@ interface authInterface{
     img:string
   },
   setAuth:any,
+  rol:string,
+  setRol:any
 }
 export const AuthContext = createContext<authInterface>({
   auth:{
@@ -13,7 +15,9 @@ export const AuthContext = createContext<authInterface>({
     correo:"",
     img:""
   },
-  setAuth:()=>{}
+  setAuth:()=>{},
+  rol:"",
+  setRol:()=>""
 });
 
 const initialState = {
@@ -24,8 +28,8 @@ const initialState = {
 
 export const AuthProvider = ({ children }: any) => {
 
-  
   const [auth, setAuth] = useState(initialState);
+  const [rol, setRol] = useState("")
 
   const login = () => {};
 
@@ -40,6 +44,8 @@ export const AuthProvider = ({ children }: any) => {
       value={{
         auth,
         setAuth,
+        rol,
+        setRol
       }}
     >
       {children}

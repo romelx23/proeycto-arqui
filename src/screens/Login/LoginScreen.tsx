@@ -24,7 +24,7 @@ import { AuthContext } from "../../context/AuthContext";
 const LoginScreen = ({ navigation }: PropsLoginScreen) => {
   // const [load, setLoad] = useState(false);
   const { load, setLoad } = useContext(showContext);
-  const { auth,setAuth } = useContext(AuthContext);
+  const { auth,setAuth,setRol } = useContext(AuthContext);
   useEffect(() => {
     // verificarUsuario();
   }, []);
@@ -74,10 +74,9 @@ const LoginScreen = ({ navigation }: PropsLoginScreen) => {
       const a = await login(user.correo, user.password);
       console.log("222222", a.msg);
       if (a.usuario?.uid) {
-        console.log(a.token);
         await AsyncStorage.setItem("token", a.token);
         setAuth(a.usuario)
-        console.log(auth);
+        setRol(a.usuario.rol)
         navigation.navigate("home");
         setLoad(false);
       } else {
