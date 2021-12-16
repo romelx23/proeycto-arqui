@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useContext} from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
 import { DrawerContentComponentProps } from "@react-navigation/drawer";
@@ -12,8 +12,13 @@ import {
 } from "react-native-paper";
 import FontAwesome from "react-native-vector-icons/FontAwesome5";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { AuthContext } from "../context/AuthContext";
 
 export default function CustomDrawer(props: DrawerContentComponentProps) {
+
+  const {auth}=useContext(AuthContext);
+  
+  const {nombre,correo,img}=auth;
 
   return (
     <DrawerContentScrollView {...props}>
@@ -22,13 +27,13 @@ export default function CustomDrawer(props: DrawerContentComponentProps) {
           <View style={{ flexDirection: "row", marginTop: 15 }}>
             <Avatar.Image
               source={{
-                uri: "https://media.discordapp.net/attachments/847958546842517546/919001445502693397/63080267.png",
+                uri: img,
               }}
               size={50}
             />
             <View style={{ marginLeft: 15, flexDirection: "column" }}>
-              <Title style={styles.title}>John Doe</Title>
-              <Caption style={styles.caption}>@j_doe</Caption>
+              <Title style={styles.title}>{nombre}</Title>
+              <Caption style={styles.caption}>{correo}</Caption>
             </View>
           </View>
 

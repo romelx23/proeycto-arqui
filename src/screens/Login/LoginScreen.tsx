@@ -19,10 +19,12 @@ import { PropsLoginScreen } from "../../interfaces/login";
 import MessageIndicator from "../../components/MessageIndicator";
 import { showContext } from "../../context/ShowMessage";
 import LottieView from "lottie-react-native";
+import { AuthContext } from "../../context/AuthContext";
 
 const LoginScreen = ({ navigation }: PropsLoginScreen) => {
   // const [load, setLoad] = useState(false);
   const { load, setLoad } = useContext(showContext);
+  const { auth,setAuth } = useContext(AuthContext);
   useEffect(() => {
     // verificarUsuario();
   }, []);
@@ -71,13 +73,11 @@ const LoginScreen = ({ navigation }: PropsLoginScreen) => {
     try {
       const a = await login(user.correo, user.password);
       console.log("222222", a.msg);
-      // console.log(a.errors[0].msg);
-      // if(a.errors[0].msg){
-      //   return showAlert();
-      // }
       if (a.usuario?.uid) {
         console.log(a.token);
         await AsyncStorage.setItem("token", a.token);
+        setAuth(a.usuario)
+        console.log(auth);
         navigation.navigate("home");
         setLoad(false);
       } else {
