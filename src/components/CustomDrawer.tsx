@@ -74,9 +74,9 @@ export default function CustomDrawer(props: DrawerContentComponentProps) {
               <FontAwesome name="bookmark" color={'#fff'} size={size} />
             )}
             labelStyle={{color:'#fff'}}
-            label="Bookmarks"
+            label="Roles"
             onPress={() => {
-              props.navigation.navigate("BookmarkScreen");
+              props.navigation.navigate("role");
             }}
           />
           <DrawerItem
