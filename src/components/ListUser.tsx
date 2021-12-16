@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { View, Text, FlatList, StyleSheet, TouchableOpacity } from 'react-native'
 import { user, userReq } from '../interfaces/user';
 import UserItem from './UserItem';
@@ -7,23 +7,25 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { DrawerScreenProps } from '@react-navigation/drawer';
 
 import { PropsNavigationHome } from "./../interfaces/home";
+import { ProductosContext } from '../context/ProductosContext';
 export default function ListUser({navigation}:PropsNavigationHome) {
-    const [user, setUser] = useState<user[]>();
+    // const [user, setUser] = useState<user[]>();
 
-    const getUsers = async () => {
-        const resp = await fetch('https://node-restserver-cascaron.herokuapp.com/api/usuarios?limit=10', {
-            headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json",
-            },
-        })
-        const data: userReq = await resp.json();
-        console.log(data);
-        setUser(data.usuario)
-    }
+    const { usuario,cargarUsuario } = useContext<any>(ProductosContext);
+    // const getUsers = async () => {
+    //     const resp = await fetch('https://node-restserver-cascaron.herokuapp.com/api/usuarios?limit=10', {
+    //         headers: {
+    //             Accept: "application/json",
+    //             "Content-Type": "application/json",
+    //         },
+    //     })
+    //     const data: userReq = await resp.json();
+    //     console.log(data);
+    //     setUser(data.usuario)
+    // }
 
     useEffect(() => {
-        getUsers()
+        cargarUsuario()
     }, [])
 
     const agregarUsuario=()=>{
@@ -37,7 +39,7 @@ export default function ListUser({navigation}:PropsNavigationHome) {
 
             <FlatList
                 style={{ flex: 1 }}
-                data={user}
+                data={usuario}
                 numColumns={1}
                 showsVerticalScrollIndicator={false}
                 keyExtractor={(user) => user.uid}

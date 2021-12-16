@@ -40,7 +40,11 @@ export default function UserItem({ item,navigation }: Props) {
           source={{
             uri: item.img ? item.img : "https://via.placeholder.com/200",
           }}
-          style={{width:80,height:80}}
+          style={{
+            width:80,
+            height:80,
+            borderRadius:50
+          }}
         />
       </TouchableOpacity>
     </View>

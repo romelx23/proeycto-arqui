@@ -4,6 +4,22 @@ import { user } from '../interfaces/user';
 
 const base_url = "https://node-restserver-cascaron.herokuapp.com";
 
+export const getUsuarios = async () => {
+    try {
+        const res = await fetch(`${base_url}/api/usuarios?limit=10`,{
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+            },
+        })
+        console.log(res);
+        return res.json();
+    } catch (error) {
+        console.log(error)
+        throw new Error("Algo salio mal en el fetch")
+    }
+}
+
 export const getUsuariobyId = async (id: string) => {
     try {
         const token = await AsyncStorage.getItem('token') || "";

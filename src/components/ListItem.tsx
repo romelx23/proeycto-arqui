@@ -5,6 +5,7 @@ import {
   FlatList,
   TouchableOpacity,
   View,
+  RefreshControl,
 } from "react-native";
 
 import { Icon } from "react-native-elements";
@@ -96,13 +97,19 @@ const ListItem = ({ navigation }: PropsNavigationHome) => {
   //     },
   // ]
 
+  const [refreshing, setRefreshing] = useState(false);
+  const onRefresh=()=>{
+    setRefreshing(true)
+    cargarProductos
+    console.log('refresh');
+  }
   const { productos, setProductos, cargarProductos } =
     useContext<any>(ProductosContext);
 
   // const [productos2 , setProductos] = useState<Producto[]>();
 
   useEffect(() => {
-    cargarProductos();
+    cargarProductos
   }, []);
 
   const handleAgregarProducto = () => {
@@ -133,6 +140,13 @@ const ListItem = ({ navigation }: PropsNavigationHome) => {
         //     />
         // ) : null
         // }
+        refreshControl={
+          <RefreshControl
+            colors={['#345467']}
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+          />
+        }
       />
       <TouchableOpacity
         style={style.botonAgregar}

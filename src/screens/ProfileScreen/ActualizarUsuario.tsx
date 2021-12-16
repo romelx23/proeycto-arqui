@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   View,
   Text,
@@ -13,6 +13,7 @@ import { InterfaceRespuestaCloudinary, InterfaceStateImage } from "../../interfa
 import * as ImagePicker from "expo-image-picker";
 import { user } from "../../interfaces/user";
 import { UpdateUsuario } from "../../helpers/apiUsuarios";
+import { ProductosContext } from "../../context/ProductosContext";
 
 interface Props {
   navigation: Navigation,
@@ -39,6 +40,8 @@ export default function ActualizarUsuario({ navigation,route }: Props) {
     localUri: img,
   });
   const [image, setImage] = useState("");
+
+  const { cargarUsuario } = useContext<any>(ProductosContext);
 
   const handleCargarImagen = async () => {
     const resultadosPermiso =
@@ -83,7 +86,7 @@ export default function ActualizarUsuario({ navigation,route }: Props) {
       const updateUser = await UpdateUsuario(uid, usuario, paser.secure_url);
   
       console.log(updateUser);
-      // await cargarProductos();
+      await cargarUsuario();
   
       navigation.navigate("Profile");
     } catch (error) {
@@ -121,7 +124,7 @@ export default function ActualizarUsuario({ navigation,route }: Props) {
         </View>
 
         <TouchableOpacity style={style.buttonSave} onPress={handleSubmit}>
-          <Text style={style.buttonSaveText}>Agregar Producto</Text>
+          <Text style={style.buttonSaveText}>Actualizar Usuario</Text>
         </TouchableOpacity>
       </View>
     </ScrollView>
