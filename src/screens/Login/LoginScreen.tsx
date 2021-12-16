@@ -20,6 +20,7 @@ import MessageIndicator from "../../components/MessageIndicator";
 import { showContext } from "../../context/ShowMessage";
 import LottieView from "lottie-react-native";
 import { AuthContext } from "../../context/AuthContext";
+// import * as Google from 'expo-google-app-auth';
 
 const LoginScreen = ({ navigation }: PropsLoginScreen) => {
   // const [load, setLoad] = useState(false);
@@ -43,6 +44,27 @@ const LoginScreen = ({ navigation }: PropsLoginScreen) => {
       navigation.navigate("home");
     }
   };
+
+  // const handleGoogleSignin = async () => {
+  //   const config={
+  //     clientId: '938419071147-dapv5gtn2o7je09moihlgdlopj811fqj.apps.googleusercontent.com',
+  //     androidClientId:'938419071147-dapv5gtn2o7je09moihlgdlopj811fqj.apps.googleusercontent.com',
+  //     scopes:['profile','email']
+  //   }
+  //   Google.logInAsync(config)
+  //   .then((result)=>{
+  //     const {type,user}=result;
+  //     if(type=="success"){
+  //       const {email,name,photoUrl}=user;
+  //       Alert.alert('Google signin Exitoso','success')
+  //     }else{
+  //       console.log('google fue cancelado');
+  //     }
+  //   })
+  //   .catch((error)=>{
+  //     console.log(error);
+  //   })
+  // };
 
   const showAlert = () =>
     Alert.alert(

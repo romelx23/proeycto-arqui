@@ -91,17 +91,6 @@ const ListItem = ({ navigation }: PropsNavigationHome) => {
           ></Icon>
         </TouchableOpacity>) : <></>
       }
-      {/* <TouchableOpacity
-        style={style.botonAgregar}
-        onPress={handleAgregarProducto}
-      >
-        <Icon
-          type="material-community"
-          name="plus"
-          color="#fff"
-          size={26}
-        ></Icon>
-      </TouchableOpacity> */}
     </View>
   );
 };

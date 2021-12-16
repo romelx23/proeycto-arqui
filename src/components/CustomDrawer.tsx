@@ -16,7 +16,7 @@ import { AuthContext } from "../context/AuthContext";
 
 export default function CustomDrawer(props: DrawerContentComponentProps) {
 
-  const {auth}=useContext(AuthContext);
+  const {auth,rol}=useContext(AuthContext);
   
   const {nombre,correo,img}=auth;
 
@@ -64,26 +64,30 @@ export default function CustomDrawer(props: DrawerContentComponentProps) {
               props.navigation.navigate("Task App");
             }}
           />
-          <DrawerItem
-            icon={({ color, size }) => (
-              <FontAwesome name="user" color={'#fff'} size={size} />
-            )}
-            labelStyle={{color:'#fff'}}
-            label="Usuarios"
-            onPress={() => {
-              props.navigation.navigate("Profile");
-            }}
-          />
-          <DrawerItem
-            icon={({ color, size }) => (
-              <FontAwesome name="bookmark" color={'#fff'} size={size} />
-            )}
-            labelStyle={{color:'#fff'}}
-            label="Roles"
-            onPress={() => {
-              props.navigation.navigate("role");
-            }}
-          />
+          {
+            rol === "ADMIN_ROLE" ? (<>
+            <DrawerItem
+              icon={({ color, size }) => (
+                <FontAwesome name="user" color={'#fff'} size={size} />
+              )}
+              labelStyle={{color:'#fff'}}
+              label="Usuarios"
+              onPress={() => {
+                props.navigation.navigate("Profile");
+              }}
+            />
+            <DrawerItem
+              icon={({ color, size }) => (
+                <FontAwesome name="bookmark" color={'#fff'} size={size} />
+              )}
+              labelStyle={{color:'#fff'}}
+              label="Roles"
+              onPress={() => {
+                props.navigation.navigate("role");
+              }}/></>)
+              :
+              <></>
+          }
           <DrawerItem
             icon={({ color, size }) => (
               <FontAwesome name="cogs" color={'#fff'} size={size} />

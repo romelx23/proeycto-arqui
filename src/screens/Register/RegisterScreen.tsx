@@ -15,6 +15,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import MessageIndicator from "../../components/MessageIndicator";
 import { showContext } from "../../context/ShowMessage";
 import AnimatedLottieView from "lottie-react-native";
+import { AuthContext } from "../../context/AuthContext";
 
 // import logo from '../../assets/tech.png';
 
@@ -35,6 +36,8 @@ const RegisterScreen = ({ navigation }: PropsRegisterScreen) => {
       navigation.replace!("home");
     }
   };
+
+  const { rol } = useContext(AuthContext);
 
   const showAlert = (mensaje: string) =>
     Alert.alert(
@@ -84,9 +87,10 @@ const RegisterScreen = ({ navigation }: PropsRegisterScreen) => {
       setLoad(false)
       if (a.usuario?.uid) {
         await AsyncStorage.setItem("token", a.token);
-        navigation.navigate("home");
+        // navigation.navigate("home");
         console.log("tiene uID");
-        navigation.replace!("home");
+        console.log(a.token);
+        navigation.replace("home")
       } else {
         console.log("usuario no creado");
         console.log(a.errors[0].msg);
