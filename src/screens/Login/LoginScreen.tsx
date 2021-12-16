@@ -71,13 +71,18 @@ const LoginScreen = ({ navigation }: PropsLoginScreen) => {
     try {
       const a = await login(user.correo, user.password);
       console.log("222222", a.msg);
-      if (a.usuario.uid) {
+      // console.log(a.errors[0].msg);
+      // if(a.errors[0].msg){
+      //   return showAlert();
+      // }
+      if (a.usuario?.uid) {
         console.log(a.token);
         await AsyncStorage.setItem("token", a.token);
         navigation.navigate("home");
         setLoad(false);
       } else {
-        showAlert();
+        setLoad(false);
+        return showAlert();
       }
     } catch (error) {
       console.log("ERROR EN EL CHAT DE LOGIN", error);

@@ -18,7 +18,7 @@ interface Props {
 export default function UserItem({ item,navigation }: Props) {
 
     const handleUpdateUser=()=>{
-        navigation.navigate('actualizarUsuario')
+        navigation.navigate('actualizarUsuario',{item})
     }
 
   return (

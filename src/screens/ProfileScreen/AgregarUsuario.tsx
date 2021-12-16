@@ -29,7 +29,6 @@ const AgregarUsuario = ({ navigation }: PropsAgregarProducto) => {
         localUri: ''
     });
     const [producto, setProducto] = useState({
-        Descripción: "",
         disponible: true,
         nombre: "",
         descripcion: "",

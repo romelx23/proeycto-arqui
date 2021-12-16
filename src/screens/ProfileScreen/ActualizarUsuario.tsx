@@ -8,82 +8,116 @@ import {
   TouchableOpacity,
   Image,
 } from "react-native";
-import { TextArea } from "../../components/TextArea";
 import { Navigation } from "../../interfaces/Navigation";
+import { InterfaceRespuestaCloudinary, InterfaceStateImage } from "../../interfaces/producto";
+import * as ImagePicker from "expo-image-picker";
+import { user } from "../../interfaces/user";
+import { UpdateUsuario } from "../../helpers/apiUsuarios";
 
-interface Props{
-    navigation:Navigation
+interface Props {
+  navigation: Navigation,
+  route:{
+    params:{
+      item:user
+    }
+  }
 }
 
-export default function ActualizarUsuario({navigation}:Props) {
-  const [producto, setProducto] = useState({
-    precio: 0,
-    disponible: true,
-    nombre: "",
-    descripcion: "",
-    categoria: "61a7933a3daea00016e4f7cd",
-    img: "https://via.placeholder.com/200",
+export default function ActualizarUsuario({ navigation,route }: Props) {
+
+  const { nombre,img,uid,correo,rol,password } = route.params.item;
+
+  const [usuario, setProducto] = useState({
+    nombre,
+    img: 'https://icon-library.com/images/icon-avatar/icon-avatar-1.jpg',
+    correo,
+    rol,
+    uid,
+    password,
   });
-  const handleChange = (name: string, value: string) => setProducto({ ...producto, [name]: value });
+  const [imageSelected, setImageSelected] = useState<InterfaceStateImage>({
+    localUri: img,
+  });
+  const [image, setImage] = useState("");
+
+  const handleCargarImagen = async () => {
+    const resultadosPermiso =
+      await ImagePicker.requestMediaLibraryPermissionsAsync();
+    if (resultadosPermiso.granted === false) {
+      alert("Permiso de la camara requeridos");
+      return;
+    }
+
+    const pickerResult = await ImagePicker.launchImageLibraryAsync();
+    if (pickerResult.cancelled) {
+      return;
+    }
+
+    setImageSelected({ localUri: pickerResult.uri });
+  };
+
+  const handleChange = (name: string, value: string) => setProducto({ ...usuario, [name]: value });
 
   const handleSubmit = async () => {
-    navigation.navigate("home");
+    try {
+      const photo = {
+        uri: imageSelected.localUri,
+        type: `test/${imageSelected.localUri?.split(".")[1]}`,
+        name: `test/${imageSelected.localUri?.split(".")[1]}`,
+      };
+  
+      const url = "https://api.cloudinary.com/v1_1/dbrnlddba/upload";
+  
+      const formData = new FormData();
+      formData.append("upload_preset", "nutrifit");
+      formData.append("file", JSON.parse(JSON.stringify(photo)));
+  
+      const data_image = await fetch(url, {
+        method: "POST",
+        body: formData,
+      });
+      const paser: InterfaceRespuestaCloudinary = await data_image.json();
+  
+      setImage(paser.secure_url);
+  
+      const updateUser = await UpdateUsuario(uid, usuario, paser.secure_url);
+  
+      console.log(updateUser);
+      // await cargarProductos();
+  
+      navigation.navigate("Profile");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
     <ScrollView>
       <View style={style.contenedorAgregar}>
-        <Text>Nombre del producto</Text>
+        <Text>Nombre del usuario</Text>
         <TextInput
           style={style.input}
           placeholder="Nombre del producto"
           placeholderTextColor="#ADADAD"
-          value={producto.nombre}
+          value={usuario.nombre}
           onChangeText={(a) => handleChange("nombre", a)}
         ></TextInput>
 
-        <Text>Precio del producto</Text>
-        <TextInput
-          style={style.input}
-          placeholder="Precio..."
-          placeholderTextColor="#ADADAD"
-          keyboardType="number-pad"
-          value={producto.precio.toString()}
-          onChangeText={(a) => handleChange("precio", a)}
-        ></TextInput>
-
-        <Text>Descripción del producto</Text>
-        <View
-          style={{
-            backgroundColor: "#fff",
-            // borderWidth: 2,
-            // borderColor: "yellow",
-          }}
-        >
-          <TextArea
-            multiline
-            numberOfLines={4}
-            value={producto.descripcion}
-            onChangeText={(a: string) => handleChange("descripcion", a)}
-            style={{ padding: 10 }}
-          />
-        </View>
-
         <View style={style.contenedorBuscarImagen}>
           <TouchableOpacity
-            // onPress={handleCargarImagen}
+            onPress={handleCargarImagen}
             style={style.buttonBuscarImage}
           >
             <Text style={style.TextButonBuscarImagen}>Buscar Imagen...</Text>
           </TouchableOpacity>
-          {/* <Image
+          <Image
             style={style.imagen}
             source={{
               uri: !imageSelected.localUri
                 ? "https://via.placeholder.com/200"
                 : imageSelected.localUri,
             }}
-          ></Image> */}
+          ></Image>
         </View>
 
         <TouchableOpacity style={style.buttonSave} onPress={handleSubmit}>
@@ -121,11 +155,13 @@ const style = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderWidth: 1,
-    borderColor: "green",
+    borderColor: "transparent",
   },
   imagen: {
+    marginTop: 20,
     width: 200,
     height: 200,
+    borderRadius: 50,
   },
   buttonBuscarImage: {
     paddingTop: 15,

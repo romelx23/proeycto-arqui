@@ -89,6 +89,8 @@ const RegisterScreen = ({ navigation }: PropsRegisterScreen) => {
       console.log(usuario);
       setLoad(false)
       if (a.usuario?.uid) {
+        await AsyncStorage.setItem("token", a.token);
+        navigation.navigate("home");
         console.log("tiene uID");
         navigation.replace!("home");
       } else {

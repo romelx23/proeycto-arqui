@@ -147,6 +147,7 @@ const AgregarProducto = ({ navigation, route }: PropsAgregarProducto) => {
                         style={{ padding: 10 }}
                     />
                 </View>
+                <Text>Ingrese el Idproducto</Text>
                 <TextInput
                     style={style.input}
                     placeholder="Nombre del idProducto"
@@ -156,6 +157,7 @@ const AgregarProducto = ({ navigation, route }: PropsAgregarProducto) => {
                 >
 
                 </TextInput>
+                <Text>Ingrese la mac</Text>
                 <TextInput
                     style={style.input}
                     placeholder="Nombre del mac"
