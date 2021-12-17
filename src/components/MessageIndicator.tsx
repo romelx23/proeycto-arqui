@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet,ActivityIndicator } from "react-native";
+import { View, Text, StyleSheet,ActivityIndicator,Image } from "react-native";
 // import { ActivityIndicator } from "react-native-paper";
 interface Props{
     loading:boolean
@@ -10,9 +10,13 @@ export default function MessageIndicator({loading}:Props) {
     return (
         <View style={styles.container}>
           <View style={styles.horizontal}>
-            <ActivityIndicator 
+            {/* <ActivityIndicator 
             size="large" 
             color={'#fff'}
+            /> */}
+            <Image
+              source={require(`../../assets/spin.gif`)}
+              style={{width:100,height:100}}
             />
             <Text style={{color:'#fff'}}>Espere un Momento</Text>
           </View>
@@ -39,6 +43,7 @@ const styles = StyleSheet.create({
   horizontal: {
     flexDirection: "column",
     justifyContent: "space-around",
+    alignItems:'center',
     padding: 20,
     backgroundColor:'#6b57dd'
   },

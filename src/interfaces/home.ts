@@ -67,3 +67,22 @@ export interface PropsAgregarProducto {
     navigation: Navigation,
     route: Route,
 }
+
+export interface PropsDetalleProducto{
+    route: {
+        params:{
+            item:ProductoDetalle
+        }
+    },
+    navigation:Navigation
+}
+
+export interface ProductoDetalle {
+    precio:       number | string;
+    disponible:   boolean;
+    _id:          string;
+    nombre:       string;
+    descripcion?: string;
+    categoria:    string;
+    img:          string;
+}

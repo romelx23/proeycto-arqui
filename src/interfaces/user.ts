@@ -3,7 +3,8 @@ export interface user{
     correo:string,
     rol:string,
     img:string,
-    uid:string
+    uid:string,
+    password:string
 }
 
 export interface userReq{

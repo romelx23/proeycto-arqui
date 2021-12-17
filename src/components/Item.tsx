@@ -1,7 +1,6 @@
 import React from 'react'
 import { View, Text, Image, StyleSheet, TouchableOpacity, Dimensions } from 'react-native'
 import { FormaItem, PropsHomeItem } from './../interfaces/home'
-
 import { Icon } from "react-native-elements"
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { Producto } from '../interfaces/producto'

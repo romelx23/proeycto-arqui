@@ -1,21 +1,31 @@
-import React from 'react'
-import { DarkTheme, NavigationContainer } from '@react-navigation/native'
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import React from "react";
+import { DarkTheme, NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import HomeScreen from '../screens/Home/HomeScreen';
-import LoginScreen from '../screens/Login/LoginScreen';
-import DetalleProducto from '../screens/Home/DetalleProducto';
-import AgregarProducto from '../screens/Home/AgregarProducto';
-import RegisterScreen from '../screens/Register/RegisterScreen';
-import UpdateScreen from '../screens/UpdateScreen/UpdateScreen';
-import Sidebar from '../components/Sidebar';
-import BottonTabNavigator from '../components/BottonTabNavigator';
-import Role from '../screens/Role/Role';
-import AgregarRole from '../screens/Role/AgregarRole';
-import ModificarRole from '../screens/Role/ModificarRole';
+import HomeScreen from "../screens/Home/HomeScreen";
+import LoginScreen from "../screens/Login/LoginScreen";
+import DetalleProducto from "../screens/Home/DetalleProducto";
+import AgregarProducto from "../screens/Home/AgregarProducto";
+import RegisterScreen from "../screens/Register/RegisterScreen";
+import UpdateScreen from "../screens/UpdateScreen/UpdateScreen";
+import Sidebar from "../components/Sidebar";
+import BottonTabNavigator from "../components/BottonTabNavigator";
+import AgregarUsuario from "../screens/ProfileScreen/AgregarUsuario";
+import ActualizarUsuario from "../screens/ProfileScreen/ActualizarUsuario";
+import Role from "../screens/Role/Role";
+import AgregarRole from "../screens/Role/AgregarRole";
+import ModificarRole from "../screens/Role/ModificarRole";
+
+type RootStackParamList = {
+  Home: undefined;
+  TaskFromScreen: undefined;
+  login: undefined;
+  SignUpScreen: undefined;
+  UpdateImage: undefined;
+  DetailScreen: undefined;
+};
 
 const Stack = createNativeStackNavigator();
-
 
 const AppRouter = () => {
   return (
@@ -27,8 +37,7 @@ const AppRouter = () => {
           options={{
             headerShown: false,
           }}
-        >
-        </Stack.Screen>
+        ></Stack.Screen>
         <Stack.Screen
           name="registrar"
           component={RegisterScreen}
@@ -40,22 +49,22 @@ const AppRouter = () => {
           name="home"
           component={Sidebar}
           options={{
-            headerShown:false,
-            title: 'Home'
+            headerShown: false,
+            title: "Home",
           }}
         ></Stack.Screen>
         <Stack.Screen
           name="detalleProducto"
           component={DetalleProducto}
           options={{
-            title: 'Producto'
+            title: "Producto",
           }}
         ></Stack.Screen>
         <Stack.Screen
           name="agregarPorducto"
           component={AgregarProducto}
           options={{
-            title: 'Agregue Porducto'
+            title: "Agregue Porducto",
           }}
         ></Stack.Screen>
         <Stack.Screen
@@ -63,10 +72,32 @@ const AppRouter = () => {
           component={UpdateScreen}
           options={{
             title: "Actualizar Procuto",
-            headerStyle: { backgroundColor: '#333' },
-            headerTitleStyle: { color: '#ffffff' },
-            headerTintColor: '#fff',
-            animation: 'fade',
+            headerStyle: { backgroundColor: "#333" },
+            headerTitleStyle: { color: "#ffffff" },
+            headerTintColor: "#fff",
+            animation: "fade",
+          }}
+        ></Stack.Screen>
+        <Stack.Screen
+          name="agregarUsuario"
+          component={AgregarUsuario}
+          options={{
+            title: "Agregar Usuario",
+            headerStyle: { backgroundColor: "#333" },
+            headerTitleStyle: { color: "#ffffff" },
+            headerTintColor: "#fff",
+            animation: "fade",
+          }}
+        ></Stack.Screen>
+        <Stack.Screen
+          name="actualizarUsuario"
+          component={ActualizarUsuario}
+          options={{
+            title: "Actualizar Usuario",
+            headerStyle: { backgroundColor: "#333" },
+            headerTitleStyle: { color: "#ffffff" },
+            headerTintColor: "#fff",
+            animation: "fade",
           }}
         ></Stack.Screen>
         <Stack.Screen
@@ -80,6 +111,6 @@ const AppRouter = () => {
       </Stack.Navigator>
     </NavigationContainer>
   );
-}
+};
 
-export default AppRouter
+export default AppRouter;

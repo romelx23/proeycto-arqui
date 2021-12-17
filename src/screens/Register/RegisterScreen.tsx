@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -12,6 +12,10 @@ import { getVerificarUsuario, Resgistrar } from "../../helpers/fetch";
 import { PropsRegisterScreen } from "../../interfaces/login";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import MessageIndicator from "../../components/MessageIndicator";
+import { showContext } from "../../context/ShowMessage";
+// import AnimatedLottieView from "lottie-react-native";
+import { AuthContext } from "../../context/AuthContext";
 
 // import logo from '../../assets/tech.png';
 
@@ -32,6 +36,8 @@ const RegisterScreen = ({ navigation }: PropsRegisterScreen) => {
       navigation.replace!("home");
     }
   };
+
+  const { auth,setAuth,rol,setRol } = useContext(AuthContext);
 
   const showAlert = (mensaje: string) =>
     Alert.alert(
@@ -55,14 +61,16 @@ const RegisterScreen = ({ navigation }: PropsRegisterScreen) => {
     );
 
   const [user, setUser] = useState({
-    nombre: "sam",
-    edad: "11",
-    correo: "sam@gmail.com",
-    password: "123456",
-    password2: "123456",
+    nombre: "",
+    edad: "",
+    correo: "",
+    password: "",
+    password2: "",
     rol: "USER_ROLE",
+    img:'https://icon-library.com/images/icon-avatar/icon-avatar-1.jpg'
   });
   const [editing, setEditing] = useState(false);
+  const { load, setLoad } = useContext(showContext);
 
   const handleChange = (name: string, value: string) =>
     setUser({ ...user, [name]: value });
@@ -71,14 +79,21 @@ const RegisterScreen = ({ navigation }: PropsRegisterScreen) => {
     if (user.password !== user.password2) {
       return showAlert("Las contraseñas no son iguales");
     }
-
+    setLoad(true)
     try {
       const a = await Resgistrar(user);
-      console.log(a);
-
+      const {usuario}=a
+      console.log(usuario);
+      setLoad(false)
       if (a.usuario?.uid) {
+        await AsyncStorage.setItem("token", a.token);
+        // navigation.navigate("home");
         console.log("tiene uID");
-        navigation.replace!("home");
+        console.log(a.token);
+        setAuth(a.usuario)
+        setRol(a.usuario.rol)
+        navigation.replace("home")
+
       } else {
         console.log("usuario no creado");
         console.log(a.errors[0].msg);
@@ -92,6 +107,7 @@ const RegisterScreen = ({ navigation }: PropsRegisterScreen) => {
 
   return (
     <View style={styles.contenedor}>
+    <MessageIndicator loading={load} />
       <View
         style={{
           width: "100%",
@@ -108,6 +124,12 @@ const RegisterScreen = ({ navigation }: PropsRegisterScreen) => {
           }}
           style={{ height: 200, width: 200 }}
         />
+        {/* <AnimatedLottieView
+          style={{ width: 200, height: 200 }}
+          source={require("../../animation/animation.json")}
+          autoPlay
+          loop
+        /> */}
         <Text style={styles.appTitulo}>Teca App</Text>
       </View>
       <Text>Nombre:</Text>

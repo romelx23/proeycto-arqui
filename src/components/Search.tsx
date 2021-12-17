@@ -33,6 +33,9 @@ const Search = () => {
     const SearchProduct = async () => {
         // console.log(search.search);
         try {
+            if(search.search.length==0){
+                return ;
+            }
             const buscar = await fetch(`https://node-restserver-cascaron.herokuapp.com/api/buscar/productos/${search.search}`)
             const data = await buscar.json()
             // console.log(data);

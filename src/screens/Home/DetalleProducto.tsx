@@ -9,13 +9,14 @@ import {
   TouchableOpacity,
   Alert,
 } from "react-native";
-import { PropsRouteDetalle } from "../../interfaces/home";
+import { PropsDetalleProducto, PropsRouteDetalle } from "../../interfaces/home";
 import FontAwesome from "react-native-vector-icons/FontAwesome5";
 import { deleteProducto } from "../../helpers/fetch";
 import { ProductosContext } from "../../context/ProductosContext";
 import { Layout } from "../../components/Layout";
+import { AuthContext } from "../../context/AuthContext";
 
-const DetalleProducto = ({ route, navigation }: PropsRouteDetalle) => {
+const DetalleProducto = ({ route, navigation }: PropsDetalleProducto) => {
   const { params } = route;
   const { item } = params;
   console.log(item._id);
@@ -23,6 +24,8 @@ const DetalleProducto = ({ route, navigation }: PropsRouteDetalle) => {
   const changeScreen = () => {
     navigation.navigate("actualizarPorducto", { item: item });
   };
+
+  const { rol } = useContext(AuthContext);
 
   const showMessage = () => {
     Alert.alert(
@@ -42,7 +45,7 @@ const DetalleProducto = ({ route, navigation }: PropsRouteDetalle) => {
                 return cargarProductos();
               })
               .then(() => {
-                navigation.navigate("HomeTab");
+                navigation.navigate("home");
               });
             console.log("OK Pressed");
           },
@@ -68,10 +71,16 @@ const DetalleProducto = ({ route, navigation }: PropsRouteDetalle) => {
         <Text style={style.titulo1}>Descripcion: </Text>
         <Text style={style.tituloContenido}>{item.descripcion}</Text>
         <View>
-          <Text style={style.titulo1}>Acciones:</Text>
+          {
+             rol === "ADMIN_ROLE" ? 
+             (<Text style={style.titulo1}>Acciones:</Text>)
+             :<></>
+          }
         </View>
       </View>
-      <View style={style.containerButtons}>
+      {
+        rol === "ADMIN_ROLE" ? (
+          <View style={style.containerButtons}>
         <TouchableOpacity
           onPress={showMessage}
           activeOpacity={0.1}
@@ -93,6 +102,8 @@ const DetalleProducto = ({ route, navigation }: PropsRouteDetalle) => {
           </View>
         </TouchableOpacity>
       </View>
+        ):<></>
+      }
     </View>
   );
 };

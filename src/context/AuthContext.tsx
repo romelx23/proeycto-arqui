@@ -1,161 +1,54 @@
-
-import React, { createContext, useState } from 'react'
-
-const AuthContext = createContext({});
+import React, { createContext, useState } from "react";
+interface authInterface{
+  auth:{
+    nombre:string,
+    correo:string,
+    img:string
+  },
+  setAuth:any,
+  rol:string,
+  setRol:any
+}
+export const AuthContext = createContext<authInterface>({
+  auth:{
+    nombre:"",
+    correo:"",
+    img:""
+  },
+  setAuth:()=>{},
+  rol:"",
+  setRol:()=>""
+});
 
 const initialState = {
-    uid: null,
-    checking : true,
-    logged: false,
-    name: null,
-    email: null
-}
+  img:"",
+  nombre:"",
+  correo:""
+};
 
-export const AuthProvider = ({children}: any) =>{
+export const AuthProvider = ({ children }: any) => {
 
-    // const login = async ( email, password ) => {
+  const [auth, setAuth] = useState(initialState);
+  const [rol, setRol] = useState("")
 
-    //     const resp = await fetchSinToken("login", { email, password }, "POST");
+  const login = () => {};
 
+  const register = () => {};
 
-    //     if( resp.ok ){
-    //         localStorage.setItem('token', resp.token);
-    //         const { usuarioDB } = resp;
-    //         setAuth({
-    //             uid: usuarioDB?.uid,
-    //             checking : false,
-    //             logged: true,
-    //             name: usuarioDB.nombre,
-    //             email: usuarioDB.email,
-    //         })
+  const verificarToken = () => {};
 
-    //         console.log("AUTENTICADO")
+  const logout = () => {};
 
-    //     }
-    //     return resp.ok;
-
-    // }
-
-    // const register = async (nombre, email, password ) => {
-
-    //     const resp = await fetchSinToken("login/new", {nombre, email, password},"POST");
-    //     console.log(resp);
-
-    //     if( resp.ok ){
-    //         localStorage.setItem('token', resp.token);
-    //         const { usuario } = resp;
-    //         setAuth({
-    //             uid: usuario?.uid,
-    //             checking : false,
-    //             logged: true,
-    //             name: usuario.nombre,
-    //             email: usuario.email,
-    //         })
-
-    //         console.log("AUTENTICADO")
-    //         return true;
-    //     }   
-    //     return resp.msg;
-
-    // }
-
-    // const verificaToken = useCallback(
-    //     async () => {
-            
-    //         const token = localStorage.getItem("token");
-
-    //         if( !token ){
-
-    //             setAuth({
-    //                 uid: null,
-    //                 checking : false,
-    //                 logged: false,
-    //                 name:null,
-    //                 email: null,
-    //             })
-
-    //             return false;
-    //         }
-
-    //         const resp = await fetchConToken('login');
-
-    //         if( resp.ok ){
-    //             localStorage.setItem('token', resp.token);
-    //             const { usuario } = resp;
-    //             setAuth({
-    //                 uid: usuario?.uid,
-    //                 checking : false,
-    //                 logged: true,
-    //                 name: usuario?.nombre,
-    //                 email: usuario?.email,
-    //             })
-    
-    //             console.log("AUTENTICADO")
-    //             return true;
-    //         }else{
-    //             setAuth({
-    //                 uid: null,
-    //                 checking : false,
-    //                 logged: false,
-    //                 name:null,
-    //                 email: null,
-    //             })
-    //             return false;
-    //         } 
-    //     },
-    //     [],
-    // )
-
-    // const logout = () =>{
-        
-    //     localStorage.removeItem('token');
-    //     dispatch({
-    //         type:types.cerrarSession
-    //     })
-    //     setAuth({
-    //         checking : false,
-    //         logged: false,
-    //     })
-
-
-    // }
-
-
-    const [auth, setAuth] = useState(initialState)
-
-    const login = () =>{
-
-    }
-
-    const register = () =>{
-
-    }
-
-    const verificarToken = () =>{
-
-
-    }
-
-    const logout = () =>{
-
-    }
-
-    
-    return (
-        <AuthContext.Provider 
-         value={{
-             auth,
-             setAuth,
-             login,
-             register,
-             verificarToken,
-             logout,
-         
-         }}
-        >
-            {children}
-        </AuthContext.Provider>  
-     )
-
-}
-
+  return (
+    <AuthContext.Provider
+      value={{
+        auth,
+        setAuth,
+        rol,
+        setRol
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
+};
