@@ -10,19 +10,23 @@ import { Layout } from '../../components/Layout'
 const HomeScreen = ({ navigation }: PropsNavigationHome) => {
 
     useEffect(() => {
-        verificarUsuario();
+        // verificarUsuario();
     }, [])
 
     const verificarUsuario = async () => {
 
         const respVerificarToquen = await getVerificarUsuario();
+
+        console.log("verificar usuario",respVerificarToquen);
         
-        if(!!respVerificarToquen.token){
-            return ;
-        }else{
-            await AsyncStorage.setItem("token", respVerificarToquen.token)
-            navigation.replace!("login");
-        }
+        // if(respVerificarToquen.token){
+        //     console.log("respuesta del verificar ",respVerificarToquen.token)
+
+        //     await AsyncStorage.setItem("token", respVerificarToquen.token)
+        // }else{
+        //     await AsyncStorage.clear();
+        //     navigation.replace!("login");
+        // }
 
     }
 

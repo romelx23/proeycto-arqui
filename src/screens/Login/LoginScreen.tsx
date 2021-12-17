@@ -13,11 +13,47 @@ import {
 
 import { Icon } from "react-native-elements";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import  * as  Google  from 'expo-google-app-auth';
 
-import { getVerificarUsuario, login } from "../../helpers/fetch";
+
+
+import { getVerificarUsuario, login, loginGoogle } from "../../helpers/fetch";
 import { PropsLoginScreen } from "../../interfaces/login";
 import MessageIndicator from "../../components/MessageIndicator";
 import { showContext } from "../../context/ShowMessage";
+
+
+interface RespuestaDeGoogleProps {
+  accessToken: string,
+  idToken: string,
+  refreshToken: string,
+  type : string,
+  user: {
+    email: string,
+    familyname: string,
+    givenName: string,
+    id: string,
+    name: string,
+    photoUrl: string
+  }
+}
+
+/* 
+Object {
+  "accessToken": "ya29.a0ARrdaM9_5veKi7HMCAdyNEwO0jTQB5c-cZUlQYyu-2bQrR2xFI6MWbLKlzNWUTyEKVywhaCMGWYwmym2SvXKvSrw8OtUzkUxb00DKdr50vMHg44t9C5cgxPUB0xhPRWmhvUvAtb8l6ZGL9nFNYlZItY3GRDW",
+  "idToken": "eyJhbGciOiJSUzI1NiIsImtpZCI6ImQ5OGY0OWJjNmNhNDU4MWVhZThkZmFkZDQ5NGZjZTEwZWEyM2FhYjAiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJhenAiOiIyNDY2Mjg1OTY0MTItNnNxZm5mOWFsMnBjMGw2djZoNmdkZDJ1cGRvN2xqcGkuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJhdWQiOiIyNDY2Mjg1OTY0MTItNnNxZm5mOWFsMnBjMGw2djZoNmdkZDJ1cGRvN2xqcGkuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJzdWIiOiIxMDcyNDM0MDgzODE0MDExMTI1NjMiLCJoZCI6InVudGVscy5lZHUucGUiLCJlbWFpbCI6Ijc0MzA5MjczQHVudGVscy5lZHUucGUiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiYXRfaGFzaCI6InpibDV0RTRMWklSNXNteVR3NG9kNXciLCJuYW1lIjoiQ1JJU1RJQU4gQ0hJUEFOQSBIVUFNQU4iLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EtL0FPaDE0R2p1THFsZlYzSDVFVUlrTmJVQU91eFhQelRab252TldkQ3FETDR2PXM5Ni1jIiwiZ2l2ZW5fbmFtZSI6IkNSSVNUSUFOIiwiZmFtaWx5X25hbWUiOiJDSElQQU5BIEhVQU1BTiIsImxvY2FsZSI6ImVzLTQxOSIsImlhdCI6MTYzOTY5NjQ0MCwiZXhwIjoxNjM5NzAwMDQwfQ.qM53wUt2p4wFxGNlHDPD8pI4dHeAkjJxMUmr6rjSCL3jhGL-MXh7UKT9x3ppYY4caw4EDw8rDjOr5UzcdtE1vb0bnlHpT3buhlz9HFHUS4uWa_foF6m5Z0P8XzZbskRGig-foeJmlzJLHqRlY9FDaAm08FGg5KcY5TrV1ehbK8vtXpP1-Ke4LoFbtte2GKBUk4yXdH85AygVU3EaXZLALBbNKJ7xih5lW1BxBjI-MGOWdn0j1-SSgU-lCtbsCHHCAq33kv6AKUoSBTtQD3SkN4z7mR-jWs1rRjAX3GOEOjR5ZbNqqAiEcg2HM690Txxc3GLniNAhf9WFjY7cenSINQ",
+  "refreshToken": "1//0hMfPKoQcRPqvCgYIARAAGBESNwF-L9IrR7DDw32HMIdW0F3vBlIv7jEItgk2fV7zHgOsKYoVfXh7H0F4tRuo7EKaep3Ct5aNW5o",   
+  "type": "success",
+  "user": Object {
+    "email": "74309273@untels.edu.pe",
+    "familyName": "CHIPANA HUAMAN",
+    "givenName": "CRISTIAN",
+    "id": "107243408381401112563",
+    "name": "CRISTIAN CHIPANA HUAMAN",
+    "photoUrl": "https://lh3.googleusercontent.com/a-/AOh14GjuLqlfV3H5EUIkNbUAOuxXPzTZonvNWdCqDL4v=s96-c",
+  },
+} */
+
 
 const LoginScreen = ({ navigation }: PropsLoginScreen) => {
   // const [load, setLoad] = useState(false);
@@ -86,6 +122,60 @@ const LoginScreen = ({ navigation }: PropsLoginScreen) => {
     navigation.navigate("registrar");
   };
 
+  const handleGoogleSignin = async () =>{
+    const config = {
+        iosClientId : "246628596412-u70v913809olspra2grcvc88oq0rehhd.apps.googleusercontent.com",
+        androidClientId : "246628596412-6sqfnf9al2pc0l6v6h6gdd2updo7ljpi.apps.googleusercontent.com",
+        scopes: ['profile','email']
+    };
+
+    try {
+
+      const res : any = await Google.logInAsync(config)
+      const { type, idToken } : any = res;
+      if( type == 'success' ){
+            setLoad(true)
+          const resp = await loginGoogle(idToken);
+          // console.log("respuesta 222222", resp)
+          // console.log("222222", resp.msg);
+          if (resp?.usuario?.uid) {
+            // console.log("RESPUESTA DEL GOOGLE FETCH",resp)
+            console.log("token del la respuesta del backend",resp.token)
+            await AsyncStorage.setItem("token", resp.token);
+            setLoad(false)
+            navigation.replace("home");
+          } else {
+            console.log("NO SE ENCONTRO USUARIO", resp)
+          }
+      }
+    } catch (error) {
+      console.log("Google sign in no fue valido",error)
+    }
+
+ /*    Google.logInAsync( config )
+        .then( (result)  => {
+            console.log("33333333")
+            console.log(result)
+            const { type, idToken } : any = result;
+            if( type == 'success' ){
+              // const { email, name, phootoUrl }  = user;
+              console.log(idToken);
+                console.log("Se logeo exitosamento")
+                console.log(user)
+              
+            }
+
+        } )
+        .catch( error =>{
+            console.log(error);
+            console.log("333333333333333333333333333333333333333333333333333333333333333333333333333")
+            console.log("Google sign in no fue valido")
+        }) */
+
+};
+
+
+
   return (
       <View style={style.contenedor}>
         <MessageIndicator loading={load} />
@@ -147,15 +237,15 @@ const LoginScreen = ({ navigation }: PropsLoginScreen) => {
             <Text style={style.buttonText}>Iniciar session</Text>
           </TouchableOpacity>
 
-          {/* <TouchableOpacity
+          <TouchableOpacity
                     style={style.buttonSave}
-                    onPress={handleGoogleSigin}>
+                    onPress={handleGoogleSignin}>
                     <Text
                         style={style.buttonText}
                     >
                         Iniciar con Google
                     </Text>
-                </TouchableOpacity> */}
+                </TouchableOpacity>
 
           <TouchableOpacity
             style={style.buttonRegister}

@@ -32,6 +32,30 @@ export const login = async (correo: string, password: string) => {
 
 }
 
+export const loginGoogle = async ( idtoken: string) => {
+
+    // console.log("fetch",idtoken)
+
+    const requestOptions: any = {
+        method: 'POST',
+        body: JSON.stringify({
+            "id_token": idtoken,
+        }),
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+        },
+        redirect: 'follow'
+    };
+
+
+    const res = await fetch(`${My_API}/api/auth/google`, requestOptions);
+    return await res.json();
+
+
+}
+
+
 export const Resgistrar = async (user: object) => {
 
     const requestOptions: any = {
@@ -53,16 +77,24 @@ export const Resgistrar = async (user: object) => {
 
 export const getVerificarUsuario = async () => {
 
-    const token = await AsyncStorage.getItem("token") || "";
-    const res = await fetch(`${My_API}/api/auth`, {
-        method: "GET",
-        headers: {
-            Accept: "application/json", "Content-Type": "application/json",
-            "x-token": token
-        }
-    });
-    return await res.json();
+    try {
+        const token = await AsyncStorage.getItem("token") || "";
+        console.log("token -->> perris ", token);
+        const res = await fetch(`${My_API}/api/auth`, {
+            method: "GET",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                "x-token": token
+            },
+        });
+        return await res.json();
+    
+    } catch (error) {
+        throw new Error("Algo salio mal en el fetch de verificar token")
+    }
 
+  
 }
 
 
