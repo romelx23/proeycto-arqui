@@ -16,7 +16,7 @@ import { AuthContext } from "../context/AuthContext";
 
 export default function CustomDrawer(props: DrawerContentComponentProps) {
 
-  const {auth, setAuth,rol}=useContext(AuthContext);
+  const {auth, setAuth,rol , setRol}=useContext(AuthContext);
   
   const {nombre,correo,img}=auth;
 
@@ -133,6 +133,7 @@ export default function CustomDrawer(props: DrawerContentComponentProps) {
                 correo:"",
                 img:""
               })
+              setRol("");
               props.navigation.navigate("login");
               AsyncStorage.clear()
             }}

@@ -68,7 +68,7 @@ const AgregarRole = () => {
         >
         <MessageIndicator loading={load} />
 
-            <Text>Nombre del producto</Text>
+            <Text>Nombre del Rol</Text>
             <TextInput
                 style={style.input}
                 placeholder="EJEMPLO_ROL"
