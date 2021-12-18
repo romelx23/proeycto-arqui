@@ -4,6 +4,8 @@ import CustomDrawer from './CustomDrawer';
 import HomeScreen from '../screens/Home/HomeScreen';
 import ProfileScreen from '../screens/ProfileScreen/ProfileScreen';
 import Role from '../screens/Role/Role';
+import SettingScreen from '../screens/SettingsScreen/SettingScreen';
+import SuportScreen from '../screens/SuportScreen/SuportScreen';
 
 const Drawer = createDrawerNavigator();
 
@@ -31,6 +33,12 @@ export default function Sidebar() {
             <Drawer.Screen
                 name="Profile"
                 component={ProfileScreen} />
+            <Drawer.Screen
+                name="SettingsScreen"
+                component={SettingScreen} />
+            <Drawer.Screen
+                name="SupportScreen"
+                component={SuportScreen} />
             <Drawer.Screen
                 name="role"
                 component={Role} />

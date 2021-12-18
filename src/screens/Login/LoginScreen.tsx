@@ -23,6 +23,7 @@ import MessageIndicator from "../../components/MessageIndicator";
 import { showContext } from "../../context/ShowMessage";
 // import LottieView from "lottie-react-native";
 import { AuthContext } from "../../context/AuthContext";
+import AnimatedLottieView from "lottie-react-native";
 // import * as Google from 'expo-google-app-auth';
 
 
@@ -210,14 +211,14 @@ const LoginScreen = ({ navigation }: PropsLoginScreen) => {
             style={{ height: 200, width: 200 }}
           />:<></>
         }
-        {/* {Platform.OS == 'android' ?
-          <LottieView
+        {Platform.OS == 'android' ?
+          <AnimatedLottieView
             style={{ width: 200, height: 200 }}
             source={require("../../animation/animation.json")}
             autoPlay
             loop
           /> : <></>
-        } */}
+        }
         <Text style={style.appTitulo}>Teca App</Text>
       </View>
       <View>
