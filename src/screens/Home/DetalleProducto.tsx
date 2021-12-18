@@ -17,6 +17,7 @@ import { Layout } from "../../components/Layout";
 import { AuthContext } from "../../context/AuthContext";
 
 const DetalleProducto = ({ route, navigation }: PropsDetalleProducto) => {
+
   const { params } = route;
   const { item } = params;
   console.log(item._id);
@@ -53,6 +54,8 @@ const DetalleProducto = ({ route, navigation }: PropsDetalleProducto) => {
       ]
     );
   };
+
+  
 
   return (
     <View style={style.contenedorDetalle}>

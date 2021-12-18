@@ -12,7 +12,7 @@ const Item = ({ item, navigation }: Props) => {
 
     const handleOpenScren = () => {
 
-        navigation.navigate('detalleProducto', { item,navigation })
+        navigation.navigate('detalleProducto', { item })
 
     }
 

@@ -111,8 +111,10 @@ export const getProductos = async () => {
 
 export const saveProducto = async (producto: Producto, img: string) => {
 
-    const token = await AsyncStorage.getItem('token') || "";
-    const res = await fetch(`${My_API}/api/productos`, {
+    try {
+        
+        const token = await AsyncStorage.getItem('token') || "";
+        const res = await fetch(`${My_API}/api/productos`, {
         method: "POST",
         headers: {
             Accept: "application/json",
@@ -126,12 +128,18 @@ export const saveProducto = async (producto: Producto, img: string) => {
     });
     return await res.json();
 
+    } catch (error) {
+        console.log("Problemas en catch de guardar productos fetch.jsx",error)
+
+    }
+
+    
+
 }
 
 export const getProductbyId=async(idproduct:string)=>{
     try {
         const res = await fetch(`${My_API}/api/productos/${idproduct}`)
-        console.log(res);
         return await res.json();
     } catch (error) {
         console.log(error)
@@ -141,6 +149,8 @@ export const getProductbyId=async(idproduct:string)=>{
 
 export const updateProducto = async (id:string,producto: Producto,img:string) => {
     const {img:image,...product}=producto
+    // console.log("El producto actualizado" + producto,img)
+    console.log(product)
     const token = await AsyncStorage.getItem('token') || "";
     const res = await fetch(`${My_API}/api/productos/${id}`, {
         method: "PUT",
@@ -160,16 +170,21 @@ export const updateProducto = async (id:string,producto: Producto,img:string) =>
 
 export const deleteProducto = async (id:string) => {
 
-    const token = await AsyncStorage.getItem('token') || "";
-    const res = await fetch(`${My_API}/api/productos/${id}`, {
-        method: "DELETE",
-        headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            "x-token": token
-        },
-    });
-    console.log(res);
+    try {
+        const token = await AsyncStorage.getItem('token') || "";
+        const res = await fetch(`${My_API}/api/productos/${id}`, {
+            method: "DELETE",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                "x-token": token
+            },
+        });
     return await res.json();
+    } catch (error) {
+        console.log("ESTE ES UN ERROR EN EL CATH",error)
+    }
+
+    
 
 }

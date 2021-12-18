@@ -81,6 +81,8 @@ export default function UpdateScreen({
   };
 
   const handleSubmit = async () => {
+    console.log("111111111111111111111111");
+
       const photo = {
         uri: imageSelected.localUri,
         type: `test/${imageSelected.localUri?.split(".")[1]}`,
@@ -88,19 +90,23 @@ export default function UpdateScreen({
       };
 
       const url = "https://api.cloudinary.com/v1_1/dbrnlddba/upload";
+      console.log("2222222222222222222222222");
 
       const formData = new FormData();
       formData.append("upload_preset", "nutrifit");
       formData.append("file", JSON.parse(JSON.stringify(photo)));
+      console.log("3333333333333333333");
 
       const data_image = await fetch(url, {
         method: "POST",
         body: formData,
       });
+      console.log("4444444444444444444444444444444");
+
       const paser: InterfaceRespuestaCloudinary = await data_image.json();
 
       setImage(paser.secure_url);
-
+      console.log(producto);
       const newProducto = await updateProducto(id, producto, paser.secure_url);
 
       console.log(newProducto);

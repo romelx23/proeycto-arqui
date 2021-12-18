@@ -12,7 +12,7 @@ export const getUsuarios = async () => {
                 "Content-Type": "application/json",
             },
         })
-        console.log(res);
+        // console.log(res);
         return res.json();
     } catch (error) {
         console.log(error)
@@ -31,7 +31,7 @@ export const getUsuariobyId = async (id: string) => {
                 "x-token": token
             },
         })
-        console.log(res);
+        // console.log(res);
         return res.json();
     } catch (error) {
         console.log(error)
@@ -53,7 +53,7 @@ export const UpdateUsuario = async (id: string,usuario:user,img:string) => {
                 img
             })
         })
-        console.log(res);
+        // console.log(res);
         return res.json();
     } catch (error) {
         console.log(error)
