@@ -65,26 +65,7 @@ const LoginScreen = ({ navigation }: PropsLoginScreen) => {
     }
   };
 
-  // const handleGoogleSignin = async () => {
-  //   const config={
-  //     clientId: '938419071147-dapv5gtn2o7je09moihlgdlopj811fqj.apps.googleusercontent.com',
-  //     androidClientId:'938419071147-dapv5gtn2o7je09moihlgdlopj811fqj.apps.googleusercontent.com',
-  //     scopes:['profile','email']
-  //   }
-  //   Google.logInAsync(config)
-  //   .then((result)=>{
-  //     const {type,user}=result;
-  //     if(type=="success"){
-  //       const {email,name,photoUrl}=user;
-  //       Alert.alert('Google signin Exitoso','success')
-  //     }else{
-  //       console.log('google fue cancelado');
-  //     }
-  //   })
-  //   .catch((error)=>{
-  //     console.log(error);
-  //   })
-  // };
+
 
   const showAlert = () =>
     Alert.alert(
@@ -117,9 +98,9 @@ const LoginScreen = ({ navigation }: PropsLoginScreen) => {
       console.log("222222", a.msg);
       if (a.usuario?.uid) {
         await AsyncStorage.setItem("token", a.token);
-        setAuth(a.usuario)
+        setAuth({...a.usuario, logged: true})
         setRol(a.usuario.rol)
-        navigation.navigate("home");
+        navigation.replace("home");
         setLoad(false);
       } else {
         setLoad(false);
@@ -146,15 +127,10 @@ const LoginScreen = ({ navigation }: PropsLoginScreen) => {
       const res : any = await Google.logInAsync(config)
       const { type, idToken } : any = res;
       if( type == 'success' ){
-            setLoad(true)
+          setLoad(true)
           const resp = await loginGoogle(idToken);
-          // console.log("respuesta 222222", resp)
-          // console.log("222222", resp.msg);
           if (resp?.usuario?.uid) {
-            // console.log("RESPUESTA DEL GOOGLE FETCH",resp)
-            console.log("USUARIO DE LA RESPUESTA DE GOOGLE",resp.usuario)
-            setAuth(resp.usuario)
-            console.log("token del la respuesta del backend",resp.token)
+            setAuth({...resp.usuario, logged: true})
             await AsyncStorage.setItem("token", resp.token);
             setLoad(false)
             navigation.replace("home");
@@ -165,27 +141,6 @@ const LoginScreen = ({ navigation }: PropsLoginScreen) => {
     } catch (error) {
       console.log("Google sign in no fue valido",error)
     }
-
- /*    Google.logInAsync( config )
-        .then( (result)  => {
-            console.log("33333333")
-            console.log(result)
-            const { type, idToken } : any = result;
-            if( type == 'success' ){
-              // const { email, name, phootoUrl }  = user;
-              console.log(idToken);
-                console.log("Se logeo exitosamento")
-                console.log(user)
-              
-            }
-
-        } )
-        .catch( error =>{
-            console.log(error);
-            console.log("333333333333333333333333333333333333333333333333333333333333333333333333333")
-            console.log("Google sign in no fue valido")
-        }) */
-
 };
 
 

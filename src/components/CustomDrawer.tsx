@@ -127,14 +127,14 @@ export default function CustomDrawer(props: DrawerContentComponentProps) {
             )}
             labelStyle={{color:'#fff'}}
             label="Cerrar Sesión"
-            onPress={() => {
-              setAuth({
+            onPress={async ()  => {
+              await setAuth({
                 nombre:"",
                 correo:"",
-                img:""
+                img:"",
+                logged: false
               })
-              setRol("");
-              props.navigation.navigate("login");
+              props.navigation.replace("login");
               AsyncStorage.clear()
             }}
           />

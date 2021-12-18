@@ -22,22 +22,19 @@ import { AuthContext } from "../../context/AuthContext";
 const ruta = `../assets/tech.png`;
 
 const RegisterScreen = ({ navigation }: PropsRegisterScreen) => {
-  useEffect(() => {
-    // verificarUsuario();
-  }, []);
-
-  const verificarUsuario = async () => {
-    const respVerificarToquen = await getVerificarUsuario();
-
-    if (!respVerificarToquen.token) {
-      return;
-    } else {
-      await AsyncStorage.setItem("token", respVerificarToquen.token);
-      navigation.replace!("home");
-    }
-  };
 
   const { auth,setAuth,rol,setRol } = useContext(AuthContext);
+
+  useEffect(() => {
+    usuarioLogeado();
+  }, []);
+
+
+  const usuarioLogeado = async ()  =>{
+    if(auth.logged){
+        navigation.replace("home");
+    }
+  }
 
   const showAlert = (mensaje: string) =>
     Alert.alert(
@@ -87,10 +84,9 @@ const RegisterScreen = ({ navigation }: PropsRegisterScreen) => {
       setLoad(false)
       if (a.usuario?.uid) {
         await AsyncStorage.setItem("token", a.token);
-        // navigation.navigate("home");
         console.log("tiene uID");
         console.log(a.token);
-        setAuth(a.usuario)
+        setAuth({...a.usuario, logged: true})
         setRol(a.usuario.rol)
         navigation.replace("home")
 
