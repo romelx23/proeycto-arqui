@@ -281,6 +281,25 @@ const style = StyleSheet.create({
     backgroundColor: "#10ac84",
     width: "100%",
   },
+  buttonGoogle: {
+//     .padding: 6px 10px;
+// // 03.-webkit-border-radius: 2px 2px;
+// 04.border-radius: 2px 2px;
+// 05.border: solid 1px rgb(153, 153, 153);
+// 06.background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgb(255, 255,255)), to(rgb(221, 221, 221)));
+// 07.background: gradient(linear, 0% 0%, 0% 100%, from(rgb(255, 255, 255)), to(rgb(221, 221, 221)));
+// 08.color: #333;
+// 09.text-decoration: none;
+// 10.cursor: pointer;
+// 11.display: inline-block;
+// 12.text-align: center;
+// 13.text-shadow: 0px 1px 1px rgba(255,255,255,1);
+// 14.-webkit-text-shadow: 0px 1px 1px rgba(255,255,255,1);
+// 15.line-height: 1;
+padding: 6 ,
+
+
+  },
   buttonRegister: {
     paddingTop: 10,
     paddingBottom: 10,
