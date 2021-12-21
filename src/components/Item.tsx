@@ -3,13 +3,15 @@ import { View, Text, Image, StyleSheet, TouchableOpacity, Dimensions } from 'rea
 import { FormaItem, PropsHomeItem } from './../interfaces/home'
 import { Icon } from "react-native-elements"
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
-import { Producto } from '../interfaces/producto'
+import { Producto } from '../interfaces/producto';
+import { useTheme } from '@react-navigation/native';
 
 interface Props extends NativeStackScreenProps<any,any>{
     item:Producto,
 }
 const Item = ({ item, navigation }: Props) => {
-
+    const { colors } = useTheme();
+    
     const handleOpenScren = () => {
 
         navigation.navigate('detalleProducto', { item })
@@ -21,7 +23,7 @@ const Item = ({ item, navigation }: Props) => {
             style={style.contenedorItem}
         >
             <Text
-                style={style.nombre}
+                style={{ color: colors.text ,...style.nombre}}
             >{item.nombre}</Text>
             <View
                 style={style.contenedorImagenBoton}
@@ -93,7 +95,7 @@ const style = StyleSheet.create({
     },
 
     nombre: {
-        color: "#fff",
+        // color: "#fff",
         fontSize: 15,
         textAlign: "center",
         fontWeight: "500",

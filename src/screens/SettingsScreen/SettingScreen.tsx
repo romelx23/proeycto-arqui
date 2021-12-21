@@ -1,11 +1,16 @@
 import React from "react";
-import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, Image, TouchableOpacity, Alert, Button } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome5";
+import i18n from "../../utils/i18n.config";
+import { useTranslation } from "react-i18next";
+import LanguagePicker from "../../components/LanguagePicker";
 
 export default function SettingScreen() {
+  const { t } = useTranslation();
   return (
     <View style={style.containerSuport}>
-      <Text style={style.textSuport}>Configuración</Text>
+      <Text style={style.textSuport}>{`${i18n.t("Configuración")}`}</Text>
+      <LanguagePicker />
       <View style={style.contentSuport}>
         <TouchableOpacity activeOpacity={0.84}>
           <View
@@ -30,11 +35,11 @@ export default function SettingScreen() {
       <View style={style.contentCard}>
         <TouchableOpacity style={style.cardConfig}>
           <FontAwesome name="user" color={"#333"} size={30} />
-          <Text style={style.textCardSuport}>Configure su Usuario</Text>
+          <Text style={style.textCardSuport}>{`${i18n.t("Configure su Usuario")}`}</Text>
         </TouchableOpacity>
         <TouchableOpacity style={style.cardConfig}>
           <FontAwesome name="language" color={"#333"} size={30} />
-          <Text style={style.textCardSuport}>Cambiar el idioma</Text>
+          <Text style={style.textCardSuport}>{`${i18n.t("Cambiar el idioma")}`}</Text>
         </TouchableOpacity>
       </View>
     </View>

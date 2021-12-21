@@ -15,9 +15,11 @@ import { deleteProducto } from "../../helpers/fetch";
 import { ProductosContext } from "../../context/ProductosContext";
 import { Layout } from "../../components/Layout";
 import { AuthContext } from "../../context/AuthContext";
+import i18n from "../../utils/i18n.config";
+import { useTheme } from '@react-navigation/native';
 
 const DetalleProducto = ({ route, navigation }: PropsDetalleProducto) => {
-
+  const { colors } = useTheme();
   const { params } = route;
   const { item } = params;
   console.log(item._id);
@@ -68,15 +70,19 @@ const DetalleProducto = ({ route, navigation }: PropsDetalleProducto) => {
       </View>
 
       <View style={style.contenedorDescripcion}>
-        <Text style={style.titulo1}>Precio: </Text>
-        <Text style={style.tituloContenido}>S/.{item.precio}</Text>
+        <Text style={{color: colors.text,...style.titulo1}}>
+          {`${i18n.t("Precio")}`}:
+          </Text>
+        <Text style={{color: colors.text,...style.tituloContenido}}>S/.{item.precio}</Text>
 
-        <Text style={style.titulo1}>Descripcion: </Text>
-        <Text style={style.tituloContenido}>{item.descripcion}</Text>
+        <Text style={{color: colors.text,...style.titulo1}}>
+          {`${i18n.t("Descripcion")}`}: 
+          </Text>
+        <Text style={{color: colors.text,...style.tituloContenido}}>{item.descripcion}</Text>
         <View>
           {
              rol === "ADMIN_ROLE" ? 
-             (<Text style={style.titulo1}>Acciones:</Text>)
+             (<Text style={{color: colors.text,...style.titulo1}}>Acciones:</Text>)
              :<></>
           }
         </View>

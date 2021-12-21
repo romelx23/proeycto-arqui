@@ -19,9 +19,10 @@ import { InterfaceRespuestaCloudinary, InterfaceStateImage, Producto } from '../
 import { TextArea } from '../../components/TextArea';
 import { saveProducto } from '../../helpers/fetch';
 import { ProductosContext } from '../../context/ProductosContext';
-
+import i18n from "../../utils/i18n.config";
+import { useTheme } from '@react-navigation/native';
 const AgregarProducto = ({ navigation, route }: PropsAgregarProducto) => {
-
+    const { colors } = useTheme();
     const { cargarProductos } = useContext<any>(ProductosContext)
 
     const [imageSelected, setImageSelected] = useState<InterfaceStateImage>({
@@ -108,7 +109,11 @@ const AgregarProducto = ({ navigation, route }: PropsAgregarProducto) => {
             <View
                 style={style.contenedorAgregar}
             >
-                <Text>Nombre del producto</Text>
+                <Text
+                style={{color: colors.text}}
+                >
+                    {`${i18n.t("Nombre del producto")}`}
+                    </Text>
                 <TextInput
                     style={style.input}
                     placeholder="Nombre del producto"
@@ -119,7 +124,9 @@ const AgregarProducto = ({ navigation, route }: PropsAgregarProducto) => {
 
                 </TextInput>
 
-                <Text>Precio del producto</Text>
+                <Text
+                style={{color: colors.text}}
+                >{`${i18n.t("Precio del producto")}`}</Text>
                 <TextInput
                     style={style.input}
                     placeholder="Precio..."
@@ -131,7 +138,9 @@ const AgregarProducto = ({ navigation, route }: PropsAgregarProducto) => {
 
                 </TextInput>
 
-                <Text>Descripción del producto</Text>
+                <Text
+                style={{color: colors.text}}
+                >{`${i18n.t("Descripción del producto")}`}</Text>
                 <View
                     style={{
                         backgroundColor: "#fff",
@@ -147,7 +156,9 @@ const AgregarProducto = ({ navigation, route }: PropsAgregarProducto) => {
                         style={{ padding: 10 }}
                     />
                 </View>
-                <Text>Ingrese el Idproducto</Text>
+                <Text
+                style={{color: colors.text}}
+                >{`${i18n.t("Ingrese el Idproducto")}`}</Text>
                 <TextInput
                     style={style.input}
                     placeholder="Nombre del idProducto"
@@ -157,7 +168,9 @@ const AgregarProducto = ({ navigation, route }: PropsAgregarProducto) => {
                 >
 
                 </TextInput>
-                <Text>Ingrese la mac</Text>
+                <Text
+                style={{color: colors.text}}
+                >{`${i18n.t("Ingrese la mac")}`}</Text>
                 <TextInput
                     style={style.input}
                     placeholder="Nombre del mac"
@@ -178,7 +191,7 @@ const AgregarProducto = ({ navigation, route }: PropsAgregarProducto) => {
                         <Text
                             style={style.TextButonBuscarImagen}
                         >
-                            Buscar Imagen...
+                            {`${i18n.t("Buscar Imagen")}`}...
                         </Text>
                     </TouchableOpacity>
                     <Image
@@ -201,7 +214,7 @@ const AgregarProducto = ({ navigation, route }: PropsAgregarProducto) => {
                     <Text
                         style={style.buttonSaveText}
                     >
-                        Agregar Producto
+                        {`${i18n.t("Agregar Producto")}`}
                     </Text>
                 </TouchableOpacity>
 

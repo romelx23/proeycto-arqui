@@ -1,5 +1,5 @@
-import React from "react";
-import { DarkTheme, NavigationContainer } from "@react-navigation/native";
+import React, { useContext } from "react";
+import { DarkTheme, NavigationContainer,DefaultTheme } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import HomeScreen from "../screens/Home/HomeScreen";
@@ -15,6 +15,7 @@ import ActualizarUsuario from "../screens/ProfileScreen/ActualizarUsuario";
 import Role from "../screens/Role/Role";
 import AgregarRole from "../screens/Role/AgregarRole";
 import ModificarRole from "../screens/Role/ModificarRole";
+import { themeContext } from '../context/themeContext';
 
 type RootStackParamList = {
   Home: undefined;
@@ -27,9 +28,28 @@ type RootStackParamList = {
 
 const Stack = createNativeStackNavigator();
 
+const MyTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    text:'#3a3e44',
+    background:'#e0e4f3'
+  },
+};
+
+const MyDarkTheme = {
+  ...DarkTheme,
+  colors: {
+    ...DarkTheme.colors,
+    text:'#f0f7ff',
+    background:'#35373b'
+  },
+};
+
 const AppRouter = () => {
+  const { tema } = useContext(themeContext);
   return (
-    <NavigationContainer>
+    <NavigationContainer theme={tema ? MyDarkTheme : MyTheme}>
       <Stack.Navigator>
         <Stack.Screen
           name="login"

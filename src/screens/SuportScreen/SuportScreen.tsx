@@ -1,11 +1,12 @@
 import React from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import FontAwesome from "react-native-vector-icons/FontAwesome5";
+import i18n from "../../utils/i18n.config";
 
 export default function SuportScreen() {
   return (
     <View style={style.containerSuport}>
-      <Text style={style.textSuport}>Soporte</Text>
+      <Text style={style.textSuport}>{`${i18n.t("Soporte")}`}</Text>
       <View style={style.contentSuport}>
         <Image
           style={style.imageCard}
@@ -13,23 +14,23 @@ export default function SuportScreen() {
             uri: "https://image.freepik.com/free-vector/flat-customer-support-illustration_23-2148899114.jpg",
           }}
         />
-        <Text style={style.textTitle}>¿Cómo puedo ayudarte?</Text>
-        <Text style={style.text}>Parece que tienes problemas.</Text>
+        <Text style={style.textTitle}>{`${i18n.t("¿Cómo puedo ayudarte?")}`}</Text>
+        <Text style={style.text}>{`${i18n.t("Parece que tienes problemas")}`}.</Text>
         <Text style={style.text}>
-          Estamos aqui para ayudar,
+        {`${i18n.t("Estamos aqui para ayudar")}`},
         </Text>
         <Text style={style.text}>
-          asi que porfavor contactanos
+        {`${i18n.t("asi que porfavor contactanos")}`}
         </Text>
       </View>
       <View style={style.contentCard}>
         <TouchableOpacity style={style.cardSuport}>
           <FontAwesome name="whatsapp" color={"#333"} size={35} />
-          <Text style={style.textCardSuport}>Hablar con alguien</Text>
+          <Text style={style.textCardSuport}>{`${i18n.t("Hablar con alguien")}`}</Text>
         </TouchableOpacity>
         <TouchableOpacity style={style.cardSuport}>
           <FontAwesome name="envelope" color={"#333"} size={30} />
-          <Text style={style.textCardSuport}>Enviar un mensaje</Text>
+          <Text style={style.textCardSuport}>{`${i18n.t("Enviar un mensaje")}`}</Text>
         </TouchableOpacity>
       </View>
     </View>

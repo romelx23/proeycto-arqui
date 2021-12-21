@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import React, { useContext } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
 import { DrawerContentComponentProps } from "@react-navigation/drawer";
@@ -9,16 +9,23 @@ import {
   Paragraph,
   Title,
   TouchableRipple,
+  Switch
 } from "react-native-paper";
 import FontAwesome from "react-native-vector-icons/FontAwesome5";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AuthContext } from "../context/AuthContext";
+import i18n from "./../utils/i18n.config";
+import { themeContext } from "../context/themeContext";
 
 export default function CustomDrawer(props: DrawerContentComponentProps) {
 
-  const {auth, setAuth,rol , setRol}=useContext(AuthContext);
-  
-  const {nombre,correo,img}=auth;
+  const { auth, setAuth, rol, setRol } = useContext(AuthContext);
+  const { setTema,tema } = useContext(themeContext);
+  const { nombre, correo, img } = auth;
+  const togleTheme=()=>{
+    setTema(!tema)
+    // console.log(tema);
+  }
 
   return (
     <DrawerContentScrollView {...props}>
@@ -26,7 +33,7 @@ export default function CustomDrawer(props: DrawerContentComponentProps) {
         <View style={styles.userInfoSection}>
           <View style={{ flexDirection: "row", marginTop: 15 }}>
             <Avatar.Image
-              source={{ uri: (img) ? img : "https://swimg.com/wp-content/uploads/not-available.jpg"}}
+              source={{ uri: (img) ? img : "https://swimg.com/wp-content/uploads/not-available.jpg" }}
               size={50}
             />
             <View style={{ marginLeft: 15, flexDirection: "column" }}>
@@ -56,33 +63,33 @@ export default function CustomDrawer(props: DrawerContentComponentProps) {
             icon={({ color, size }) => (
               <FontAwesome name="home" color={'#fff'} size={size} />
             )}
-            labelStyle={{color:'#fff'}}
-            label="Inicio"
+            labelStyle={{ color: '#fff' }}
+            label={`${i18n.t("Inicio")}`}
             onPress={() => {
               props.navigation.navigate("Task App");
             }}
           />
           {
             rol === "ADMIN_ROLE" ? (<>
-            <DrawerItem
-              icon={({ color, size }) => (
-                <FontAwesome name="user" color={'#fff'} size={size} />
-              )}
-              labelStyle={{color:'#fff'}}
-              label="Usuarios"
-              onPress={() => {
-                props.navigation.navigate("Profile");
-              }}
-            />
-            <DrawerItem
-              icon={({ color, size }) => (
-                <FontAwesome name="bookmark" color={'#fff'} size={size} />
-              )}
-              labelStyle={{color:'#fff'}}
-              label="Roles"
-              onPress={() => {
-                props.navigation.navigate("role");
-              }}/></>)
+              <DrawerItem
+                icon={({ color, size }) => (
+                  <FontAwesome name="user" color={'#fff'} size={size} />
+                )}
+                labelStyle={{ color: '#fff' }}
+                label={`${i18n.t("Usuarios")}`}
+                onPress={() => {
+                  props.navigation.navigate("Profile");
+                }}
+              />
+              <DrawerItem
+                icon={({ color, size }) => (
+                  <FontAwesome name="bookmark" color={'#fff'} size={size} />
+                )}
+                labelStyle={{ color: '#fff' }}
+                label={`${i18n.t("Roles")}`}
+                onPress={() => {
+                  props.navigation.navigate("role");
+                }} /></>)
               :
               <></>
           }
@@ -90,8 +97,8 @@ export default function CustomDrawer(props: DrawerContentComponentProps) {
             icon={({ color, size }) => (
               <FontAwesome name="cogs" color={'#fff'} size={size} />
             )}
-            labelStyle={{color:'#fff'}}
-            label="Settings"
+            labelStyle={{ color: '#fff' }}
+            label={`${i18n.t("Configuración")}`}
             onPress={() => {
               props.navigation.navigate("SettingsScreen");
             }}
@@ -100,8 +107,8 @@ export default function CustomDrawer(props: DrawerContentComponentProps) {
             icon={({ color, size }) => (
               <FontAwesome name="phone" color={'#fff'} size={size} />
             )}
-            labelStyle={{color:'#fff'}}
-            label="Support"
+            labelStyle={{ color: '#fff' }}
+            label={`${i18n.t("Soporte")}`}
             onPress={() => {
               props.navigation.navigate("SupportScreen");
             }}
@@ -109,35 +116,35 @@ export default function CustomDrawer(props: DrawerContentComponentProps) {
         </Drawer.Section>
         <Drawer.Section title="Preferences">
           <TouchableRipple
-          // onPress={() => { toggleTheme() }}
+          onPress={() => {togleTheme()}}
           >
             <View style={styles.preference}>
               <Text>Dark Theme</Text>
               <View pointerEvents="none">
-                {/* <Switch 
-                                value={isDarkTheme}
-                                 /> */}
+                <Switch
+                value={tema}
+                />
               </View>
             </View>
           </TouchableRipple>
         </Drawer.Section>
         <DrawerItem
-            icon={({ color, size }) => (
-              <FontAwesome name="sign-out-alt" color={'#fff'} size={size} />
-            )}
-            labelStyle={{color:'#fff'}}
-            label="Cerrar Sesión"
-            onPress={async ()  => {
-              await setAuth({
-                nombre:"",
-                correo:"",
-                img:"",
-                logged: false
-              })
-              props.navigation.replace("login");
-              AsyncStorage.clear()
-            }}
-          />
+          icon={({ color, size }) => (
+            <FontAwesome name="sign-out-alt" color={'#fff'} size={size} />
+          )}
+          labelStyle={{ color: '#fff' }}
+          label={`${i18n.t("Cerrar Sesión")}`}
+          onPress={async () => {
+            await setAuth({
+              nombre: "",
+              correo: "",
+              img: "",
+              logged: false
+            })
+            props.navigation.replace("login");
+            AsyncStorage.clear()
+          }}
+        />
       </View>
     </DrawerContentScrollView>
   );

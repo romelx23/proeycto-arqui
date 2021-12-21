@@ -24,7 +24,6 @@ import { AuthContext } from "../context/AuthContext";
 
 const ListItem = ({ navigation }: PropsNavigationHome) => {
 
-
   const [refreshing, setRefreshing] = useState(false);
   const onRefresh = () => {
     setRefreshing(true)
