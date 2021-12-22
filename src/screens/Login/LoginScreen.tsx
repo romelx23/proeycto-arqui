@@ -131,6 +131,7 @@ const LoginScreen = ({ navigation }: PropsLoginScreen) => {
           const resp = await loginGoogle(idToken);
           if (resp?.usuario?.uid) {
             setAuth({...resp.usuario, logged: true})
+            setRol(resp.usuario.rol)
             await AsyncStorage.setItem("token", resp.token);
             setLoad(false)
             navigation.replace("home");

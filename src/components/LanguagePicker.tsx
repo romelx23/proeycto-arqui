@@ -11,6 +11,7 @@ const LanguagePicker = () => {
     { name: "en", label: "English" ,url:'https://cdn-icons-png.flaticon.com/512/197/197374.png'},
     { name: "fr", label: "Français",url:'https://cdn-icons-png.flaticon.com/512/197/197560.png' },
     { name: "es", label: "Español" ,url:'https://cdn-icons-png.flaticon.com/512/197/197593.png'},
+    { name: "jp", label: "Japonés" ,url:'https://cdn-icons-png.flaticon.com/512/197/197604.png'},
   ];
   const [image, setImage] = useState("https://cdn-icons-png.flaticon.com/512/197/197593.png");
   const LanguageItem = ({ name, label,url }: { name: string; label: string,url:string }) => (

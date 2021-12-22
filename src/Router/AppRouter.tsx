@@ -16,6 +16,8 @@ import Role from "../screens/Role/Role";
 import AgregarRole from "../screens/Role/AgregarRole";
 import ModificarRole from "../screens/Role/ModificarRole";
 import { themeContext } from '../context/themeContext';
+import ContactScreen from "../screens/SuportScreen/ContactScreen";
+import GmailScreen from "../screens/SuportScreen/GmailScreen";
 
 type RootStackParamList = {
   Home: undefined;
@@ -127,6 +129,14 @@ const AppRouter = () => {
         <Stack.Screen
           name="modificarRole"
           component={ModificarRole}
+        ></Stack.Screen>
+        <Stack.Screen
+          name="ContactScreen"
+          component={ContactScreen}
+        ></Stack.Screen>
+        <Stack.Screen
+          name="GmailScreen"
+          component={GmailScreen}
         ></Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>

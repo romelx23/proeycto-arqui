@@ -1,6 +1,6 @@
 import i18next from "i18next";
 import { initReactI18next } from "react-i18next";
-import { en, fr, es } from "../translation/translation";
+import { en, fr, es, jp } from "../translation/translation";
 //empty for now
 const resources = {
   en: {
@@ -11,6 +11,9 @@ const resources = {
   },
   fr: {
     translation: fr,
+  },
+  jp: {
+    translation: jp,
   },
 };
 

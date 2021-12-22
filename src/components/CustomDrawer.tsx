@@ -141,8 +141,8 @@ export default function CustomDrawer(props: DrawerContentComponentProps) {
               img: "",
               logged: false
             })
+            AsyncStorage.clear();
             props.navigation.replace("login");
-            AsyncStorage.clear()
           }}
         />
       </View>
