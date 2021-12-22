@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
 import { DrawerContentComponentProps } from "@react-navigation/drawer";
 import {
@@ -20,9 +20,9 @@ import { themeContext } from "../context/themeContext";
 export default function CustomDrawer(props: DrawerContentComponentProps) {
 
   const { auth, setAuth, rol, setRol } = useContext(AuthContext);
-  const { setTema,tema } = useContext(themeContext);
+  const { setTema, tema } = useContext(themeContext);
   const { nombre, correo, img } = auth;
-  const togleTheme=()=>{
+  const togleTheme = () => {
     setTema(!tema)
     // console.log(tema);
   }
@@ -31,13 +31,22 @@ export default function CustomDrawer(props: DrawerContentComponentProps) {
     <DrawerContentScrollView {...props}>
       <View style={styles.drawerContent}>
         <View style={styles.userInfoSection}>
-          <View style={{ flexDirection: "row", marginTop: 15 }}>
+          <View style={{ flexDirection: "column", marginTop: 15 }}>
             <Avatar.Image
               source={{ uri: (img) ? img : "https://swimg.com/wp-content/uploads/not-available.jpg" }}
-              size={50}
+              size={60}
             />
-            <View style={{ marginLeft: 15, flexDirection: "column" }}>
-              <Title style={styles.title}>{nombre}</Title>
+            <View style={{
+              // marginLeft: 15,
+              paddingRight: 30,
+              flexDirection: "column",
+              // backgroundColor:'#6b6767',
+              width: '100%'
+            }}>
+              <Title
+                adjustsFontSizeToFit
+                numberOfLines={3}
+                style={styles.title}>{nombre}</Title>
               <Caption style={styles.caption}>{correo}</Caption>
             </View>
           </View>
@@ -116,13 +125,13 @@ export default function CustomDrawer(props: DrawerContentComponentProps) {
         </Drawer.Section>
         <Drawer.Section title="Preferences">
           <TouchableRipple
-          onPress={() => {togleTheme()}}
+            onPress={() => { togleTheme() }}
           >
             <View style={styles.preference}>
               <Text>Dark Theme</Text>
               <View pointerEvents="none">
                 <Switch
-                value={tema}
+                  value={tema}
                 />
               </View>
             </View>
@@ -152,7 +161,7 @@ export default function CustomDrawer(props: DrawerContentComponentProps) {
 
 const styles = StyleSheet.create({
   drawerContent: {
-    flex: 1,
+    flex: 1
   },
   userInfoSection: {
     paddingLeft: 20,
