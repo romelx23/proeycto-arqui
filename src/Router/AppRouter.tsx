@@ -18,7 +18,7 @@ import ModificarRole from "../screens/Role/ModificarRole";
 import { themeContext } from '../context/themeContext';
 import ContactScreen from "../screens/SuportScreen/ContactScreen";
 import GmailScreen from "../screens/SuportScreen/GmailScreen";
-
+import i18n from "./../utils/i18n.config";
 type RootStackParamList = {
   Home: undefined;
   TaskFromScreen: undefined;
@@ -104,7 +104,7 @@ const AppRouter = () => {
           name="agregarUsuario"
           component={AgregarUsuario}
           options={{
-            title: "Agregar Usuario",
+            title: `${i18n.t("Agregar Usuario")}`,
             headerStyle: { backgroundColor: "#333" },
             headerTitleStyle: { color: "#ffffff" },
             headerTintColor: "#fff",

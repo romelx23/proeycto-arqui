@@ -9,6 +9,7 @@ import {
   Linking,
   Image,
 } from 'react-native';
+import i18n from "../../utils/i18n.config";
 
 const ContactScreen = () => {
   const [mobileNumber, setMobileNumber] = useState('986661493');
@@ -36,20 +37,8 @@ const ContactScreen = () => {
     // <SafeAreaView style={styles.container}>
       <View style={styles.container}>
         <Text style={styles.titleText}>
-          Ingrese su Consulta
+        {i18n.t("Ingrese su Consulta")}
         </Text>
-        {/* <Text style={styles.titleTextsmall}>
-          Enter WhatsApp Number
-        </Text>
-        <TextInput
-          value={mobileNumber}
-          onChangeText={
-            (mobileNumber) => setMobileNumber(mobileNumber)
-          }
-          placeholder={'Enter WhatsApp Number'}
-          keyboardType="numeric"
-          style={styles.textInput}
-        /> */}
         <Image
           style={styles.imageCard}
           source={{
@@ -57,14 +46,14 @@ const ContactScreen = () => {
           }}
         />
         <Text style={styles.titleTextsmall}>
-          Ingrese su mensaje
+        {i18n.t("Ingrese su mensaje")}
         </Text>
         <TextInput
           value={whatsAppMsg}
           onChangeText={
             (whatsAppMsg) => setWhatsAppMsg(whatsAppMsg)
           }
-          placeholder={'Ingrese su mensaje'}
+          placeholder={`${i18n.t("Ingrese su mensaje")}`}
           style={styles.textInput}
         />
         <TouchableOpacity
@@ -72,7 +61,7 @@ const ContactScreen = () => {
           style={styles.buttonStyle}
           onPress={initiateWhatsApp}>
           <Text style={styles.buttonTextStyle}>
-            Envie su Mensaje
+          {i18n.t("Envie su Mensaje")}
           </Text>
         </TouchableOpacity>
       </View>

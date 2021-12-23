@@ -12,17 +12,6 @@ export default function ListUser({navigation}:PropsNavigationHome) {
     // const [user, setUser] = useState<user[]>();
 
     const { usuario,cargarUsuario } = useContext<any>(ProductosContext);
-    // const getUsers = async () => {
-    //     const resp = await fetch('https://node-restserver-cascaron.herokuapp.com/api/usuarios?limit=10', {
-    //         headers: {
-    //             Accept: "application/json",
-    //             "Content-Type": "application/json",
-    //         },
-    //     })
-    //     const data: userReq = await resp.json();
-    //     console.log(data);
-    //     setUser(data.usuario)
-    // }
 
     useEffect(() => {
         cargarUsuario()

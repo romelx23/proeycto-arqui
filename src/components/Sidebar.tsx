@@ -6,6 +6,7 @@ import ProfileScreen from '../screens/ProfileScreen/ProfileScreen';
 import Role from '../screens/Role/Role';
 import SettingScreen from '../screens/SettingsScreen/SettingScreen';
 import SuportScreen from '../screens/SuportScreen/SuportScreen';
+import i18n from "./../utils/i18n.config";
 
 const Drawer = createDrawerNavigator();
 
@@ -29,18 +30,33 @@ export default function Sidebar() {
             initialRouteName="home">
             <Drawer.Screen
                 name="Task App"
+                options={{
+                    title: `${i18n.t("Teca App")}`,
+                }}
                 component={HomeScreen} />
             <Drawer.Screen
                 name="Profile"
+                options={{
+                    title: `${i18n.t("Listado Usuarios")}`,
+                }}
                 component={ProfileScreen} />
             <Drawer.Screen
                 name="SettingsScreen"
+                options={{
+                    title: `${i18n.t("Configuración")}`,
+                }}
                 component={SettingScreen} />
             <Drawer.Screen
                 name="SupportScreen"
+                options={{
+                    title: `${i18n.t("Soporte")}`,
+                }}
                 component={SuportScreen} />
             <Drawer.Screen
                 name="role"
+                options={{
+                    title: `${i18n.t("Listado de Roles")}`,
+                }}
                 component={Role} />
         </Drawer.Navigator>
     )

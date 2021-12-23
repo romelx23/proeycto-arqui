@@ -1,49 +1,62 @@
 import React from "react";
-import { View, Text, StyleSheet, Image, TouchableOpacity, Alert, Button } from "react-native";
+import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome5";
 import i18n from "../../utils/i18n.config";
 import { useTranslation } from "react-i18next";
 import LanguagePicker from "../../components/LanguagePicker";
+import FontPicker from "../../components/FontPicker";
+import AppLoading from 'expo-app-loading';
+import { useFonts } from 'expo-font';
 
 export default function SettingScreen() {
   const { t } = useTranslation();
-  return (
-    <View style={style.containerSuport}>
-      <Text style={style.textSuport}>{`${i18n.t("Configuración")}`}</Text>
-      <LanguagePicker />
-      <View style={style.contentSuport}>
-        <TouchableOpacity activeOpacity={0.84}>
-          <View
-            style={{
-              borderColor: "#444",
-              borderWidth: 15,
-              borderRadius:100,
-            }}
-          >
-            <Image
-              style={style.imageCard}
-              source={{
-                uri: "https://image.freepik.com/free-vector/flat-customer-support-illustration_23-2148899114.jpg",
+  let [fontsLoaded] = useFonts({
+    'Pacifico': require('../../../assets/fonts/Pacifico-Regular.ttf'),
+    'Nunito': require('../../../assets/fonts/NunitoSans-ExtraBold.ttf'),
+  });
+
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  } else {
+    return (
+      <View style={style.containerSuport}>
+        <Text style={style.textSuport}>{`${i18n.t("Configuración")}`}</Text>
+        <View style={style.contentSuport}>
+          <TouchableOpacity activeOpacity={0.84}>
+            <View
+              style={{
+                borderColor: "#444",
+                borderWidth: 15,
+                borderRadius: 100,
               }}
-            />
-          </View>
-          <View style={style.cameraIcon}>
-            <FontAwesome name="camera" color={"#333"} size={30} />
-          </View>
-        </TouchableOpacity>
-      </View>
-      <View style={style.contentCard}>
-        <TouchableOpacity style={style.cardConfig}>
-          <FontAwesome name="user" color={"#333"} size={30} />
-          <Text style={style.textCardSuport}>{`${i18n.t("Configure su Usuario")}`}</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={style.cardConfig}>
+            >
+              <Image
+                style={style.imageCard}
+                source={{
+                  uri: "https://image.freepik.com/free-vector/flat-customer-support-illustration_23-2148899114.jpg",
+                }}
+              />
+            </View>
+            <View style={style.cameraIcon}>
+              <FontAwesome name="camera" color={"#333"} size={30} />
+            </View>
+          </TouchableOpacity>
+        </View>
+        <LanguagePicker />
+        <View style={style.contentCard}>
+          <TouchableOpacity style={style.cardConfig}>
+            <FontAwesome name="user" color={"#333"} size={30} />
+            <Text style={style.textCardSuport}>{`${i18n.t("Configure su Usuario")}`}</Text>
+          </TouchableOpacity>
+          <FontPicker />
+          {/* <TouchableOpacity style={style.cardConfig}>
           <FontAwesome name="language" color={"#333"} size={30} />
           <Text style={style.textCardSuport}>{`${i18n.t("Cambiar el idioma")}`}</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
+        </View>
       </View>
-    </View>
-  );
+    );
+  }
 }
 
 const style = StyleSheet.create({
@@ -87,7 +100,8 @@ const style = StyleSheet.create({
     textAlign: "center",
     color: "#ffffff",
     fontSize: 40,
-    fontWeight: "bold",
+    // fontWeight: "bold",
+    fontFamily:'Pacifico'
   },
   imageCard: {
     width: 150,
@@ -124,5 +138,6 @@ const style = StyleSheet.create({
     color: "#3a3a3a",
     fontSize: 18,
     textAlign: "center",
+    fontFamily:'Pacifico'
   },
 });

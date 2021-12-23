@@ -3,19 +3,17 @@ import { useTranslation } from "react-i18next";
 import { Modal, View, Text, Pressable, StyleSheet, TouchableOpacity,Image } from 'react-native';
 import i18n from "./../utils/i18n.config";
 import FontAwesome from "react-native-vector-icons/FontAwesome5";
-const LanguagePicker = () => {
+const FontPicker = () => {
   const [modalVisible, setModalVisible] = useState(false);
-  // const { i18n } = useTranslation();
 
-  //array with all supported languages
   const languages = [
-    { name: "en", label: "English" ,url:'https://cdn-icons-png.flaticon.com/512/197/197374.png'},
-    { name: "fr", label: "Français",url:'https://cdn-icons-png.flaticon.com/512/197/197560.png' },
-    { name: "es", label: "Español" ,url:'https://cdn-icons-png.flaticon.com/512/197/197593.png'},
-    { name: "jp", label: "Japonés" ,url:'https://cdn-icons-png.flaticon.com/512/197/197604.png'},
+    { name: "en", label: "Nunito" },
+    { name: "fr", label: "Elegant"},
+    { name: "es", label: "Kursiva" },
+    { name: "jp", label: "Especial" },
   ];
-  const [image, setImage] = useState("https://cdn-icons-png.flaticon.com/512/197/197593.png");
-  const LanguageItem = ({ name, label,url }: { name: string; label: string,url:string }) => (
+  
+  const LanguageItem = ({ name, label }: { name: string; label: string}) => (
     <Pressable
       style={styles.button}
       onPress={() => {
@@ -23,11 +21,9 @@ const LanguagePicker = () => {
         console.log(label)
         i18n.changeLanguage(name); 
         setModalVisible(!modalVisible);
-        setImage(url);
       }}
     >
       <Text style={styles.textStyle}>{label}</Text>
-      <Image style={{marginLeft:10,width:20,height:20}} source={{uri:url}} />
     </Pressable>
   );
 
@@ -53,10 +49,9 @@ const LanguagePicker = () => {
         style={[styles.button, styles.buttonOpen]}
         onPress={() => setModalVisible(true)}
       >
-        <FontAwesome name="language" color={"#333"} size={30} />
-        <Text style={styles.textStyle}>Elija Idioma</Text>
+        <FontAwesome name="font" color={"#333"} size={30} />
+        <Text style={styles.textStyle}>Elija su Fuente</Text>
         <Text style={styles.textStyle}>{i18n.language}</Text>
-        <Image style={{marginLeft:10,width:20,height:20}} source={{uri:image}} />
       </Pressable>
     </View>
   );
@@ -67,12 +62,11 @@ const styles = StyleSheet.create({
       backgroundColor:'#fff',
       paddingHorizontal:20,
       paddingVertical:20,
-      marginHorizontal:30,
       display: 'flex',
       flexDirection:'row',
       justifyContent:'space-around',
-      alignItems:'center',
-      borderRadius:20
+      borderRadius:20,
+      alignItems:'center'
     },
     buttonOpen:{
 
@@ -90,10 +84,12 @@ const styles = StyleSheet.create({
     },
     modalView:{
       backgroundColor:'#fff',
+      fontSize:30,
       paddingHorizontal:20,
-      paddingVertical:15
+      paddingVertical:15,
+      alignItems:'center',
     }
 
 })
 
-export default LanguagePicker;
+export default FontPicker;

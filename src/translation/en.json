@@ -22,7 +22,14 @@
   "Estamos aqui para ayudar":"We are here to help",
   "asi que porfavor contactanos":"so please contact us",
   "Hablar con alguien":"Speak with someone",
-  "Enviar un mensaje":"Send a message",
+  "Enviar un mensaje por email":"Send a message by email",
   "Precio":"Price",
-  "Descripcion":"Description"
+  "Descripcion":"Description",
+  "Agregar Usuario":"Agregar Usuario",
+  "Teca App":"Teca App",
+  "Listado Usuarios":"Users List ",
+  "Listado de Roles":"List of Roles",
+  "Ingrese su Consulta":"Enter your query",
+  "Ingrese su mensaje":"Enter your message",
+  "Envie su Mensaje":"Send your message"
 }

@@ -16,6 +16,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AuthContext } from "../context/AuthContext";
 import i18n from "./../utils/i18n.config";
 import { themeContext } from "../context/themeContext";
+import { useFonts } from 'expo-font';
 
 export default function CustomDrawer(props: DrawerContentComponentProps) {
 
@@ -26,6 +27,10 @@ export default function CustomDrawer(props: DrawerContentComponentProps) {
     setTema(!tema)
     // console.log(tema);
   }
+  let [fontsLoaded] = useFonts({
+    'Pacifico': require('../../assets/fonts/Pacifico-Regular.ttf'),
+    'Nunito': require('../../assets/fonts/NunitoSans-ExtraBold.ttf'),
+  });
 
   return (
     <DrawerContentScrollView {...props}>
@@ -206,4 +211,7 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 16,
   },
+  text:{
+    fontFamily:'Pacifico'
+  }
 });

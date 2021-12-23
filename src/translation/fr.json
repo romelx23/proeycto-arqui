@@ -22,7 +22,13 @@
   "Estamos aqui para ayudar":"Nous sommes ici pour aider",
   "asi que porfavor contactanos":"alors s'il vous plaît contactez-nous ",
   "Hablar con alguien":"Parler avec quelqu'un",
-  "Enviar un mensaje":"Envoyer un message",
+  "Enviar un mensaje por email":"Envoyer un message par email",
   "Precio":"Le prix",
-  "Descripcion":"La description "
+  "Descripcion":"La description",
+  "Teca App":"Teca App",
+  "Listado Usuarios":"Liste des utilisateurs ",
+  "Listado de Roles":"Liste des rôles ",
+  "Ingrese su Consulta":"Entrez votre requête",
+  "Ingrese su mensaje":"Entrez votre message",
+  "Envie su Mensaje":"Envoyez votre message"
 }

@@ -13,7 +13,7 @@ export default function SuportScreen({ navigation }: PropsLoginScreen) {
   }
   return (
     <View style={style.containerSuport}>
-      <Text style={style.textSuport}>{`${i18n.t("Soporte")}`}</Text>
+      <Text style={style.textSuport}>{i18n.t("Soporte")}</Text>
       <View style={style.contentSuport}>
         <Image
           style={style.imageCard}
@@ -24,10 +24,10 @@ export default function SuportScreen({ navigation }: PropsLoginScreen) {
         <Text style={style.textTitle}>{`${i18n.t("¿Cómo puedo ayudarte?")}`}</Text>
         <Text style={style.text}>{`${i18n.t("Parece que tienes problemas")}`}.</Text>
         <Text style={style.text}>
-          {`${i18n.t("Estamos aqui para ayudar")}`},
+          ${i18n.t("Estamos aqui para ayudar")}
         </Text>
         <Text style={style.text}>
-          {`${i18n.t("asi que porfavor contactanos")}`}
+          {i18n.t("asi que porfavor contactanos")}
         </Text>
       </View>
       <View style={style.contentCard}>
@@ -39,7 +39,7 @@ export default function SuportScreen({ navigation }: PropsLoginScreen) {
             color={"#333"} size={35} />
           <Text
             style={style.textCardSuport}>
-            {`${i18n.t("Hablar con alguien")}`}
+            {i18n.t("Hablar con alguien")}
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
@@ -50,7 +50,7 @@ export default function SuportScreen({ navigation }: PropsLoginScreen) {
             color={"#333"} size={30} />
           <Text
             style={style.textCardSuport}>
-            {`${i18n.t("Enviar un mensaje por email")}`}
+            {i18n.t("Enviar un mensaje por email")}
           </Text>
         </TouchableOpacity>
       </View>
