@@ -108,7 +108,7 @@ const AppRouter = () => {
             headerStyle: { backgroundColor: "#333" },
             headerTitleStyle: { color: "#ffffff" },
             headerTintColor: "#fff",
-            animation: "fade",
+            animation: "fade_from_bottom",
           }}
         ></Stack.Screen>
         <Stack.Screen
@@ -119,7 +119,7 @@ const AppRouter = () => {
             headerStyle: { backgroundColor: "#333" },
             headerTitleStyle: { color: "#ffffff" },
             headerTintColor: "#fff",
-            animation: "fade",
+            animation: "fade_from_bottom",
           }}
         ></Stack.Screen>
         <Stack.Screen
@@ -133,10 +133,24 @@ const AppRouter = () => {
         <Stack.Screen
           name="ContactScreen"
           component={ContactScreen}
+          options={{
+            title: "Enviar por WhatsApp",
+            headerStyle: { backgroundColor: "#333" },
+            headerTitleStyle: { color: "#ffffff" },
+            headerTintColor: "#fff",
+            animation: "fade_from_bottom",
+          }}
         ></Stack.Screen>
         <Stack.Screen
           name="GmailScreen"
           component={GmailScreen}
+          options={{
+            title: "Enviar por Gmail",
+            headerStyle: { backgroundColor: "#333" },
+            headerTitleStyle: { color: "#ffffff" },
+            headerTintColor: "#fff",
+            animation: "fade_from_bottom",
+          }}
         ></Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>

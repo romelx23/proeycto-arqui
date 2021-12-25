@@ -1,35 +1,35 @@
 import React, { useContext } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native'
 import { RoleContext } from '../context/RoleContext'
-
+import FontAwesome from "react-native-vector-icons/FontAwesome5";
 import { useNavigation } from '@react-navigation/native';
 import { EliminarRole } from '../helpers/fetchRole';
 import { showContext } from '../context/ShowMessage';
 import MessageIndicator from './MessageIndicator';
-
+import { useTheme } from '@react-navigation/native';
 
 const ItemRole = ({ item }: any) => {
+    const { colors } = useTheme();
     // console.log(item)
     const navigation = useNavigation();
 
     const { getRoles2 } = useContext(RoleContext)
 
-    const showAlertEliminar = () =>{ 
+    const showAlertEliminar = () => {
         Alert.alert(
             "Eliminar Rol",
             "¿Seguro que quiere eliminar el rol?",
             [
                 {
-                    text: "Aceptar",
-                    onPress: () => {
-                        handleEliminar()
-                    },
-                    style: "destructive",
-                },
-                {
                     text: "Cancelar",
                     onPress: () => {
                         console.log("Presiono Cancelar");
+                    },
+                    style: "destructive",
+                },{
+                    text: "Aceptar",
+                    onPress: () => {
+                        handleEliminar()
                     },
                     style: "destructive",
                 },
@@ -43,14 +43,14 @@ const ItemRole = ({ item }: any) => {
     }
 
     const handleModificar = () => {
-        navigation.navigate("modificarRole",{item})
+        navigation.navigate("modificarRole", { item })
     }
 
     const handleEliminar = async () => {
         try {
             await EliminarRole(item._id)
             getRoles2();
-            
+
         } catch (error) {
             console.log("No se pudo eliminar el role", error)
         }
@@ -59,10 +59,10 @@ const ItemRole = ({ item }: any) => {
 
     return (
         <View
-            style={style.contenedorItem}
+            style={{backgroundColor:colors.background,...style.contenedorItem}}
         >
 
-            <Text>{item.rol}</Text>
+            <Text style={{color:colors.text}}>{item.rol}</Text>
 
             <View
                 style={style.contenedorBotones}
@@ -72,14 +72,20 @@ const ItemRole = ({ item }: any) => {
                     style={style.botonEliminar}
                     onPress={showAlertEliminar}
                 >
-                    <Text>Eliminar</Text>
+                    <Text style={{color:colors.text}}>Eliminar</Text>
+                    <FontAwesome
+                        name="trash"
+                        color={"#ffffff"} size={30} />
                 </TouchableOpacity>
 
                 <TouchableOpacity
                     style={style.botonModificar}
                     onPress={handleModificar}
                 >
-                    <Text>Modificar</Text>
+                    <Text style={{color:colors.text}}>Modificar</Text>
+                    <FontAwesome
+                        name="edit"
+                        color={"#ffffff"} size={30} />
                 </TouchableOpacity>
 
             </View>
@@ -91,10 +97,6 @@ const ItemRole = ({ item }: any) => {
 const style = StyleSheet.create({
 
     contenedorItem: {
-        // borderColor: "#000",
-        // borderWidth: 2,
-        // padding: 5,
-        backgroundColor: "#fff",
         paddingLeft: 13,
         paddingRight: 13,
         margin: 8,
@@ -116,12 +118,19 @@ const style = StyleSheet.create({
         padding: 5,
         paddingLeft: 13,
         paddingRight: 13,
+        justifyContent:'center',
+        alignItems:'center',
+        borderRadius:10
     },
     botonEliminar: {
         backgroundColor: "#FE0001",
         padding: 5,
         paddingLeft: 13,
         paddingRight: 13,
+        justifyContent:'center',
+        alignItems:'center',
+        marginRight:10,
+        borderRadius:10
     },
 
 })

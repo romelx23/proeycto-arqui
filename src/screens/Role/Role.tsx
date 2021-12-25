@@ -27,7 +27,6 @@ const style = StyleSheet.create({
     contenedorRole: {
         flex:1,
         borderWidth: 2,
-        borderColor:"#000"
     }
 })
 

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
 import { DrawerContentComponentProps } from "@react-navigation/drawer";
@@ -16,152 +16,162 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AuthContext } from "../context/AuthContext";
 import i18n from "./../utils/i18n.config";
 import { themeContext } from "../context/themeContext";
-import { useFonts } from 'expo-font';
+import AppLoading from "expo-app-loading";
+import { fetchFont } from "../helpers/fetchFonts";
+import { fontContext } from "../context/FontContext";
 
 export default function CustomDrawer(props: DrawerContentComponentProps) {
 
   const { auth, setAuth, rol, setRol } = useContext(AuthContext);
   const { setTema, tema } = useContext(themeContext);
+  const [fontloaded, setFontloaded] = useState(false)
   const { nombre, correo, img } = auth;
   const togleTheme = () => {
     setTema(!tema)
-    // console.log(tema);
   }
-  let [fontsLoaded] = useFonts({
-    'Pacifico': require('../../assets/fonts/Pacifico-Regular.ttf'),
-    'Nunito': require('../../assets/fonts/NunitoSans-ExtraBold.ttf'),
-  });
 
-  return (
-    <DrawerContentScrollView {...props}>
-      <View style={styles.drawerContent}>
-        <View style={styles.userInfoSection}>
-          <View style={{ flexDirection: "column", marginTop: 15 }}>
-            <Avatar.Image
-              source={{ uri: (img) ? img : "https://swimg.com/wp-content/uploads/not-available.jpg" }}
-              size={60}
-            />
-            <View style={{
-              // marginLeft: 15,
-              paddingRight: 30,
-              flexDirection: "column",
-              // backgroundColor:'#6b6767',
-              width: '100%'
-            }}>
-              <Title
-                adjustsFontSizeToFit
-                numberOfLines={3}
-                style={styles.title}>{nombre}</Title>
-              <Caption style={styles.caption}>{correo}</Caption>
-            </View>
-          </View>
+  const { fuente } =useContext<any>(fontContext);
 
-          <View style={styles.row}>
-            <View style={styles.section}>
-              <Paragraph style={[styles.paragraph, styles.caption]}>
-                80
-              </Paragraph>
-              <Caption style={styles.caption}>Following</Caption>
-            </View>
-            <View style={styles.section}>
-              <Paragraph style={[styles.paragraph, styles.caption]}>
-                100
-              </Paragraph>
-              <Caption style={styles.caption}>Followers</Caption>
-            </View>
-          </View>
-        </View>
-
-        <Drawer.Section style={styles.drawerSection}>
-          <DrawerItem
-            icon={({ color, size }) => (
-              <FontAwesome name="home" color={'#fff'} size={size} />
-            )}
-            labelStyle={{ color: '#fff' }}
-            label={`${i18n.t("Inicio")}`}
-            onPress={() => {
-              props.navigation.navigate("Task App");
-            }}
-          />
-          {
-            rol === "ADMIN_ROLE" ? (<>
-              <DrawerItem
-                icon={({ color, size }) => (
-                  <FontAwesome name="user" color={'#fff'} size={size} />
-                )}
-                labelStyle={{ color: '#fff' }}
-                label={`${i18n.t("Usuarios")}`}
-                onPress={() => {
-                  props.navigation.navigate("Profile");
-                }}
+  if (!fontloaded) {
+    return <AppLoading
+    startAsync={fetchFont}
+    onError={()=>console.log('Error font dont loaded')}
+    onFinish={()=>{
+      setFontloaded(true)
+    }}
+    />;
+  }
+ 
+    return (
+      <DrawerContentScrollView {...props}>
+        <View style={styles.drawerContent}>
+          <View style={styles.userInfoSection}>
+            <View style={{ flexDirection: "column", marginTop: 15 }}>
+              <Avatar.Image
+                source={{ uri: (img) ? img : "https://swimg.com/wp-content/uploads/not-available.jpg" }}
+                size={60}
               />
-              <DrawerItem
-                icon={({ color, size }) => (
-                  <FontAwesome name="bookmark" color={'#fff'} size={size} />
-                )}
-                labelStyle={{ color: '#fff' }}
-                label={`${i18n.t("Roles")}`}
-                onPress={() => {
-                  props.navigation.navigate("role");
-                }} /></>)
-              :
-              <></>
-          }
-          <DrawerItem
-            icon={({ color, size }) => (
-              <FontAwesome name="cogs" color={'#fff'} size={size} />
-            )}
-            labelStyle={{ color: '#fff' }}
-            label={`${i18n.t("Configuración")}`}
-            onPress={() => {
-              props.navigation.navigate("SettingsScreen");
-            }}
-          />
-          <DrawerItem
-            icon={({ color, size }) => (
-              <FontAwesome name="phone" color={'#fff'} size={size} />
-            )}
-            labelStyle={{ color: '#fff' }}
-            label={`${i18n.t("Soporte")}`}
-            onPress={() => {
-              props.navigation.navigate("SupportScreen");
-            }}
-          />
-        </Drawer.Section>
-        <Drawer.Section title="Preferences">
-          <TouchableRipple
-            onPress={() => { togleTheme() }}
-          >
-            <View style={styles.preference}>
-              <Text>Dark Theme</Text>
-              <View pointerEvents="none">
-                <Switch
-                  value={tema}
-                />
+              <View style={{
+                // marginLeft: 15,
+                paddingRight: 30,
+                flexDirection: "column",
+                // backgroundColor:'#6b6767',
+                width: '100%'
+              }}>
+                <Title
+                  adjustsFontSizeToFit
+                  numberOfLines={3}
+                  style={styles.title}>{nombre}</Title>
+                <Caption style={styles.caption}>{correo}</Caption>
               </View>
             </View>
-          </TouchableRipple>
-        </Drawer.Section>
-        <DrawerItem
-          icon={({ color, size }) => (
-            <FontAwesome name="sign-out-alt" color={'#fff'} size={size} />
-          )}
-          labelStyle={{ color: '#fff' }}
-          label={`${i18n.t("Cerrar Sesión")}`}
-          onPress={async () => {
-            await setAuth({
-              nombre: "",
-              correo: "",
-              img: "",
-              logged: false
-            })
-            AsyncStorage.clear();
-            props.navigation.replace("login");
-          }}
-        />
-      </View>
-    </DrawerContentScrollView>
-  );
+
+            <View style={styles.row}>
+              <View style={styles.section}>
+                <Paragraph style={[styles.paragraph, styles.caption]}>
+                  80
+                </Paragraph>
+                <Caption style={styles.caption}>Following</Caption>
+              </View>
+              <View style={styles.section}>
+                <Paragraph style={[styles.paragraph, styles.caption]}>
+                  100
+                </Paragraph>
+                <Caption style={styles.caption}>Followers</Caption>
+              </View>
+            </View>
+          </View>
+
+          <Drawer.Section style={styles.drawerSection}>
+            <DrawerItem
+              icon={({ color, size }) => (
+                <FontAwesome name="home" color={'#fff'} size={size} />
+              )}
+              labelStyle={{ color: '#fff', fontFamily: fuente, fontSize:15 }}
+              label={`${i18n.t("Inicio")}`}
+              onPress={() => {
+                props.navigation.navigate("Task App");
+              }}
+            />
+            {
+              rol === "ADMIN_ROLE" ? (<>
+                <DrawerItem
+                  icon={({ color, size }) => (
+                    <FontAwesome name="user" color={'#fff'} size={size} />
+                  )}
+                  labelStyle={{ color: '#fff', fontFamily: fuente, fontSize:15 }}
+                  label={`${i18n.t("Usuarios")}`}
+                  onPress={() => {
+                    props.navigation.navigate("Profile");
+                  }}
+                />
+                <DrawerItem
+                  icon={({ color, size }) => (
+                    <FontAwesome name="bookmark" color={'#fff'} size={size} />
+                  )}
+                  labelStyle={{ color: '#fff', fontFamily: fuente, fontSize:15 }}
+                  label={`${i18n.t("Roles")}`}
+                  onPress={() => {
+                    props.navigation.navigate("role");
+                  }} /></>)
+                :
+                <></>
+            }
+            <DrawerItem
+              icon={({ color, size }) => (
+                <FontAwesome name="cogs" color={'#fff'} size={size} />
+              )}
+              labelStyle={{ color: '#fff', fontFamily: fuente, fontSize:15 }}
+              label={`${i18n.t("Configuración")}`}
+              onPress={() => {
+                props.navigation.navigate("SettingsScreen");
+              }}
+            />
+            <DrawerItem
+              icon={({ color, size }) => (
+                <FontAwesome name="phone" color={'#fff'} size={size} />
+              )}
+              labelStyle={{ color: '#fff', fontFamily: fuente, fontSize:15 }}
+              label={`${i18n.t("Soporte")}`}
+              onPress={() => {
+                props.navigation.navigate("SupportScreen");
+              }}
+            />
+          </Drawer.Section>
+          <Drawer.Section title="Preferences">
+            <TouchableRipple
+              onPress={() => { togleTheme() }}
+            >
+              <View style={styles.preference}>
+                <Text style={{color:'#fff'}}>Dark Theme</Text>
+                <View pointerEvents="none">
+                  <Switch
+                    value={tema}
+                  />
+                </View>
+              </View>
+            </TouchableRipple>
+          </Drawer.Section>
+          <DrawerItem
+            icon={({ color, size }) => (
+              <FontAwesome name="sign-out-alt" color={'#fff'} size={size} />
+            )}
+            labelStyle={{ color: '#fff', fontFamily: fuente, fontSize:15 }}
+            label={`${i18n.t("Cerrar Sesión")}`}
+            onPress={async () => {
+              await setAuth({
+                nombre: "",
+                correo: "",
+                img: "",
+                logged: false
+              })
+              AsyncStorage.clear();
+              props.navigation.replace("login");
+            }}
+          />
+        </View>
+      </DrawerContentScrollView>
+    );
 }
 
 const styles = StyleSheet.create({
@@ -208,10 +218,11 @@ const styles = StyleSheet.create({
   preference: {
     flexDirection: "row",
     justifyContent: "space-between",
+    alignItems:'center',
     paddingVertical: 12,
     paddingHorizontal: 16,
   },
-  text:{
-    fontFamily:'Pacifico'
+  text: {
+    fontFamily: 'Pacifico'
   }
 });

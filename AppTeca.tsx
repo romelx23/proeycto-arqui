@@ -1,5 +1,6 @@
 import React from 'react'
 import { AuthProvider } from './src/context/AuthContext'
+import FontProvider from './src/context/FontContext'
 import { ProductosProvider } from './src/context/ProductosContext'
 import { RoleProvider } from './src/context/RoleContext'
 import ShowProvider from './src/context/ShowMessage'
@@ -12,9 +13,11 @@ const AppTeca = () => {
             <ProductosProvider>
                 <RoleProvider>
                     <TemaProvider>
-                        <ShowProvider>
-                            <AppRouter></AppRouter>
-                        </ShowProvider>
+                        <FontProvider>
+                            <ShowProvider>
+                                <AppRouter></AppRouter>
+                            </ShowProvider>
+                        </FontProvider>
                     </TemaProvider>
                 </RoleProvider>
             </ProductosProvider>

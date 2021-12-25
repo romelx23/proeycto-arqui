@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome5";
 import i18n from "../../utils/i18n.config";
@@ -6,18 +6,21 @@ import { useTranslation } from "react-i18next";
 import LanguagePicker from "../../components/LanguagePicker";
 import FontPicker from "../../components/FontPicker";
 import AppLoading from 'expo-app-loading';
-import { useFonts } from 'expo-font';
+import { fetchFont } from "../../helpers/fetchFonts";
+
 
 export default function SettingScreen() {
   const { t } = useTranslation();
-  let [fontsLoaded] = useFonts({
-    'Pacifico': require('../../../assets/fonts/Pacifico-Regular.ttf'),
-    'Nunito': require('../../../assets/fonts/NunitoSans-ExtraBold.ttf'),
-  });
-
-  if (!fontsLoaded) {
-    return <AppLoading />;
-  } else {
+  const [fontloaded, setFontloaded] = useState(false)
+  if (!fontloaded) {
+    return <AppLoading 
+    startAsync={fetchFont}
+    onError={()=>console.log('Error font dont loaded')}
+    onFinish={()=>{
+      setFontloaded(true)
+    }}
+    />;
+  } 
     return (
       <View style={style.containerSuport}>
         <Text style={style.textSuport}>{`${i18n.t("Configuración")}`}</Text>
@@ -56,7 +59,6 @@ export default function SettingScreen() {
         </View>
       </View>
     );
-  }
 }
 
 const style = StyleSheet.create({
@@ -100,8 +102,8 @@ const style = StyleSheet.create({
     textAlign: "center",
     color: "#ffffff",
     fontSize: 40,
-    // fontWeight: "bold",
-    fontFamily:'Pacifico'
+    fontWeight: "bold",
+    // fontFamily:'Pacifico'
   },
   imageCard: {
     width: 150,
@@ -138,6 +140,6 @@ const style = StyleSheet.create({
     color: "#3a3a3a",
     fontSize: 18,
     textAlign: "center",
-    fontFamily:'Pacifico'
+    // fontFamily:'Pacifico'
   },
 });

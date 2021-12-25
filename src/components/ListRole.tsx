@@ -7,8 +7,10 @@ import { useNavigation } from '@react-navigation/native';
 import { RoleContext } from '../context/RoleContext';
 import { PropsNavigationHome } from '../interfaces/home';
 import ItemRole from './ItemRole';
+import { useTheme } from '@react-navigation/native';
 
 const ListRole = () => {
+    const { colors } = useTheme();
 
     const {roles, getRoles2 } = useContext(RoleContext)
     const navigation = useNavigation();
@@ -28,7 +30,7 @@ const ListRole = () => {
         >
 
         <FlatList
-        style={ style.contenedorListItem }
+        style={ {backgroundColor:colors.background,...style.contenedorListItem} }
         data={roles}
         numColumns={1}
         showsVerticalScrollIndicator={false}
@@ -61,7 +63,6 @@ const style = StyleSheet.create({
         borderColor: "#000",
         borderWidth: 2,
         padding:10,
-        backgroundColor: "#F9F9F9",
     },
     botonAgregar: {
         width: 60,

@@ -1,25 +1,29 @@
-import React, { useState } from "react";
-import { useTranslation } from "react-i18next";
+import React, { useContext, useState } from "react";
 import { Modal, View, Text, Pressable, StyleSheet, TouchableOpacity,Image } from 'react-native';
-import i18n from "./../utils/i18n.config";
 import FontAwesome from "react-native-vector-icons/FontAwesome5";
+import { fontContext } from "../context/FontContext";
 const FontPicker = () => {
   const [modalVisible, setModalVisible] = useState(false);
+  // const [fuente, setFuente] = useState('');
 
   const languages = [
-    { name: "en", label: "Nunito" },
-    { name: "fr", label: "Elegant"},
-    { name: "es", label: "Kursiva" },
-    { name: "jp", label: "Especial" },
+    { name: "pa", label: "Pacifico" },
+    { name: "nu", label: "Nunito"},
+    { name: "me", label: "Merriweather" },
+    { name: "in", label: "IndieFlower" },
+    { name: "ca", label: "Cairo" },
+    { name: "de", label: "Default" },
   ];
-  
-  const LanguageItem = ({ name, label }: { name: string; label: string}) => (
+  const { fuente,setFuente } =useContext<any>(fontContext);
+
+  const LanguageItem = ({ label }: { label: string}) => (
     <Pressable
       style={styles.button}
       onPress={() => {
-        console.log(name)
-        console.log(label)
-        i18n.changeLanguage(name); 
+        setFuente(label) 
+        if(label=='Default'){
+          setFuente('') 
+        }
         setModalVisible(!modalVisible);
       }}
     >
@@ -51,7 +55,7 @@ const FontPicker = () => {
       >
         <FontAwesome name="font" color={"#333"} size={30} />
         <Text style={styles.textStyle}>Elija su Fuente</Text>
-        <Text style={styles.textStyle}>{i18n.language}</Text>
+        <Text style={styles.textStyle}>{fuente}</Text>
       </Pressable>
     </View>
   );
