@@ -3,8 +3,10 @@ import { useTranslation } from "react-i18next";
 import { Modal, View, Text, Pressable, StyleSheet, TouchableOpacity,Image } from 'react-native';
 import i18n from "./../utils/i18n.config";
 import FontAwesome from "react-native-vector-icons/FontAwesome5";
+import { useTheme } from '@react-navigation/native';
 const LanguagePicker = () => {
   const [modalVisible, setModalVisible] = useState(false);
+  const { colors } = useTheme();
   // const { i18n } = useTranslation();
 
   //array with all supported languages
@@ -50,10 +52,10 @@ const LanguagePicker = () => {
         </View>
       </Modal>
       <Pressable
-        style={[styles.button, styles.buttonOpen]}
+        style={[{backgroundColor:colors.card,...styles.button}, styles.buttonOpen]}
         onPress={() => setModalVisible(true)}
       >
-        <FontAwesome name="language" color={"#333"} size={30} />
+        <FontAwesome name="language" color={"#ffffff"} size={30} />
         <Text style={styles.textStyle}>Elija Idioma</Text>
         <Text style={styles.textStyle}>{i18n.language}</Text>
         <Image style={{marginLeft:10,width:20,height:20}} source={{uri:image}} />
@@ -64,7 +66,7 @@ const LanguagePicker = () => {
 
 const styles = StyleSheet.create({
     button:{
-      backgroundColor:'#fff',
+      // backgroundColor:'#fff',
       paddingHorizontal:20,
       paddingVertical:20,
       marginHorizontal:30,
@@ -78,7 +80,8 @@ const styles = StyleSheet.create({
 
     },
     textStyle:{
-      textAlign:'center'
+      textAlign:'center',
+      color:'#fff'
     },
     centeredView:{
         display: 'flex',

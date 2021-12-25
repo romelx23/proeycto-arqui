@@ -2,8 +2,10 @@ import React, { useContext, useState } from "react";
 import { Modal, View, Text, Pressable, StyleSheet, TouchableOpacity,Image } from 'react-native';
 import FontAwesome from "react-native-vector-icons/FontAwesome5";
 import { fontContext } from "../context/FontContext";
+import { useTheme } from '@react-navigation/native';
 const FontPicker = () => {
   const [modalVisible, setModalVisible] = useState(false);
+  const { colors } = useTheme();
   // const [fuente, setFuente] = useState('');
 
   const languages = [
@@ -50,10 +52,10 @@ const FontPicker = () => {
         </View>
       </Modal>
       <Pressable
-        style={[styles.button, styles.buttonOpen]}
+        style={[{backgroundColor:colors.card,...styles.button}, styles.buttonOpen]}
         onPress={() => setModalVisible(true)}
       >
-        <FontAwesome name="font" color={"#333"} size={30} />
+        <FontAwesome name="font" color={"#ffffff"} size={30} />
         <Text style={styles.textStyle}>Elija su Fuente</Text>
         <Text style={styles.textStyle}>{fuente}</Text>
       </Pressable>
@@ -63,7 +65,6 @@ const FontPicker = () => {
 
 const styles = StyleSheet.create({
     button:{
-      backgroundColor:'#fff',
       paddingHorizontal:20,
       paddingVertical:20,
       display: 'flex',
@@ -76,7 +77,8 @@ const styles = StyleSheet.create({
 
     },
     textStyle:{
-      textAlign:'center'
+      textAlign:'center',
+      color:'#fff'
     },
     centeredView:{
         display: 'flex',
@@ -87,8 +89,9 @@ const styles = StyleSheet.create({
         backgroundColor:'#5783d69e'
     },
     modalView:{
-      backgroundColor:'#fff',
-      fontSize:30,
+      backgroundColor:'#2853a5',
+      borderRadius:20,
+      fontSize:35,
       paddingHorizontal:20,
       paddingVertical:15,
       alignItems:'center',

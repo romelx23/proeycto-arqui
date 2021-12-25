@@ -3,17 +3,20 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import FontAwesome from "react-native-vector-icons/FontAwesome5";
 import { PropsLoginScreen } from "../../interfaces/login";
 import i18n from "../../utils/i18n.config";
-
+import { useTheme } from '@react-navigation/native';
 export default function SuportScreen({ navigation }: PropsLoginScreen) {
+  const { colors } = useTheme();
+
   const handleContact=()=>{
     navigation.navigate('ContactScreen')
   }
   const handleGmail=()=>{
     navigation.navigate('GmailScreen')
   }
+
   return (
-    <View style={style.containerSuport}>
-      <Text style={style.textSuport}>{i18n.t("Soporte")}</Text>
+    <View style={{backgroundColor:colors.background,...style.containerSuport}}>
+      <Text style={{color:colors.text,...style.textSuport}}>{i18n.t("Soporte")}</Text>
       <View style={style.contentSuport}>
         <Image
           style={style.imageCard}
@@ -21,22 +24,22 @@ export default function SuportScreen({ navigation }: PropsLoginScreen) {
             uri: "https://image.freepik.com/free-vector/flat-customer-support-illustration_23-2148899114.jpg",
           }}
         />
-        <Text style={style.textTitle}>{`${i18n.t("¿Cómo puedo ayudarte?")}`}</Text>
-        <Text style={style.text}>{`${i18n.t("Parece que tienes problemas")}`}.</Text>
-        <Text style={style.text}>
+        <Text style={{color:colors.text,...style.textTitle}}>{`${i18n.t("¿Cómo puedo ayudarte?")}`}</Text>
+        <Text style={{color:colors.text,...style.text}}>{`${i18n.t("Parece que tienes problemas")}`}.</Text>
+        <Text style={{color:colors.text,...style.text}}>
           ${i18n.t("Estamos aqui para ayudar")}
         </Text>
-        <Text style={style.text}>
+        <Text style={{color:colors.text,...style.text}}>
           {i18n.t("asi que porfavor contactanos")}
         </Text>
       </View>
       <View style={style.contentCard}>
         <TouchableOpacity
         onPress={handleContact}
-          style={style.cardSuport}>
+          style={{backgroundColor:colors.card,...style.cardSuport}}>
           <FontAwesome
             name="whatsapp"
-            color={"#333"} size={35} />
+            color={"#eee"} size={35} />
           <Text
             style={style.textCardSuport}>
             {i18n.t("Hablar con alguien")}
@@ -44,10 +47,10 @@ export default function SuportScreen({ navigation }: PropsLoginScreen) {
         </TouchableOpacity>
         <TouchableOpacity
           onPress={handleGmail}
-          style={style.cardSuport}>
+          style={{backgroundColor:colors.card,...style.cardSuport}}>
           <FontAwesome
             name="envelope"
-            color={"#333"} size={30} />
+            color={"#eee"} size={30} />
           <Text
             style={style.textCardSuport}>
             {i18n.t("Enviar un mensaje por email")}
@@ -61,17 +64,17 @@ export default function SuportScreen({ navigation }: PropsLoginScreen) {
 const style = StyleSheet.create({
   containerSuport: {
     flex: 1,
-    backgroundColor: "#2058c2",
+    // backgroundColor: "#2058c2",
     display: 'flex',
     justifyContent: 'space-around'
   },
   text: {
-    color: "#fff",
+    // color: "#fff",
     textAlign: "center",
     fontSize: 18
   },
   textTitle: {
-    color: "#fff",
+    // color: "#fff",
     textAlign: "center",
     fontSize: 23,
     fontWeight: "bold"
@@ -85,7 +88,7 @@ const style = StyleSheet.create({
   },
   textSuport: {
     textAlign: "center",
-    color: "#ffffff",
+    // color: "#ffffff",
     fontSize: 40,
     fontWeight: "bold"
   },
@@ -108,7 +111,7 @@ const style = StyleSheet.create({
     justifyContent: 'space-around',
     alignItems: 'center',
     padding: 10,
-    backgroundColor: "#fff",
+    // backgroundColor: "#fff",
     shadowColor: "#555",
     shadowOpacity: 0.5,
     shadowOffset: {
@@ -120,7 +123,7 @@ const style = StyleSheet.create({
     borderRadius: 15,
   },
   textCardSuport: {
-    color: "#3a3a3a",
+    color: "#f0f7ff",
     fontSize: 18,
     textAlign: 'center'
   },

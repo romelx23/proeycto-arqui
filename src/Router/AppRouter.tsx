@@ -35,7 +35,9 @@ const MyTheme = {
   colors: {
     ...DefaultTheme.colors,
     text:'#3a3e44',
-    background:'#e0e4f3'
+    card:'#4385ff',
+    background:'#e0e4f3',
+    primary:'#f0f7ff'
   },
 };
 
@@ -44,7 +46,9 @@ const MyDarkTheme = {
   colors: {
     ...DarkTheme.colors,
     text:'#f0f7ff',
-    background:'#35373b'
+    card:'#2a55a5',
+    background:'#35373b',
+    primary:'#f0f7ff'
   },
 };
 

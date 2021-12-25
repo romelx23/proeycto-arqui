@@ -7,10 +7,11 @@ import LanguagePicker from "../../components/LanguagePicker";
 import FontPicker from "../../components/FontPicker";
 import AppLoading from 'expo-app-loading';
 import { fetchFont } from "../../helpers/fetchFonts";
-
+import { useTheme } from '@react-navigation/native';
 
 export default function SettingScreen() {
-  const { t } = useTranslation();
+  const { colors } = useTheme();
+  const {background,text,card}=colors
   const [fontloaded, setFontloaded] = useState(false)
   if (!fontloaded) {
     return <AppLoading 
@@ -22,8 +23,8 @@ export default function SettingScreen() {
     />;
   } 
     return (
-      <View style={style.containerSuport}>
-        <Text style={style.textSuport}>{`${i18n.t("Configuración")}`}</Text>
+      <View style={{backgroundColor:background,...style.containerSuport}}>
+        <Text style={{color:text,...style.textSuport}}>{i18n.t("Configuración")}</Text>
         <View style={style.contentSuport}>
           <TouchableOpacity activeOpacity={0.84}>
             <View
@@ -47,8 +48,8 @@ export default function SettingScreen() {
         </View>
         <LanguagePicker />
         <View style={style.contentCard}>
-          <TouchableOpacity style={style.cardConfig}>
-            <FontAwesome name="user" color={"#333"} size={30} />
+          <TouchableOpacity style={{backgroundColor:card,...style.cardConfig}}>
+            <FontAwesome name="user" color={"#ffffff"} size={30} />
             <Text style={style.textCardSuport}>{`${i18n.t("Configure su Usuario")}`}</Text>
           </TouchableOpacity>
           <FontPicker />
@@ -64,7 +65,7 @@ export default function SettingScreen() {
 const style = StyleSheet.create({
   containerSuport: {
     flex: 1,
-    backgroundColor: "#2058c2",
+    // backgroundColor: "#2058c2",
     display: "flex",
     justifyContent: "space-around",
   },
@@ -100,7 +101,7 @@ const style = StyleSheet.create({
   },
   textSuport: {
     textAlign: "center",
-    color: "#ffffff",
+    // color: "#ffffff",
     fontSize: 40,
     fontWeight: "bold",
     // fontFamily:'Pacifico'
@@ -125,7 +126,7 @@ const style = StyleSheet.create({
     justifyContent: "space-around",
     alignItems: "center",
     padding: 10,
-    backgroundColor: "#fff",
+    // backgroundColor: "#fff",
     shadowColor: "#555",
     shadowOpacity: 0.5,
     shadowOffset: {
@@ -137,7 +138,7 @@ const style = StyleSheet.create({
     borderRadius: 15,
   },
   textCardSuport: {
-    color: "#3a3a3a",
+    color: "#fff",
     fontSize: 18,
     textAlign: "center",
     // fontFamily:'Pacifico'
