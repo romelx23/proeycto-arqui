@@ -31,5 +31,8 @@
   "Listado de Roles":"List of Roles",
   "Ingrese su Consulta":"Enter your query",
   "Ingrese su mensaje":"Enter your message",
-  "Envie su Mensaje":"Send your message"
+  "Envie su Mensaje":"Send your message",
+  "Producto":"Product",
+  "Enviar por WhatsApp":"Send by WhatsApp",
+  "Enviar por Gmail":"Send by Gmail"
 }

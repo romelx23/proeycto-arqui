@@ -74,7 +74,7 @@ const AgregarProducto = ({ navigation, route }: PropsAgregarProducto) => {
     }
 
     const handleSubmit = async () => {
-
+        const {colors}=useTheme()
 
         const photo = {
             uri: imageSelected.localUri,
@@ -115,7 +115,11 @@ const AgregarProducto = ({ navigation, route }: PropsAgregarProducto) => {
                     {`${i18n.t("Nombre del producto")}`}
                     </Text>
                 <TextInput
-                    style={style.input}
+                    style={{
+                        backgroundColor:colors.primary,
+                        color:colors.text,
+                        ...style.input
+                    }}
                     placeholder="Nombre del producto"
                     placeholderTextColor="#ADADAD"
                     value={producto.nombre}
@@ -128,7 +132,11 @@ const AgregarProducto = ({ navigation, route }: PropsAgregarProducto) => {
                 style={{color: colors.text}}
                 >{`${i18n.t("Precio del producto")}`}</Text>
                 <TextInput
-                    style={style.input}
+                    style={{
+                        backgroundColor:colors.primary,
+                        color:colors.text,
+                        ...style.input
+                    }}
                     placeholder="Precio..."
                     placeholderTextColor="#ADADAD"
                     keyboardType="number-pad"
@@ -150,17 +158,25 @@ const AgregarProducto = ({ navigation, route }: PropsAgregarProducto) => {
 
                     <TextArea
                         multiline
-                        numberOfLines={4}
+                        numberOfLines={3}
                         value={producto.descripcion}
                         onChangeText={(a: string) => handleChange("descripcion", a)}
-                        style={{ padding: 10 }}
+                        placeholder="Descripción del Producto"
+                        placeholderTextColor="#ADADAD"
+                        style={{backgroundColor:colors.primary,color:colors.text,paddingHorizontal:20,
+                        paddingVertical:10
+                        }}
                     />
                 </View>
                 <Text
                 style={{color: colors.text}}
                 >{`${i18n.t("Ingrese el Idproducto")}`}</Text>
                 <TextInput
-                    style={style.input}
+                    style={{
+                        backgroundColor:colors.primary,
+                        color:colors.text,
+                        ...style.input
+                    }}
                     placeholder="Nombre del idProducto"
                     placeholderTextColor="#ADADAD"
                     value={producto.idProducto}
@@ -172,7 +188,11 @@ const AgregarProducto = ({ navigation, route }: PropsAgregarProducto) => {
                 style={{color: colors.text}}
                 >{`${i18n.t("Ingrese la mac")}`}</Text>
                 <TextInput
-                    style={style.input}
+                    style={{
+                        backgroundColor:colors.primary,
+                        color:colors.text,
+                        ...style.input
+                    }}
                     placeholder="Nombre del mac"
                     placeholderTextColor="#ADADAD"
                     value={producto.mac}
@@ -281,11 +301,11 @@ const style = StyleSheet.create({
         borderWidth: 1,
         borderColor: "#fff",
         height: 40,
-        color: "#000",
+        // color: "#000",
         textAlign: "center",
         padding: 10,
         borderRadius: 8,
-        backgroundColor: "#fff"
+        // backgroundColor: "#fff"
     },
 })
 

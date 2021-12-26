@@ -22,11 +22,13 @@ import {
 import * as ImagePicker from "expo-image-picker";
 import { ProductosContext } from "../../context/ProductosContext";
 import { Layout } from "../../components/Layout";
+import { useTheme } from "@react-navigation/native";
 
 export default function UpdateScreen({
   route,
   navigation,
 }: PropsDetalleProducto) {
+  const{colors}=useTheme();
   const { cargarProductos } = useContext<any>(ProductosContext);
   const [imageSelected, setImageSelected] = useState<InterfaceStateImage>({
     localUri: "",
@@ -120,7 +122,7 @@ export default function UpdateScreen({
             <View
                 style={style.contenedorAgregar}
             >
-      <Text>Nombre del producto</Text>
+      <Text style={{color:colors.text}}>Nombre del producto</Text>
       <TextInput
         style={style.input}
         placeholder="Nombre del producto"
@@ -129,7 +131,7 @@ export default function UpdateScreen({
         onChangeText={(a) => handleChange("nombre", a)}
       ></TextInput>
 
-      <Text>Precio del producto</Text>
+      <Text style={{color:colors.text}}>Precio del producto</Text>
       <TextInput
         style={style.input}
         placeholder="Precio..."
@@ -139,7 +141,7 @@ export default function UpdateScreen({
         onChangeText={(a) => handleChange("precio", a)}
       ></TextInput>
 
-      <Text>Descripción del producto</Text>
+      <Text style={{color:colors.text}}>Descripción del producto</Text>
       <View
         style={{
           backgroundColor: "#fff",
@@ -155,7 +157,7 @@ export default function UpdateScreen({
           style={{ padding: 10 }}
         />
       </View>
-      <Text>Id de producto</Text>
+      <Text style={{color:colors.text}}>Id de producto</Text>
       <TextInput
         style={style.input}
         placeholder="Nombre del idProducto"
@@ -163,7 +165,7 @@ export default function UpdateScreen({
         value={producto.idProducto}
         onChangeText={(a) => handleChange("idProducto", a)}
       ></TextInput>
-      <Text>Mac de producto</Text>
+      <Text style={{color:colors.text}}>Mac de producto</Text>
       <TextInput
         style={style.input}
         placeholder="Nombre del mac"

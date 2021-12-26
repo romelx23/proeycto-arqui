@@ -14,6 +14,7 @@ import * as ImagePicker from "expo-image-picker";
 import { user } from "../../interfaces/user";
 import { UpdateUsuario } from "../../helpers/apiUsuarios";
 import { ProductosContext } from "../../context/ProductosContext";
+import { useTheme } from "@react-navigation/native";
 
 interface Props {
   navigation: Navigation,
@@ -26,6 +27,7 @@ interface Props {
 
 export default function ActualizarUsuario({ navigation,route }: Props) {
 
+  const { colors } = useTheme();
   const { nombre,img,uid,correo,rol,password } = route.params.item;
 
   const [usuario, setProducto] = useState({
@@ -97,10 +99,14 @@ export default function ActualizarUsuario({ navigation,route }: Props) {
   return (
     <ScrollView>
       <View style={style.contenedorAgregar}>
-        <Text>Nombre del usuario</Text>
+        <Text style={{color:colors.text}}>Nombre del usuario</Text>
         <TextInput
-          style={style.input}
-          placeholder="Nombre del producto"
+          style={{
+            backgroundColor:colors.primary,
+            color:colors.text,
+            ...style.input
+          }}
+          placeholder="Nombre del usuario"
           placeholderTextColor="#ADADAD"
           value={usuario.nombre}
           onChangeText={(a) => handleChange("nombre", a)}
@@ -189,10 +195,10 @@ const style = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#fff",
     height: 40,
-    color: "#000",
+    // color: "#000",
     textAlign: "center",
     padding: 10,
     borderRadius: 8,
-    backgroundColor: "#fff",
+    // backgroundColor: "#fff",
   },
 });

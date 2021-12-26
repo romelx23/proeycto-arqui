@@ -24,10 +24,10 @@ export default function SuportScreen({ navigation }: PropsLoginScreen) {
             uri: "https://image.freepik.com/free-vector/flat-customer-support-illustration_23-2148899114.jpg",
           }}
         />
-        <Text style={{color:colors.text,...style.textTitle}}>{`${i18n.t("¿Cómo puedo ayudarte?")}`}</Text>
-        <Text style={{color:colors.text,...style.text}}>{`${i18n.t("Parece que tienes problemas")}`}.</Text>
+        <Text style={{color:colors.text,...style.textTitle}}>{i18n.t("¿Cómo puedo ayudarte?")}</Text>
+        <Text style={{color:colors.text,...style.text}}>{i18n.t("Parece que tienes problemas")}.</Text>
         <Text style={{color:colors.text,...style.text}}>
-          ${i18n.t("Estamos aqui para ayudar")}
+          {i18n.t("Estamos aqui para ayudar")}
         </Text>
         <Text style={{color:colors.text,...style.text}}>
           {i18n.t("asi que porfavor contactanos")}

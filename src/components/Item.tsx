@@ -10,7 +10,7 @@ interface Props extends NativeStackScreenProps<any,any>{
     item:Producto,
 }
 const Item = ({ item, navigation }: Props) => {
-    const { colors } = useTheme();
+    const { colors,cardColor } = useTheme();
     
     const handleOpenScren = () => {
 
@@ -20,7 +20,7 @@ const Item = ({ item, navigation }: Props) => {
 
     return (
         <View
-            style={style.contenedorItem}
+            style={{backgroundColor:cardColor,...style.contenedorItem}}
         >
             <Text
                 style={{ color: colors.text ,...style.nombre}}
@@ -59,7 +59,7 @@ const Item = ({ item, navigation }: Props) => {
 const style = StyleSheet.create({
     contenedorItem: {
         flex: 1,
-        backgroundColor: "#A7C5DD",
+        // backgroundColor: "#A7C5DD",
         borderRadius: 20,
         margin:10,
         marginEnd: 7,

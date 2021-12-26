@@ -20,8 +20,10 @@ import { File, InterfaceImagePicker, InterfaceRespuestaCloudinary, InterfaceStat
 import { TextArea } from '../../components/TextArea';
 import { saveProducto } from '../../helpers/fetch';
 import { ProductosContext } from '../../context/ProductosContext';
+import { useTheme } from '@react-navigation/native';
 
 const AgregarUsuario = ({ navigation }: PropsAgregarProducto) => {
+    const { colors } = useTheme();
 
     const { cargarProductos } = useContext<any>(ProductosContext)
 
@@ -105,7 +107,7 @@ const AgregarUsuario = ({ navigation }: PropsAgregarProducto) => {
             <View
                 style={style.contenedorAgregar}
             >
-                <Text>Nombre del Usuario</Text>
+                <Text style={{color:colors.text}}>Nombre del Usuario</Text>
                 <TextInput
                     style={style.input}
                     placeholder="Nombre del producto"
@@ -116,7 +118,7 @@ const AgregarUsuario = ({ navigation }: PropsAgregarProducto) => {
 
                 </TextInput>
 
-                <Text>Correo del Usuario</Text>
+                <Text style={{color:colors.text}}>Correo del Usuario</Text>
                 <TextInput
                     style={style.input}
                     placeholder="Ingrese su correo"
@@ -127,7 +129,7 @@ const AgregarUsuario = ({ navigation }: PropsAgregarProducto) => {
 
                 </TextInput>
 
-                <Text>Password del Usuario</Text>
+                <Text style={{color:colors.text}}>Password del Usuario</Text>
                 <View
                     style={{
                         backgroundColor: "#fff",

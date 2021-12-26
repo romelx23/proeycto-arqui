@@ -2,13 +2,14 @@ import React, { useContext, useState } from 'react'
 import { View, Text, StyleSheet, TextInput, TouchableOpacity,Alert } from 'react-native'
 import { RoleContext } from '../../context/RoleContext';
 import { AgregarRoleFetch } from '../../helpers/fetchRole';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useTheme } from '@react-navigation/native';
 import { showContext } from '../../context/ShowMessage';
 import MessageIndicator from '../../components/MessageIndicator';
 import { MessageValidatorData } from '../../components/MessageValidatorData';
 
 
 const AgregarRole = () => {
+    const {colors}=useTheme();
 
     const { getRoles2 } = useContext(RoleContext)
     const navigation = useNavigation();
@@ -68,7 +69,7 @@ const AgregarRole = () => {
         >
         <MessageIndicator loading={load} />
 
-            <Text>Nombre del Rol</Text>
+            <Text style={{color:colors.text}}>Nombre del Rol</Text>
             <TextInput
                 style={style.input}
                 placeholder="EJEMPLO_ROL"

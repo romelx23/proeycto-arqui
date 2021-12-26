@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, Alert } from 'react-native';
 
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useTheme } from '@react-navigation/native';
 import { useRoute } from '@react-navigation/native';
 
 
@@ -14,6 +14,7 @@ import { MessageValidatorData } from '../../components/MessageValidatorData';
 
 
 const ModificarRole = () => {
+    const {colors}=useTheme()
 
     const { getRoles2 } = useContext(RoleContext)
     const { load, setLoad } = useContext(showContext);
@@ -85,7 +86,7 @@ const ModificarRole = () => {
         >
             <MessageIndicator loading={load} />
 
-            <Text>Nombre del producto</Text>
+            <Text style={{color:colors.text}}>Nombre del producto</Text>
             <TextInput
                 style={style.input}
                 placeholder="EJEMPLO_ROL"

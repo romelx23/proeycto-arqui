@@ -28,6 +28,7 @@ type RootStackParamList = {
   DetailScreen: undefined;
 };
 
+
 const Stack = createNativeStackNavigator();
 
 const MyTheme = {
@@ -39,6 +40,7 @@ const MyTheme = {
     background:'#e0e4f3',
     primary:'#f0f7ff'
   },
+  cardColor:'#A7C5DD'
 };
 
 const MyDarkTheme = {
@@ -46,10 +48,11 @@ const MyDarkTheme = {
   colors: {
     ...DarkTheme.colors,
     text:'#f0f7ff',
-    card:'#2a55a5',
+    card:'#244c95',
     background:'#35373b',
-    primary:'#f0f7ff'
+    primary:'#504f4f'
   },
+  cardColor:'#2f7fc0'
 };
 
 const AppRouter = () => {
@@ -83,25 +86,33 @@ const AppRouter = () => {
           name="detalleProducto"
           component={DetalleProducto}
           options={{
-            title: "Producto",
+            title: `${i18n.t("Producto")}`,
+            headerStyle: { backgroundColor: "#333" },
+            headerTitleStyle: { color: "#ffffff" },
+            headerTintColor: "#fff",
+            animation: "fade_from_bottom",
           }}
         ></Stack.Screen>
         <Stack.Screen
           name="agregarPorducto"
           component={AgregarProducto}
           options={{
-            title: "Agregue Porducto",
+            title: `${i18n.t("Agregar Porducto")}`,
+            headerStyle: { backgroundColor: "#333" },
+            headerTitleStyle: { color: "#ffffff" },
+            headerTintColor: "#fff",
+            animation: "fade_from_bottom",
           }}
         ></Stack.Screen>
         <Stack.Screen
           name="actualizarPorducto"
           component={UpdateScreen}
           options={{
-            title: "Actualizar Procuto",
+            title: `${i18n.t("Actualizar Producto")}`,
             headerStyle: { backgroundColor: "#333" },
             headerTitleStyle: { color: "#ffffff" },
             headerTintColor: "#fff",
-            animation: "fade",
+            animation: "fade_from_bottom",
           }}
         ></Stack.Screen>
         <Stack.Screen
@@ -119,7 +130,7 @@ const AppRouter = () => {
           name="actualizarUsuario"
           component={ActualizarUsuario}
           options={{
-            title: "Actualizar Usuario",
+            title: `${i18n.t("Actualizar Usuario")}`,
             headerStyle: { backgroundColor: "#333" },
             headerTitleStyle: { color: "#ffffff" },
             headerTintColor: "#fff",
@@ -129,16 +140,30 @@ const AppRouter = () => {
         <Stack.Screen
           name="agregarRole"
           component={AgregarRole}
+          options={{
+            title: `${i18n.t("Agregar Rol")}`,
+            headerStyle: { backgroundColor: "#333" },
+            headerTitleStyle: { color: "#ffffff" },
+            headerTintColor: "#fff",
+            animation: "fade_from_bottom",
+          }}
         ></Stack.Screen>
         <Stack.Screen
           name="modificarRole"
           component={ModificarRole}
+          options={{
+            title: `${i18n.t("Modificar Rol")}`,
+            headerStyle: { backgroundColor: "#333" },
+            headerTitleStyle: { color: "#ffffff" },
+            headerTintColor: "#fff",
+            animation: "fade_from_bottom",
+          }}
         ></Stack.Screen>
         <Stack.Screen
           name="ContactScreen"
           component={ContactScreen}
           options={{
-            title: "Enviar por WhatsApp",
+            title: `${i18n.t("Enviar por WhatsApp")}`,
             headerStyle: { backgroundColor: "#333" },
             headerTitleStyle: { color: "#ffffff" },
             headerTintColor: "#fff",
@@ -149,7 +174,7 @@ const AppRouter = () => {
           name="GmailScreen"
           component={GmailScreen}
           options={{
-            title: "Enviar por Gmail",
+            title: `${i18n.t("Enviar por Gmail")}`,
             headerStyle: { backgroundColor: "#333" },
             headerTitleStyle: { color: "#ffffff" },
             headerTintColor: "#fff",

@@ -17,6 +17,8 @@
   "Ingrese la mac": "マックを入力してください",
   "Buscar Imagen": "画像検索",
   "Agregar Producto": "製品を追加",
+  "Agregar Usuario": "ユーザーを追加する",
+  "Actualizar Usuario": "ユーザーの更新",
   "¿Cómo puedo ayudarte?": "どんな御用でしょうか？",
   "Parece que tienes problemas": "あなたは問題を抱えているようです",
   "Estamos aqui para ayudar": "私たちは助けるためにここにいます",
@@ -30,5 +32,8 @@
   "Listado de Roles":"役割のリスト ",
   "Ingrese su Consulta":"クエリを入力してください",
   "Ingrese su mensaje":"メッセージを入力してください",
-  "Envie su Mensaje":"メッセージを送信する"
+  "Envie su Mensaje":"メッセージを送信する",
+  "Producto":"製品",
+  "Enviar por WhatsApp":"WhatsAppで送信 ",
+  "Enviar por Gmail":"Gmailで送信"
 }

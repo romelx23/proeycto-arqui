@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
-import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
+import { DrawerContentScrollView, DrawerItem,DrawerItemList } from "@react-navigation/drawer";
 import { DrawerContentComponentProps } from "@react-navigation/drawer";
 import {
   Avatar,
@@ -22,7 +22,7 @@ import { fontContext } from "../context/FontContext";
 
 export default function CustomDrawer(props: DrawerContentComponentProps) {
 
-  const { auth, setAuth, rol, setRol } = useContext(AuthContext);
+  const { auth, setAuth, rol } = useContext(AuthContext);
   const { setTema, tema } = useContext(themeContext);
   const [fontloaded, setFontloaded] = useState(false)
   const { nombre, correo, img } = auth;
@@ -81,8 +81,8 @@ export default function CustomDrawer(props: DrawerContentComponentProps) {
               </View>
             </View>
           </View>
-
-          <Drawer.Section style={styles.drawerSection}>
+          <DrawerItemList {...props}/>
+          {/* <Drawer.Section style={styles.drawerSection}>
             <DrawerItem
               icon={({ color, size }) => (
                 <FontAwesome name="home" color={'#fff'} size={size} />
@@ -137,7 +137,7 @@ export default function CustomDrawer(props: DrawerContentComponentProps) {
                 props.navigation.navigate("SupportScreen");
               }}
             />
-          </Drawer.Section>
+          </Drawer.Section> */}
           <Drawer.Section title="Preferences">
             <TouchableRipple
               onPress={() => { togleTheme() }}
