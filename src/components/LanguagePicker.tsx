@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
         backgroundColor:'#5783d69e'
     },
     modalView:{
-      backgroundColor:'#fff',
+      backgroundColor:'#505050',
       paddingHorizontal:20,
       paddingVertical:15
     }
