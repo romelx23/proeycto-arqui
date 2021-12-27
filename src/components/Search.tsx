@@ -1,3 +1,4 @@
+import { useTheme } from '@react-navigation/native';
 import React, { ChangeEvent, FormEvent, useContext, useEffect, useState } from 'react'
 import {
     View,
@@ -10,6 +11,7 @@ import { ProductosContext } from '../context/ProductosContext';
 import { getProductos } from '../helpers/fetch';
 
 const Search = () => {
+    const {colors}=useTheme()
 
     const { productos, setProductos, cargarProductos } =
         useContext<any>(ProductosContext);
@@ -34,11 +36,18 @@ const Search = () => {
         // console.log(search.search);
         try {
             if(search.search.length==0){
-                return ;
+                return <></>;
             }
             const buscar = await fetch(`https://node-restserver-cascaron.herokuapp.com/api/buscar/productos/${search.search}`)
             const data = await buscar.json()
-            // console.log(data);
+            // console.log(data.results.length);
+            // if(data.results.length==0){
+            //     return (<>
+            //         <Text style={{color:'#2f49db'}}>
+            //             No hay productos
+            //         </Text>
+            //     </>)
+            // }
             if (search.search.length == 1) {
                 cargarProducts()
             }
@@ -56,7 +65,10 @@ const Search = () => {
             style={styles.contenedor}
         >
             <TextInput
-                style={styles.input}
+                style={{
+                    backgroundColor:colors.primary,
+                    color:colors.text,
+                    ...styles.input}}
                 placeholder="Buscar..."
                 placeholderTextColor="#ADADAD"
                 value={search.search}
@@ -86,10 +98,10 @@ const styles = StyleSheet.create({
         borderWidth: 3,
         borderColor: "#c1c1c3",
         height: 40,
-        color: "#000",
         textAlign: "center",
         padding: 10,
         borderRadius: 15,
+        // color: "#000",
     },
 
 

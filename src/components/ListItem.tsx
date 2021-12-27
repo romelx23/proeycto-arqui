@@ -27,7 +27,7 @@ const ListItem = ({ navigation }: PropsNavigationHome) => {
   const [refreshing, setRefreshing] = useState(false);
   const onRefresh = () => {
     setRefreshing(true)
-    cargarProductos
+    cargarProductos()
     console.log('refresh');
   }
   const { productos, setProductos, cargarProductos } =
@@ -38,7 +38,7 @@ const ListItem = ({ navigation }: PropsNavigationHome) => {
   // const [productos2 , setProductos] = useState<Producto[]>();
 
   useEffect(() => {
-    cargarProductos
+    cargarProductos()
   }, []);
 
   const handleAgregarProducto = () => {
@@ -69,13 +69,13 @@ const ListItem = ({ navigation }: PropsNavigationHome) => {
         //     />
         // ) : null
         // }
-        refreshControl={
-          <RefreshControl
-            colors={['#345467']}
-            refreshing={refreshing}
-            onRefresh={onRefresh}
-          />
-        }
+        // refreshControl={
+        //   <RefreshControl
+        //     colors={['#345467']}
+        //     refreshing={refreshing}
+        //     onRefresh={onRefresh}
+        //   />
+        // }
       />
       {
         rol === "ADMIN_ROLE" ? (<TouchableOpacity
