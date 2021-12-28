@@ -43,7 +43,6 @@ const AgregarUsuario = ({ navigation }: PropsAgregarProducto) => {
     }, [])
 
     const obtenerRoles = async () =>{
-        setLoad(true);
 
         const {roles} = await getRoles()
         setListaRoles( roles );
