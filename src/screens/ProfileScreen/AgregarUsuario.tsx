@@ -152,7 +152,7 @@ const AgregarUsuario = ({ navigation }: PropsAgregarProducto) => {
                     <Text
                         style={style.buttonSaveText}
                     >
-                        Agregar Producto
+                        Agregar Usuario
                     </Text>
                 </TouchableOpacity>
 

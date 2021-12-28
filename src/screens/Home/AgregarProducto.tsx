@@ -74,8 +74,6 @@ const AgregarProducto = ({ navigation, route }: PropsAgregarProducto) => {
     }
 
     const handleSubmit = async () => {
-        const {colors}=useTheme()
-
         const photo = {
             uri: imageSelected.localUri,
             type: `test/${imageSelected.localUri?.split(".")[1]}`,
