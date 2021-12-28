@@ -1,6 +1,7 @@
 import React, { createContext, useState } from "react";
 interface authInterface{
   auth:{
+    uid: string,
     nombre:string,
     correo:string,
     img:string,
@@ -12,6 +13,7 @@ interface authInterface{
 }
 export const AuthContext = createContext<authInterface>({
   auth:{
+    uid:"",
     nombre:"",
     correo:"",
     img:"",
@@ -23,6 +25,7 @@ export const AuthContext = createContext<authInterface>({
 });
 
 const initialState = {
+  uid:"",
   img:"",
   nombre:"",
   correo:"",

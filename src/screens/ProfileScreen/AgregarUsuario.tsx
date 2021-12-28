@@ -2,104 +2,89 @@ import React, { useState, useEffect, useContext } from 'react'
 import {
     View,
     Text,
-    Image,
+    Alert,
     StyleSheet,
     TextInput,
     TouchableOpacity,
     Dimensions,
-    ScrollView
+    ScrollView,
 } from 'react-native';
 
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
-import * as ImagePicker from 'expo-image-picker'
-
 import { PropsAgregarProducto } from '../../interfaces/home';
-import { File, InterfaceImagePicker, InterfaceRespuestaCloudinary, InterfaceStateImage, Producto } from '../../interfaces/producto';
-// import { useForm } from '../../hook/useForm';
-import { TextArea } from '../../components/TextArea';
-import { saveProducto } from '../../helpers/fetch';
-import { ProductosContext } from '../../context/ProductosContext';
 import { useTheme } from '@react-navigation/native';
+
+
+
+import {Picker} from '@react-native-picker/picker';
+import { getRoles } from '../../helpers/fetchRole';
+import { crearUsuarioConRol } from '../../helpers/fetchImageUser';
+import { showContext } from '../../context/ShowMessage';
+
 
 const AgregarUsuario = ({ navigation }: PropsAgregarProducto) => {
     const { colors } = useTheme();
 
-    const { cargarProductos } = useContext<any>(ProductosContext)
+  const { load, setLoad } = useContext(showContext);
 
-    const [imageSelected, setImageSelected] = useState<InterfaceStateImage>({
-        localUri: ''
-    });
-    const [producto, setProducto] = useState({
-        disponible: true,
-        nombre: "",
-        descripcion: "",
-        categoria: "61a7933a3daea00016e4f7cd",
-        img: "",
-        precio: ""
+
+    const [user, setUser] = useState({
+        nombre:"",
+        correo: "",
+        password : "",
+        rol: "USER_ROLE",
+        img: "https://icon-library.com/images/icon-avatar/icon-avatar-1.jpg"
     })
-
-    const handleChange = (name: string, value: string) => setProducto({ ...producto, [name]: value });
-
-
-    const leerAsynStorege = async () => {
-
-        // await AsyncStorage.setItem('token', "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2MTI2YjMzOWY0NGI5MjAwMTZiNjMxYjAiLCJpYXQiOjE2Mzg3MTgzMDAsImV4cCI6MTYzODc2MTUwMH0.pV77O_8jbwSIE0SRj2q-Vsmrw_tErfR6zCMBCepQnjk")
-
-    }
+    const [nuevoRol, setNuevoRol] = useState("")
+    const [listaRoles, setListaRoles] = useState([])
 
     useEffect(() => {
-
-        leerAsynStorege();
-
+        obtenerRoles();
+        
     }, [])
 
-    const handleCargarImagen = async () => {
+    const obtenerRoles = async () =>{
+        setLoad(true);
 
-        const resultadosPermiso = await ImagePicker.requestMediaLibraryPermissionsAsync();
-        if (resultadosPermiso.granted === false) {
-            alert('Permiso de la camara requeridos');
-            return;
-        }
-
-        const pickerResult = await ImagePicker.launchImageLibraryAsync()
-        if (pickerResult.cancelled) {
-            return;
-        }
-
-        setImageSelected({ localUri: pickerResult.uri })
+        const {roles} = await getRoles()
+        setListaRoles( roles );
 
     }
+
+    const handleChange = (name: string, value: string) => setUser({ ...user, [name]: value });
+
+
+
+
+    const showAlert = (mensaje: string) =>
+    Alert.alert(
+      "Datos no validos",
+      mensaje,
+      [
+        {
+          text: "Aceptar",
+          onPress: () => {
+            console.log("Preciono Aceptar");
+          },
+          style: "destructive",
+        },
+      ],
+      {
+        cancelable: true,
+        onDismiss: () => {
+          console.log("preciono otro lado que no es el alert");
+        },
+      }
+    );
 
     const handleSubmit = async () => {
 
-
-        const photo = {
-            uri: imageSelected.localUri,
-            type: `test/${imageSelected.localUri?.split(".")[1]}`,
-            name: `test/${imageSelected.localUri?.split(".")[1]}`,
-        };
-
-        const url = "https://api.cloudinary.com/v1_1/dbrnlddba/upload"
-
-        const formData = new FormData();
-        formData.append('upload_preset', "nutrifit");
-        formData.append('file', JSON.parse(JSON.stringify(photo)));
-
-        const data_image = await fetch(url, {
-            method: 'POST',
-            body: formData,
-        })
-        const paser: InterfaceRespuestaCloudinary = await data_image.json();
-
-        const newProducto = await saveProducto(producto, paser.secure_url);
-
-        await cargarProductos();
-
-        // console.log(navigation);
-
-        navigation.navigate('HomeTab')
-
+        const usuario = await crearUsuarioConRol(user)
+    
+        if (usuario.usuario?.uid) {
+            navigation.goBack();
+        } else {
+            showAlert(usuario.errors[0].msg);
+        }
     }
 
     return (
@@ -112,7 +97,7 @@ const AgregarUsuario = ({ navigation }: PropsAgregarProducto) => {
                     style={style.input}
                     placeholder="Nombre del producto"
                     placeholderTextColor="#ADADAD"
-                    value={producto.nombre}
+                    // value={user.nombre}
                     onChangeText={(a) => handleChange("nombre", a)}
                 >
 
@@ -123,8 +108,8 @@ const AgregarUsuario = ({ navigation }: PropsAgregarProducto) => {
                     style={style.input}
                     placeholder="Ingrese su correo"
                     placeholderTextColor="#ADADAD"
-                    value={producto.precio.toString()}
-                    onChangeText={(a) => handleChange("precio", a)}
+                    // value={user.correo}
+                    onChangeText={(a) => handleChange("correo", a)}
                 >
 
                 </TextInput>
@@ -140,37 +125,26 @@ const AgregarUsuario = ({ navigation }: PropsAgregarProducto) => {
                         style={style.input}
                         placeholder="Ingrese su contraseña"
                         placeholderTextColor="#ADADAD"
-                        keyboardType="visible-password"
-                        value={producto.precio.toString()}
-                        onChangeText={(a) => handleChange("precio", a)}
+                        // keyboardType="visible-password"
+                        secureTextEntry={true}
+                        // value={user.password}
+                        onChangeText={(a) => handleChange("password", a)}
                     ></TextInput>
                 </View>
 
-                <View
-                    style={style.contenedorBuscarImagen}
-                >
-                    <TouchableOpacity
-                        onPress={handleCargarImagen}
-                        style={style.buttonBuscarImage}
-                    >
-                        <Text
-                            style={style.TextButonBuscarImagen}
-                        >
-                            Buscar Imagen...
-                        </Text>
-                    </TouchableOpacity>
-                    <Image
-                        style={style.imagen}
-                        source={{
-                            uri:
-                                !imageSelected.localUri
-                                    ? "https://via.placeholder.com/200"
-                                    : imageSelected.localUri
-                        }}
-                    >
-                    </Image>
-                </View>
-
+                <Picker
+                style={ style.contenedorPiker }
+                    selectedValue={nuevoRol}
+                    onValueChange={(itemValue, itemIndex) =>{
+                        setNuevoRol(itemValue)
+                       setUser( {...user, rol: itemValue }  )
+                    }}>
+                    {
+                        listaRoles.map( (role : any, index)=>
+                            <Picker.Item key={role._id} label={role.rol} value={role.rol} />
+                         )
+                    }
+                </Picker>
 
 
                 <TouchableOpacity
@@ -211,33 +185,13 @@ const style = StyleSheet.create({
         textAlign: "center",
         textTransform: "uppercase",
     },
-    contenedorBuscarImagen: {
-        width: '100%',
-        justifyContent: "center",
-        alignItems: "center",
-        borderWidth: 1,
-        borderColor: "green",
-    },
-    imagen: {
-        width: 200,
-        height: 200,
-    },
-    buttonBuscarImage: {
-        paddingTop: 15,
-        paddingBottom: 15,
-        borderRadius: 8,
-        marginBottom: 3,
-        marginTop: 6,
-        backgroundColor: "#A7C4DC",
-        width: "100%",
-    },
-    TextButonBuscarImagen: {
-        color: "#fff",
-        fontWeight: "700",
-        textAlign: "center",
-        textTransform: "uppercase",
-    },
 
+    contenedorPiker : {
+        backgroundColor: "#fff",
+        width: "100%",
+        marginTop: 10,
+        marginBottom: 10,
+    },
     input: {
         width: "100%",
         marginBottom: 7,

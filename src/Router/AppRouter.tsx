@@ -19,6 +19,7 @@ import { themeContext } from '../context/themeContext';
 import ContactScreen from "../screens/SuportScreen/ContactScreen";
 import GmailScreen from "../screens/SuportScreen/GmailScreen";
 import i18n from "./../utils/i18n.config";
+import ActulizarDatosUser from "../screens/perfil/ActulizarDatosUser";
 type RootStackParamList = {
   Home: undefined;
   TaskFromScreen: undefined;
@@ -179,6 +180,13 @@ const AppRouter = () => {
             headerTitleStyle: { color: "#ffffff" },
             headerTintColor: "#fff",
             animation: "fade_from_bottom",
+          }}
+        ></Stack.Screen>
+        <Stack.Screen
+          name="actualizarDatosUser"
+          component={ActulizarDatosUser}
+          options={{
+            title: `${i18n.t("Actualizar Datos del Usuario")}`,
           }}
         ></Stack.Screen>
       </Stack.Navigator>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome5";
 import i18n from "../../utils/i18n.config";
@@ -9,57 +9,169 @@ import AppLoading from 'expo-app-loading';
 import { fetchFont } from "../../helpers/fetchFonts";
 import { useTheme } from '@react-navigation/native';
 
+import { useNavigation } from '@react-navigation/native';
+import { AuthContext } from "../../context/AuthContext";
+
+import * as ImagePicker from 'expo-image-picker'
+import { InterfaceRespuestaCloudinary } from "../../interfaces/producto";
+import { UpdateUsuario } from "../../helpers/apiUsuarios";
+import { user } from "../../interfaces/user";
+import { MoificarImageUser } from "../../helpers/fetchImageUser";
+import { ProductosContext } from "../../context/ProductosContext";
+import { showContext } from "../../context/ShowMessage";
+import MessageIndicator from "../../components/MessageIndicator";
+
+
 export default function SettingScreen() {
+
+  const { auth, setAuth, rol, setRol } = useContext(AuthContext);
+  const { cargarProductos } = useContext<any>(ProductosContext);
+  const { load, setLoad } = useContext(showContext);
+
+
+  const { nombre, correo, img } = auth;
+
+  const navigation = useNavigation();
+
+  const [imageSelected, setImageSelected] = useState({
+    localUri: ''
+  });
+
+  const handleCargarImagen = async () => {
+
+    const resultadosPermiso = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    if (resultadosPermiso.granted === false) {
+      alert('Permiso de la camara requeridos');
+      return;
+    }
+
+    const pickerResult = await ImagePicker.launchImageLibraryAsync()
+    if (pickerResult.cancelled) {
+      return;
+    }
+
+    setImageSelected({ localUri: pickerResult.uri })
+
+    try {
+      
+      // console.log("111111111111111111111111111111111111111")
+  
+      const photo = {
+        uri: imageSelected.localUri,
+        type: `test/${imageSelected.localUri?.split(".")[1]}`,
+        name: `test/${imageSelected.localUri?.split(".")[1]}`,
+      };
+      // console.log("22222222222222222222222222222222222222222")
+      // const url = "https://api.cloudinary.com/v1_1/dbrnlddba/upload"
+      const url = "https://api.cloudinary.com/v1_1/dbrnlddba/image/upload"
+  
+      const formData = new FormData();
+      formData.append('upload_preset', "nutrifit");
+      formData.append('file', JSON.parse(JSON.stringify(photo)));
+      // console.log("33333333333333333333333333333333333333333333333")
+      setLoad(true)
+
+      try {
+        
+        const data_image = await fetch(url, {
+          method: 'POST',
+          body: formData,
+        })
+        const paser: InterfaceRespuestaCloudinary = await data_image.json();
+        // console.log("444444444444444444444444444444444444")
+        // //todo: actualizar la foto de perfil
+        // console.log("5555555555555555555555555555555")
+        const {usuario} = await MoificarImageUser(auth.uid,auth, paser.secure_url);
+        // console.log("12312312332131123123123123123123",usuario)
+        // const newProducto = await saveProducto(producto, paser.secure_url);
+        // await cargarProductos();
+        // console.log(newProducto);
+        setLoad(false)
+        setAuth({...usuario, logged: true})
+        setRol(usuario.rol)
+        // todo: navegar hacia atras
+        await cargarProductos();
+        // navigation.navigate('home')
+
+      } catch (error) {
+        console.log(error, "FALLA PÓSTEO CLOUDINARY")
+        setLoad(false)
+
+      }
+
+
+      
+    } catch (error) {
+      console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1111",error)
+      setLoad(false)
+    }
+
+    // await handleSubmit();
+  }
+
+
   const { colors } = useTheme();
-  const {background,text,card}=colors
+  const { background, text, card } = colors
   const [fontloaded, setFontloaded] = useState(false)
   if (!fontloaded) {
-    return <AppLoading 
-    startAsync={fetchFont}
-    onError={()=>console.log('Error font dont loaded')}
-    onFinish={()=>{
-      setFontloaded(true)
-    }}
+    return <AppLoading
+      startAsync={fetchFont}
+      onError={() => console.log('Error font dont loaded')}
+      onFinish={() => {
+        setFontloaded(true)
+      }}
     />;
-  } 
-    return (
-      <View style={{backgroundColor:background,...style.containerSuport}}>
-        <Text style={{color:text,...style.textSuport}}>{i18n.t("Configuración")}</Text>
-        <View style={style.contentSuport}>
-          <TouchableOpacity activeOpacity={0.84}>
-            <View
-              style={{
-                borderColor: "#444",
-                borderWidth: 15,
-                borderRadius: 100,
+  }
+  return (
+    <View style={{ backgroundColor: background, ...style.containerSuport }}>
+      <MessageIndicator loading={load} />
+      {/* <Text style={{color:text,...style.textSuport}}>{i18n.t("Configuración")}</Text> */}
+      <View style={style.contentSuport}>
+        <TouchableOpacity
+          activeOpacity={0.84}
+          onPress={() => {
+            handleCargarImagen()
+            console.log("Click en buscar imagen")
+          }}
+        >
+          <View
+            style={{
+              borderColor: "#444",
+              borderWidth: 15,
+              borderRadius: 100,
+            }}
+          >
+            <Image
+              style={style.imageCard}
+              source={{
+                uri: img,
               }}
-            >
-              <Image
-                style={style.imageCard}
-                source={{
-                  uri: "https://image.freepik.com/free-vector/flat-customer-support-illustration_23-2148899114.jpg",
-                }}
-              />
-            </View>
-            <View style={style.cameraIcon}>
-              <FontAwesome name="camera" color={"#333"} size={30} />
-            </View>
-          </TouchableOpacity>
-        </View>
-        <LanguagePicker />
-        <View style={style.contentCard}>
-          <TouchableOpacity style={{backgroundColor:card,...style.cardConfig}}>
-            <FontAwesome name="user" color={"#ffffff"} size={30} />
-            <Text style={style.textCardSuport}>{`${i18n.t("Configure su Usuario")}`}</Text>
-          </TouchableOpacity>
-          <FontPicker />
-          {/* <TouchableOpacity style={style.cardConfig}>
+            />
+          </View>
+          <View style={style.cameraIcon}>
+            <FontAwesome name="camera" color={"#333"} size={30} />
+          </View>
+        </TouchableOpacity>
+      </View>
+      <LanguagePicker />
+      <View style={style.contentCard}>
+        <TouchableOpacity
+          style={{ backgroundColor: card, ...style.cardConfig }}
+          onPress={() => {
+            navigation.navigate("actualizarDatosUser")
+          }}
+        >
+          <FontAwesome name="user" color={"#ffffff"} size={30} />
+          <Text style={style.textCardSuport}>{`${i18n.t("Configure su Usuario")}`}</Text>
+        </TouchableOpacity>
+        <FontPicker />
+        {/* <TouchableOpacity style={style.cardConfig}>
           <FontAwesome name="language" color={"#333"} size={30} />
           <Text style={style.textCardSuport}>{`${i18n.t("Cambiar el idioma")}`}</Text>
         </TouchableOpacity> */}
-        </View>
       </View>
-    );
+    </View>
+  );
 }
 
 const style = StyleSheet.create({
