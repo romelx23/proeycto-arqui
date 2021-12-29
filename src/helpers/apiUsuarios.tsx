@@ -6,7 +6,7 @@ const base_url = "https://node-restserver-cascaron.herokuapp.com";
 
 export const getUsuarios = async () => {
     try {
-        const res = await fetch(`${base_url}/api/usuarios?limit=10`,{
+        const res = await fetch(`${base_url}/api/usuarios?limit=`,{
             headers: {
                 Accept: "application/json",
                 "Content-Type": "application/json",

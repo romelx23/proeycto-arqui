@@ -162,7 +162,7 @@ export default function CustomDrawer(props: DrawerContentComponentProps) {
               await setAuth({
                 nombre: "",
                 correo: "",
-                img: "",
+                img: "https://swimg.com/wp-content/uploads/not-available.jpg",
                 logged: false
               })
               AsyncStorage.clear();
