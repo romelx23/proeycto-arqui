@@ -1,18 +1,14 @@
 import React, { useContext } from "react";
 import { DarkTheme, NavigationContainer,DefaultTheme } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-
-import HomeScreen from "../screens/Home/HomeScreen";
 import LoginScreen from "../screens/Login/LoginScreen";
 import DetalleProducto from "../screens/Home/DetalleProducto";
 import AgregarProducto from "../screens/Home/AgregarProducto";
 import RegisterScreen from "../screens/Register/RegisterScreen";
 import UpdateScreen from "../screens/UpdateScreen/UpdateScreen";
 import Sidebar from "../components/Sidebar";
-import BottonTabNavigator from "../components/BottonTabNavigator";
 import AgregarUsuario from "../screens/ProfileScreen/AgregarUsuario";
 import ActualizarUsuario from "../screens/ProfileScreen/ActualizarUsuario";
-import Role from "../screens/Role/Role";
 import AgregarRole from "../screens/Role/AgregarRole";
 import ModificarRole from "../screens/Role/ModificarRole";
 import { themeContext } from '../context/themeContext';
@@ -20,6 +16,8 @@ import ContactScreen from "../screens/SuportScreen/ContactScreen";
 import GmailScreen from "../screens/SuportScreen/GmailScreen";
 import i18n from "./../utils/i18n.config";
 import ActulizarDatosUser from "../screens/perfil/ActulizarDatosUser";
+import { createSharedElementStackNavigator } from 'react-navigation-shared-element';
+
 type RootStackParamList = {
   Home: undefined;
   TaskFromScreen: undefined;
@@ -30,7 +28,8 @@ type RootStackParamList = {
 };
 
 
-const Stack = createNativeStackNavigator();
+// const Stack = createNativeStackNavigator();
+const Stack = createSharedElementStackNavigator();
 
 const MyTheme = {
   ...DefaultTheme,
@@ -91,7 +90,7 @@ const AppRouter = () => {
             headerStyle: { backgroundColor: "#333" },
             headerTitleStyle: { color: "#ffffff" },
             headerTintColor: "#fff",
-            animation: "fade_from_bottom",
+            // animation: "fade_from_bottom",
           }}
         ></Stack.Screen>
         <Stack.Screen

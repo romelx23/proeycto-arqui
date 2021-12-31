@@ -9,14 +9,16 @@ import {
   TouchableOpacity,
   Alert,
 } from "react-native";
-import { PropsDetalleProducto, PropsRouteDetalle } from "../../interfaces/home";
+import { PropsDetalleProducto, Route } from '../../interfaces/home';
 import FontAwesome from "react-native-vector-icons/FontAwesome5";
 import { deleteProducto } from "../../helpers/fetch";
 import { ProductosContext } from "../../context/ProductosContext";
-import { Layout } from "../../components/Layout";
 import { AuthContext } from "../../context/AuthContext";
 import i18n from "../../utils/i18n.config";
 import { useTheme } from '@react-navigation/native';
+import {
+  SharedElement
+} from 'react-navigation-shared-element';
 
 const DetalleProducto = ({ route, navigation }: PropsDetalleProducto) => {
   const { colors } = useTheme();
@@ -57,61 +59,64 @@ const DetalleProducto = ({ route, navigation }: PropsDetalleProducto) => {
     );
   };
 
-  
+
 
   return (
     <View style={style.contenedorDetalle}>
       <View style={style.contenedorImageTitulo}>
+      <SharedElement id={`item.${item._id}.title`}>
         <Text style={style.nombreProducto}>{item.nombre}</Text>
-
+        </SharedElement>
         <View style={style.contenedorImagen}>
-          <Image source={{ uri: item.img }} style={style.imagen}></Image>
+          <SharedElement id={`item.${item._id}.image`}>
+            <Image source={{ uri: item.img }} style={style.imagen}></Image>
+          </SharedElement>
         </View>
       </View>
 
       <View style={style.contenedorDescripcion}>
-        <Text style={{color: colors.text,...style.titulo1}}>
+        <Text style={{ color: colors.text, ...style.titulo1 }}>
           {`${i18n.t("Precio")}`}:
-          </Text>
-        <Text style={{color: colors.text,...style.tituloContenido}}>S/.{item.precio}</Text>
+        </Text>
+        <Text style={{ color: colors.text, ...style.tituloContenido }}>S/.{item.precio}</Text>
 
-        <Text style={{color: colors.text,...style.titulo1}}>
-          {`${i18n.t("Descripcion")}`}: 
-          </Text>
-        <Text style={{color: colors.text,...style.tituloContenido}}>{item.descripcion}</Text>
+        <Text style={{ color: colors.text, ...style.titulo1 }}>
+          {`${i18n.t("Descripcion")}`}:
+        </Text>
+        <Text style={{ color: colors.text, ...style.tituloContenido }}>{item.descripcion}</Text>
         <View>
           {
-             rol === "ADMIN_ROLE" ? 
-             (<Text style={{color: colors.text,...style.titulo1}}>Acciones:</Text>)
-             :<></>
+            rol === "ADMIN_ROLE" ?
+              (<Text style={{ color: colors.text, ...style.titulo1 }}>Acciones:</Text>)
+              : <></>
           }
         </View>
       </View>
       {
         rol === "ADMIN_ROLE" ? (
           <View style={style.containerButtons}>
-        <TouchableOpacity
-          onPress={showMessage}
-          activeOpacity={0.1}
-          style={style.buttonDelete}
-        >
-          <View style={style.contentButton}>
-            <Text style={style.text}>Delete</Text>
-            <FontAwesome name="trash-alt" color={"#fff"} size={20} />
+            <TouchableOpacity
+              onPress={showMessage}
+              activeOpacity={0.1}
+              style={style.buttonDelete}
+            >
+              <View style={style.contentButton}>
+                <Text style={style.text}>Delete</Text>
+                <FontAwesome name="trash-alt" color={"#fff"} size={20} />
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={changeScreen}
+              activeOpacity={0.1}
+              style={style.buttonUpdate}
+            >
+              <View style={style.contentButton}>
+                <Text style={style.text}>Update</Text>
+                <FontAwesome name="pencil-alt" color={"#fff"} size={20} />
+              </View>
+            </TouchableOpacity>
           </View>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={changeScreen}
-          activeOpacity={0.1}
-          style={style.buttonUpdate}
-        >
-          <View style={style.contentButton}>
-            <Text style={style.text}>Update</Text>
-            <FontAwesome name="pencil-alt" color={"#fff"} size={20} />
-          </View>
-        </TouchableOpacity>
-      </View>
-        ):<></>
+        ) : <></>
       }
     </View>
   );
@@ -147,10 +152,9 @@ const style = StyleSheet.create({
     paddingLeft: 15,
   },
   imagen: {
-    // flex: 1,
     width: 300,
     height: 350,
-    resizeMode: "contain",
+    resizeMode: "cover",
   },
   nombreProducto: {
     color: "#fff",
@@ -190,6 +194,21 @@ const style = StyleSheet.create({
     color: "#fff",
   },
 });
+
+DetalleProducto.sharedElements=(route:Route) => {
+  const { item } = route.params;
+  return [
+    {
+      id:`item.${item._id}.image`
+    },
+    {
+      id:`item.${item._id}.title`
+    },
+    {
+      id:`item.${item._id}.description`
+    }
+  ];
+}
 
 // height:Dimensions.get('window').height,
 // width:Dimensions.get('window').width,
